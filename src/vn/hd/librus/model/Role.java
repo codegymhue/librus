@@ -3,7 +3,6 @@ package vn.hd.librus.model;
 public enum Role {
     LIBRARIAN("LIBRARIAN"),
     MEMBER ("MEMBER");
-
     private String value;
     private Role(String value){this.value = value ;}
 

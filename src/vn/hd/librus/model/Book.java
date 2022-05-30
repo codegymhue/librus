@@ -1,6 +1,7 @@
 package vn.hd.librus.model;
 
 public class Book {
+    private Long id;
     private String ISBN;
     //ISBN is the acronym for International Standard Book Number. This 10 or 13-digit number identifies a specific book
     private String title;
@@ -8,28 +9,30 @@ public class Book {
     private String subject;
     private String publisher;
     private String language;
-    private int numberOfPage;
+    private int numberOfPages;
 
-    public Book(String ISBN, String title, String author, String subject, String publisher, String language, int numberOfPage) {
+    public Book(Long id, String ISBN, String title, String author, String subject, String publisher, String language, int numberOfPages) {
+        this.id = id;
         this.ISBN = ISBN;
         this.title = title;
         this.author = author;
         this.subject = subject;
         this.publisher = publisher;
         this.language = language;
-        this.numberOfPage = numberOfPage;
+        this.numberOfPages = numberOfPages;
     }
 
     public static Book parse(String raw) {
         String[] fields = raw.split(",");
-        String ISBN = fields[0];
-        String title = fields[1];
-        String author = fields[2];
-        String subject = fields[3];
-        String publisher = fields[4];
-        String language = fields[5];
-        int numberOfPage = Integer.parseInt(fields[6]);
-        return new Book(ISBN, title, author, subject, publisher, language, numberOfPage);
+        long id = Long.parseLong(fields[0]);
+        String ISBN = fields[1];
+        String title = fields[2];
+        String author = fields[3];
+        String subject = fields[4];
+        String publisher = fields[5];
+        String language = fields[6];
+        int numberOfPage = Integer.parseInt(fields[7]);
+        return new Book(id, ISBN, title, author, subject, publisher, language, numberOfPage);
 
     }
 
@@ -81,12 +84,12 @@ public class Book {
         this.language = language;
     }
 
-    public int getNumberOfPage() {
-        return numberOfPage;
+    public int getNumberOfPages() {
+        return numberOfPages;
     }
 
-    public void setNumberOfPage(int numberOfPage) {
-        this.numberOfPage = numberOfPage;
+    public void setNumberOfPages(int numberOfPages) {
+        this.numberOfPages = numberOfPages;
     }
 
     @Override
@@ -98,6 +101,6 @@ public class Book {
                 subject,
                 publisher,
                 language,
-                numberOfPage);
+                numberOfPages);
     }
 }

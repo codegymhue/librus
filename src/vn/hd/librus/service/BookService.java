@@ -61,9 +61,9 @@ public class BookService implements IBookService {
                 if (language !=null)
                     book.setLanguage(newBook.getLanguage());
 
-                Integer numberOfPage = newBook.getNumberOfPage();
+                Integer numberOfPage = newBook.getNumberOfPages();
                 if (numberOfPage !=null)
-                    book.setNumberOfPage(newBook.getNumberOfPage());
+                    book.setNumberOfPages(newBook.getNumberOfPages());
             }
         }
 
