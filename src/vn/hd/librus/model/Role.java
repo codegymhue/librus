@@ -1,7 +1,7 @@
 package vn.hd.librus.model;
 
 public enum Role {
-    LIBRARY ("LIBRARY"),
+    LIBRARIAN("LIBRARIAN"),
     MEMBER ("MEMBER");
 
     private String value;

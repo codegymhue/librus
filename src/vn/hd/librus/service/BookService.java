@@ -2,7 +2,6 @@ package vn.hd.librus.service;
 
 
 import vn.hd.librus.model.Book;
-import librarymanagement.hangdinh.vn.utils.*;
 import vn.hd.librus.utils.CSVUtils;
 
 import java.util.ArrayList;
@@ -10,7 +9,7 @@ import java.util.List;
 import java.util.function.Predicate;
 
 public class BookService implements IBookService {
-    public final  static String PATH = "LibraryManagement/data/book.csv";
+    public final  static String PATH = "data/book.csv";
     private static BookService instance;
     private BookService(){}
 

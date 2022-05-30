@@ -1,7 +1,7 @@
 package vn.hd.librus.model;
 
 public class Book {
-    private String ISBN ;
+    private String ISBN;
     //ISBN is the acronym for International Standard Book Number. This 10 or 13-digit number identifies a specific book
     private String title;
     private String author;
@@ -10,7 +10,7 @@ public class Book {
     private String language;
     private int numberOfPage;
 
-    public Book(String ISBN, String title,String author, String subject, String publisher, String language, int numberOfPage) {
+    public Book(String ISBN, String title, String author, String subject, String publisher, String language, int numberOfPage) {
         this.ISBN = ISBN;
         this.title = title;
         this.author = author;
@@ -20,8 +20,8 @@ public class Book {
         this.numberOfPage = numberOfPage;
     }
 
-    public static Book parse (String raw ){
-        String [] fields = raw.split(",");
+    public static Book parse(String raw) {
+        String[] fields = raw.split(",");
         String ISBN = fields[0];
         String title = fields[1];
         String author = fields[2];
@@ -29,7 +29,7 @@ public class Book {
         String publisher = fields[4];
         String language = fields[5];
         int numberOfPage = Integer.parseInt(fields[6]);
-        return new Book (ISBN,title,author,subject,publisher,language,numberOfPage);
+        return new Book(ISBN, title, author, subject, publisher, language, numberOfPage);
 
     }
 
