@@ -7,7 +7,7 @@ public enum BookFormat {
     MAGAZINE("MAGAZINE"),
     EBOOK("EBOOK");
 
-    private String value;
+    private final String value;
 
     private BookFormat(String value) {
         this.value = value;

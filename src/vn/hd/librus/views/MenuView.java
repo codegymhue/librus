@@ -1,4 +1,4 @@
-package vn.hd.librus.view;
+package vn.hd.librus.views;
 
 import java.util.Scanner;
 

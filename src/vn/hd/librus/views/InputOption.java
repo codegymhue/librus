@@ -1,4 +1,4 @@
-package vn.hd.librus.view;
+package vn.hd.librus.views;
 
 public enum InputOption {
     ADD, UPDATE, SHOW, DELETE

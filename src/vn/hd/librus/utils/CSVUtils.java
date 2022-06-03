@@ -1,26 +1,24 @@
 package vn.hd.librus.utils;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CSVUtils {
-    public static <T> void writeData(String path, List<T> items) {
+    public static <T> void write(String path, List<T> items) {
         try {
             PrintWriter printWriter = new PrintWriter(path);
-            for (Object item : items) {
+            for (T item : items) {
                 printWriter.println(item.toString());
             }
             printWriter.flush();
             printWriter.close();
         } catch (FileNotFoundException e) {
-            throw new IllegalArgumentException(path + "invalid");
+            throw new IllegalArgumentException(path + " invalid");
         }
     }
 
-    public static List<String> readData(String path) {
+    public static List<String> read(String path) {
         List<String> lines = new ArrayList<>();
         try {
             File file = new File(path);

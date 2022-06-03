@@ -6,7 +6,7 @@ public enum BookStatus {
     LOANED("LOANED"),
     LOST("LOST");
 
-    private String value;
+    private final String value;
 
     private BookStatus(String value) {
         this.value = value;

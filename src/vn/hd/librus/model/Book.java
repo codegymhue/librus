@@ -1,8 +1,10 @@
 package vn.hd.librus.model;
 
+import java.time.Instant;
+
 public class Book {
     private Long id;
-    private String ISBN;
+    private String isbn;
     //ISBN is the acronym for International Standard Book Number. This 10 or 13-digit number identifies a specific book
     private String title;
     private String author;
@@ -10,10 +12,14 @@ public class Book {
     private String publisher;
     private String language;
     private int numberOfPages;
+    private Instant createdAt;
+    private Instant updatedAt;
 
-    public Book(Long id, String ISBN, String title, String author, String subject, String publisher, String language, int numberOfPages) {
-        this.id = id;
-        this.ISBN = ISBN;
+    public Book() {
+    }
+
+    public Book(String isbn, String title, String author, String subject, String publisher, String language, int numberOfPages) {
+        this.isbn = isbn;
         this.title = title;
         this.author = author;
         this.subject = subject;
@@ -21,6 +27,7 @@ public class Book {
         this.language = language;
         this.numberOfPages = numberOfPages;
     }
+
 
     public static Book parse(String raw) {
         String[] fields = raw.split(",");
@@ -32,16 +39,23 @@ public class Book {
         String publisher = fields[5];
         String language = fields[6];
         int numberOfPage = Integer.parseInt(fields[7]);
-        return new Book(id, ISBN, title, author, subject, publisher, language, numberOfPage);
-
+        return new Book(ISBN, title, author, subject, publisher, language, numberOfPage);
     }
 
-    public String getISBN() {
-        return ISBN;
+    public long getId() {
+        return id;
     }
 
-    public void setISBN(String ISBN) {
-        this.ISBN = ISBN;
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
     }
 
     public String getTitle() {
@@ -92,10 +106,26 @@ public class Book {
         this.numberOfPages = numberOfPages;
     }
 
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Instant createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Instant getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Instant updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
     @Override
     public String toString() {
         return String.format("%s,%s,%s,%s,%s,%s,%s",
-                ISBN,
+                isbn,
                 title,
                 author,
                 subject,

@@ -4,31 +4,38 @@ import java.time.Instant;
 
 public class BookItem {
     private Long id;
-    private String barcode;
+    private Long barcode;
     private Instant borrowedAt;
     private Instant dueAt;
     private double price;
     private BookFormat format;
     private BookStatus status;
     private Instant dateOfPurchase;
-    private Instant publication;
+    private Instant publicationAt;
     boolean isReferenceOnly;
+    private Instant updatedAt;
     private Long bookId;
+
+    private Rack placedAt;
     private Book book;
 
-    public Long getId() {
+    public static BookItem parse(String record) {
+        return null;
+    }
+
+    public long getId() {
         return id;
     }
 
-    public void setBookId(Long bookId) {
-        this.bookId = bookId;
+    public void setId(long id) {
+        this.id = id;
     }
 
-    public String getBarcode() {
+    public Long getBarcode() {
         return barcode;
     }
 
-    public void setBarcode(String barcode) {
+    public void setBarcode(Long barcode) {
         this.barcode = barcode;
     }
 
@@ -80,12 +87,12 @@ public class BookItem {
         this.dateOfPurchase = dateOfPurchase;
     }
 
-    public Instant getPublication() {
-        return publication;
+    public Instant getPublicationAt() {
+        return publicationAt;
     }
 
-    public void setPublication(Instant publication) {
-        this.publication = publication;
+    public void setPublicationAt(Instant publicationAt) {
+        this.publicationAt = publicationAt;
     }
 
     public boolean isReferenceOnly() {
@@ -96,12 +103,20 @@ public class BookItem {
         isReferenceOnly = referenceOnly;
     }
 
-    public Long getBookId() {
+    public long getBookId() {
         return bookId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setBookId(long bookId) {
+        this.bookId = bookId;
+    }
+
+    public Instant getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Instant updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
     public Book getBook() {
@@ -114,8 +129,7 @@ public class BookItem {
 
     @Override
     public String toString() {
-        return String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",
-                id,
+        return String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",
                 barcode,
                 borrowedAt,
                 dueAt,
@@ -123,10 +137,9 @@ public class BookItem {
                 format,
                 status,
                 dateOfPurchase,
-                publication,
+                publicationAt,
                 isReferenceOnly,
-                bookId
-        );
+                bookId);
 
     }
 }
