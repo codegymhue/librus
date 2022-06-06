@@ -11,9 +11,9 @@ public interface IBookReservationService {
 
     void update(BookReservation newUser);
 
-    boolean existById(int id);
+    boolean existById(long id);
 
-    BookReservation findById(int id);
+    BookReservation findById(long id);
 
 
 }

@@ -1,40 +1,40 @@
 package vn.hd.librus.services;
 
-import vn.hd.librus.model.Book;
-import vn.hd.librus.model.BookItem;
+import vn.hd.librus.model.BookReservation;
 import vn.hd.librus.utils.CSVUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BookItemService implements IBookItemService {
+public class BookReservationService  implements  IBookReservationService{
     public final static String PATH = "data/books.csv";
-    private static BookItemService instance;
-    private BookItemService() {
+    private static BookReservationService instance;
+
+    private BookReservationService() {
     }
 
-    public static BookItemService getInstance() {
+    public static BookReservationService getInstance() {
         if (instance == null)
-            instance = new BookItemService();
+            instance = new BookReservationService();
         return instance;
     }
 
     @Override
-    public List<BookItem> findAll() {
-        List<BookItem> books = new ArrayList<>();
+    public List<BookReservation> findAll() {
+        List<BookReservation> books = new ArrayList<>();
         List<String> records = CSVUtils.read(PATH);
         for (String record : records) {
-            books.add(BookItem.parse(record));
+            books.add(BookReservation.parse(record));
         }
         return books;
     }
 
     @Override
-    public BookItem findById(long id) {
-        List<BookItem> bookItems = findAll();
-        for (BookItem bookItem : bookItems) {
-            if (bookItem.getId() == id)
-                return bookItem;
+    public BookReservation findById(long id) {
+        List<BookReservation> bookItems = findAll();
+        for (BookReservation BookReservation : bookItems) {
+            if (BookReservation.getId() == id)
+                return BookReservation;
         }
         return null;
     }
@@ -44,52 +44,18 @@ public class BookItemService implements IBookItemService {
         return findById(id) != null;
     }
 
-    @Override
-    public BookItem findByBarcode(long barcode) {
-        return null;
-    }
 
     @Override
-    public boolean existByBarcode(long barcode) {
-        return false;
-    }
-
-    @Override
-    public boolean reserveBookItem(BookItem bookItem) {
-        return false;
-    }
-
-    @Override
-    public void checkout(BookItem bookItem) {
-
-    }
-
-    @Override
-    public void checkForFine(String barcode) {
-
-    }
-
-    @Override
-    public boolean renewBookItem(BookItem bookItem) {
-        return false;
-    }
-
-    @Override
-    public void returnBookItem(BookItem bookItem) {
-
-    }
-
-    @Override
-    public void add(BookItem newBook) {
-        List<BookItem> books = findAll();
+    public void add(BookReservation newBook) {
+        List<BookReservation> books = findAll();
         books.add(newBook);
         CSVUtils.write(PATH, books);
     }
 
     @Override
-    public void update(BookItem newBook) {
-        List<BookItem> books = findAll();
-        for (BookItem book : books) {
+    public void update(BookReservation newBook) {
+        List<BookReservation> books = findAll();
+        for (BookReservation book : books) {
 //            if (book.getIsbn() == newBook.getIsbn()) {
 //                String title = newBook.getTitle();
 //                if (title != null && !title.isEmpty())

@@ -11,9 +11,9 @@ public interface IBookLendingService {
 
     void update(BookLending newUser);
 
-    boolean existById(int id);
+    boolean existById(long id);
 
-    BookLending findById(int id);
+    BookLending findById(long id);
 
     boolean lendBook(String barcode, long userId);
 }

@@ -3,11 +3,24 @@ package vn.hd.librus.model;
 import java.time.Instant;
 
 public class BookLending {
+    private Long id;
     private Long bookItemBarcode;
     private Long userId;
     private Instant createdAt;
     private Instant dueAt;
     private Instant returnAt;
+
+    public static BookLending parse(String record) {
+        return null;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Long getBookItemBarcode() {
         return bookItemBarcode;

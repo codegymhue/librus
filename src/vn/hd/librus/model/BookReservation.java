@@ -3,12 +3,25 @@ package vn.hd.librus.model;
 import java.time.Instant;
 
 public class BookReservation {
+    private Long id;
     private Long bookItemBarcode;
     private Long userId;
     private Instant dueAt;
     private Instant returnAt;
     private Instant createdAt;
     private Instant updatedAt;
+
+    public static BookReservation parse(String raw) {
+        return null;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Long getBookItemBarcode() {
         return bookItemBarcode;

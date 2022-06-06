@@ -1,19 +1,19 @@
 package vn.hd.librus.services;
 
-import vn.hd.librus.model.BookReservation;
+import vn.hd.librus.model.Fine;
 
 import java.util.List;
 
 public interface IFineService {
-    List<BookReservation> findAll();
+    List<Fine> findAll();
 
-    void add(BookReservation newUser);
+    void add(Fine newUser);
 
-    void update(BookReservation newUser);
+    void update(Fine newUser);
 
-    boolean existById(int id);
+    boolean existById(long id);
 
-    BookReservation findById(int id);
+    Fine findById(long id);
 
     void collectFine(long userId, long days);
 }
