@@ -20,11 +20,11 @@ public class BookItem {
 
     public static BookItem parse(String record) {
         BookItem bookItem = new BookItem();
-        String[]fields = record.split(",");
+        String[] fields = record.split(",");
         bookItem.id = Long.parseLong(fields[0]);
         bookItem.barcode = Long.parseLong(fields[1]);
         bookItem.borrowedAt = Instant.parse(fields[2]);
-        bookItem.dueAt =  Instant.parse(fields[3]);
+        bookItem.dueAt = Instant.parse(fields[3]);
         bookItem.price = Double.parseDouble(fields[4]);
         bookItem.format = BookFormat.parserBookFormat(fields[5]);
         bookItem.status = BookStatus.parseBookStatus(fields[6]);
@@ -32,7 +32,6 @@ public class BookItem {
         bookItem.publicationAt = Instant.parse(fields[8]);
         bookItem.updatedAt = Instant.parse(fields[9]);
         bookItem.bookId = Long.parseLong(fields[10]);
-        bookItem.book = Book.parse(fields[11]);
         return bookItem;
     }
 
@@ -155,8 +154,8 @@ public class BookItem {
                 isReferenceOnly,
                 updatedAt,
                 bookId,
-                placedAt,
-                book);
+                placedAt
+        );
 
     }
 }
