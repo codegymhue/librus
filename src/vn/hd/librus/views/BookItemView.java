@@ -1,26 +1,30 @@
 package vn.hd.librus.views;
-
-
 import vn.hd.librus.model.Book;
 import vn.hd.librus.services.BookService;
 import vn.hd.librus.services.IBookService;
 import vn.hd.librus.utils.AppUtils;
 import vn.hd.librus.utils.InstantUtils;
 
+
+
 import java.util.Scanner;
 
 public class BookItemView {
+
+    public static void main(String[] args) {
+        BookItemView BIV = new BookItemView();
+        BIV.add();
+    }
     private IBookService bookService; //Dependency Inversion Principle (SOLID)
     private final Scanner scanner = new Scanner(System.in);
 
     public BookItemView() {
         bookService = BookService.getInstance();
     }
-
     public void add() {
         do {
-            //    int id = inputId(InputOption.ADD);
-            //  long id = System.currentTimeMillis() / 1000;
+            //long id = inputId(InputOption.ADD);
+            //long id = System.currentTimeMillis() / 1000;
             String isbn = inputISBN(InputOption.ADD);
             String title = inputTitle(InputOption.ADD);
             String author = inputAuthor(InputOption.ADD);
@@ -28,7 +32,7 @@ public class BookItemView {
             String publisher = inputPublisher(InputOption.ADD);
             String language = inputLanguage(InputOption.ADD);
             int numberOfPages = inputNumberOfPages(InputOption.ADD);
-            Book newBook = new Book(isbn, title, author, subject, publisher, language, numberOfPages);
+            Book newBook = new Book( isbn, title, author, subject, publisher, language, numberOfPages);
             bookService.add(newBook);
             System.out.println("Bạn đã thêm sách thành công\n");
 
@@ -38,8 +42,9 @@ public class BookItemView {
     public void update() {
         boolean isRetry;
         do {
-            showBooks(InputOption.UPDATE);
-            String id = inputISBN(InputOption.UPDATE);
+            //showBooks(InputOption.UPDATE);
+//            String id = inputISBN(InputOption.UPDATE);
+            long id = inputId(InputOption.UPDATE);
             System.out.println("┌ - - - - SỬA  - - - ┐");
             System.out.println("| 1.Sửa tên sách     |");
             System.out.println("| 2.Sửa tác giả      |");
@@ -52,7 +57,8 @@ public class BookItemView {
             System.out.println("Chọn chức năng: ");
             int option = AppUtils.retryChoose(1, 7);
             Book newBook = new Book();
-            newBook.setIsbn(id);
+//            newBook.setIsbn(id);
+            newBook.setId(id);
             switch (option) {
                 case 1:
                     String title = inputTitle(InputOption.UPDATE);
@@ -99,7 +105,7 @@ public class BookItemView {
     //Tái sử dụng khi sort tránh đổi thứ tự list gốc
     public void showBooks(InputOption inputOption) {
         System.out.println("-----------------------------------------DANH SÁCH SÁCH-------------------------------------------");
-        System.out.printf("%-15s %-30s %-25s %-10s %-20s %-20s %-20s %-20s  %-20s  %-20s \n",
+        System.out.printf("%-10s %-10s %-20s %-15s %-15s %-15s %-10s %-10s  %-10s  %-10s \n",
                 "Id",
                 "ISBN",
                 "Tên sách",
@@ -111,7 +117,7 @@ public class BookItemView {
                 "Ngày tạo",
                 "Ngày cập nhật");
         for (Book book : bookService.findAll()) {
-            System.out.printf("%-15s %-30s %-25s %-10s %-20s %-20s %-20s %-20s  %-20s  %-20s\n",
+            System.out.printf("%-10s %-10s %-20s %-15s %-15s %-15s %-10s %-10s  %-10s  %-10s \n",
                     book.getId(),
                     book.getIsbn(),
                     book.getTitle(),

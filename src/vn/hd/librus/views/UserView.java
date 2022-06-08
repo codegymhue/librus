@@ -44,10 +44,10 @@ public class UserView {//Single Responsibility Principle (SOLID)
     }
 
     public void setRole(User user) {
-        System.out.println("= = SET ROLE = =");
-        System.out.println("∥   1. MEMBER    ∥");
+        System.out.println("= = = SET ROLE = = = ");
+        System.out.println("∥   1. MEMBER      ∥");
         System.out.println("∥   2. LIBRARIAN   ∥");
-        System.out.println("= = = =  = = = = ");
+        System.out.println("= = = = = =  = = = = ");
         System.out.println("Chọn Role: ");
         System.out.print(" ⭆ ");
         int option = scanner.nextInt();

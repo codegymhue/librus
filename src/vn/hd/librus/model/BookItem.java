@@ -15,12 +15,25 @@ public class BookItem {
     boolean isReferenceOnly;
     private Instant updatedAt;
     private Long bookId;
-
     private Rack placedAt;
     private Book book;
 
     public static BookItem parse(String record) {
-        return null;
+        BookItem bookItem = new BookItem();
+        String[]fields = record.split(",");
+        bookItem.id = Long.parseLong(fields[0]);
+        bookItem.barcode = Long.parseLong(fields[1]);
+        bookItem.borrowedAt = Instant.parse(fields[2]);
+        bookItem.dueAt =  Instant.parse(fields[3]);
+        bookItem.price = Double.parseDouble(fields[4]);
+        bookItem.format = BookFormat.parserBookFormat(fields[5]);
+        bookItem.status = BookStatus.parseBookStatus(fields[6]);
+        bookItem.dateOfPurchase = Instant.parse(fields[7]);
+        bookItem.publicationAt = Instant.parse(fields[8]);
+        bookItem.updatedAt = Instant.parse(fields[9]);
+        bookItem.bookId = Long.parseLong(fields[10]);
+        bookItem.book = Book.parse(fields[11]);
+        return bookItem;
     }
 
     public long getId() {
@@ -129,7 +142,8 @@ public class BookItem {
 
     @Override
     public String toString() {
-        return String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",
+        return String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",
+                id,
                 barcode,
                 borrowedAt,
                 dueAt,
@@ -139,7 +153,10 @@ public class BookItem {
                 dateOfPurchase,
                 publicationAt,
                 isReferenceOnly,
-                bookId);
+                updatedAt,
+                bookId,
+                placedAt,
+                book);
 
     }
 }

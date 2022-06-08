@@ -5,7 +5,6 @@ import java.time.Instant;
 public class Book {
     private Long id;
     private String isbn;
-    //ISBN is the acronym for International Standard Book Number. This 10 or 13-digit number identifies a specific book
     private String title;
     private String author;
     private String subject;
@@ -16,6 +15,17 @@ public class Book {
     private Instant updatedAt;
 
     public Book() {
+    }
+
+    public Book(long id, String isbn, String title, String author, String subject, String publisher, String language, int numberOfPages) {
+        this.id = id;
+        this.isbn = isbn;
+        this.title = title;
+        this.author = author;
+        this.subject = subject;
+        this.publisher = publisher;
+        this.language = language;
+        this.numberOfPages = numberOfPages;
     }
 
     public Book(String isbn, String title, String author, String subject, String publisher, String language, int numberOfPages) {
@@ -39,12 +49,10 @@ public class Book {
         String publisher = fields[5];
         String language = fields[6];
         int numberOfPage = Integer.parseInt(fields[7]);
-        return new Book(ISBN, title, author, subject, publisher, language, numberOfPage);
+        return new Book(id,ISBN, title, author, subject, publisher, language, numberOfPage);
     }
 
-    public long getId() {
-        return id;
-    }
+    public long getId() {return id;}
 
     public void setId(long id) {
         this.id = id;

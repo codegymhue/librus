@@ -2,12 +2,12 @@ package vn.hd.librus.services;
 
 
 import vn.hd.librus.model.Book;
-import vn.hd.librus.model.User;
 import vn.hd.librus.utils.CSVUtils;
 
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class BookService implements IBookService {
     public final static String PATH = "data/books.csv";
@@ -108,8 +108,17 @@ public class BookService implements IBookService {
 
     @Override
     public void deleteById(long id) {
+        List<Book> books = findAll();
+        books.removeIf(new Predicate<Book>() {
+            @Override
+            public boolean test(Book book) {
+                return book.getId()==id;
+            }
+        });
+        CSVUtils.write(PATH,books);
+        }
 
-    }
+
 
     @Override
     public boolean existsById(long id) {

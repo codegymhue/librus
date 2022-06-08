@@ -1,6 +1,5 @@
 package vn.hd.librus.views;
 
-import vn.hd.librus.model.BookItem;
 import vn.hd.librus.model.Role;
 import vn.hd.librus.model.User;
 import vn.hd.librus.services.BookItemService;

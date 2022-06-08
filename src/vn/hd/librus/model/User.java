@@ -1,5 +1,7 @@
 package vn.hd.librus.model;
 
+import vn.hd.librus.utils.InstantUtils;
+
 import java.time.Instant;
 
 public class User {
@@ -40,9 +42,7 @@ public class User {
         user.address = fields[6];
         user.role = Role.parseRole(fields[7]);
         user.createdAt = Instant.parse(fields[8]);
-        String temp = fields[9];
-        if (temp != null && !temp.equals("null"))
-            user.updatedAt = Instant.parse(temp);
+        user.updatedAt = InstantUtils.parseInstant(fields[9]);
         return user;
     }
 

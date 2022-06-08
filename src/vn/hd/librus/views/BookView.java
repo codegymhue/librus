@@ -2,9 +2,9 @@ package vn.hd.librus.views;
 
 
 import vn.hd.librus.model.Book;
-import vn.hd.librus.services.BookService;
 import vn.hd.librus.services.IBookService;
 import vn.hd.librus.utils.AppUtils;
+import vn.hd.librus.services.BookService;
 import vn.hd.librus.utils.InstantUtils;
 
 import java.util.Scanner;
@@ -19,8 +19,8 @@ public class BookView {
 
     public void add() {
         do {
-            //    int id = inputId(InputOption.ADD);
-            //  long id = System.currentTimeMillis() / 1000;
+//                int id = inputId(InputOption.ADD);
+              long id = System.currentTimeMillis() / 1000;
             String isbn = inputISBN(InputOption.ADD);
             String title = inputTitle(InputOption.ADD);
             String author = inputAuthor(InputOption.ADD);
@@ -28,7 +28,7 @@ public class BookView {
             String publisher = inputPublisher(InputOption.ADD);
             String language = inputLanguage(InputOption.ADD);
             int numberOfPages = inputNumberOfPages(InputOption.ADD);
-            Book newBook = new Book(isbn, title, author, subject, publisher, language, numberOfPages);
+            Book newBook = new Book(id, isbn, title, author, subject, publisher, language, numberOfPages);
             bookService.add(newBook);
             System.out.println("Bạn đã thêm sách thành công\n");
 

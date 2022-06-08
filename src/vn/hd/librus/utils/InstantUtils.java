@@ -15,4 +15,10 @@ public class InstantUtils {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(patternFormat != null ? patternFormat : PATTERN_FORMAT).withZone(ZoneId.systemDefault());
         return formatter.format(instant);
     }
+
+    public static Instant parseInstant(String dateString) {
+        if (dateString == null)
+            return null;
+        return Instant.parse(dateString);
+    }
 }

@@ -1,6 +1,5 @@
 package vn.hd.librus.services;
 
-import vn.hd.librus.model.Book;
 import vn.hd.librus.model.BookItem;
 import vn.hd.librus.utils.CSVUtils;
 
@@ -8,8 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BookItemService implements IBookItemService {
-    public final static String PATH = "data/books.csv";
+    public final static String PATH = "data/book-items.csv";
     private static BookItemService instance;
+
     private BookItemService() {
     }
 
@@ -82,6 +82,7 @@ public class BookItemService implements IBookItemService {
     @Override
     public void add(BookItem newBook) {
         List<BookItem> books = findAll();
+        newBook.setBookId(System.currentTimeMillis() / 1000);
         books.add(newBook);
         CSVUtils.write(PATH, books);
     }
