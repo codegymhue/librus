@@ -17,7 +17,7 @@ public class InstantUtils {
     }
 
     public static Instant parseInstant(String dateString) {
-        if (dateString == null)
+        if (dateString == null || dateString.equals("null"))
             return null;
         return Instant.parse(dateString);
     }

@@ -13,7 +13,7 @@ public class BookItemView {
 
     public static void main(String[] args) {
         BookItemView BIV = new BookItemView();
-        BIV.add();
+        BIV.showBooks(InputOption.SHOW);
     }
     private IBookService bookService; //Dependency Inversion Principle (SOLID)
     private final Scanner scanner = new Scanner(System.in);
@@ -43,8 +43,8 @@ public class BookItemView {
         boolean isRetry;
         do {
             //showBooks(InputOption.UPDATE);
-//            String id = inputISBN(InputOption.UPDATE);
-            long id = inputId(InputOption.UPDATE);
+            String id = inputISBN(InputOption.UPDATE);
+//            long id = inputId(InputOption.UPDATE);
             System.out.println("┌ - - - - SỬA  - - - ┐");
             System.out.println("| 1.Sửa tên sách     |");
             System.out.println("| 2.Sửa tác giả      |");
@@ -57,8 +57,8 @@ public class BookItemView {
             System.out.println("Chọn chức năng: ");
             int option = AppUtils.retryChoose(1, 7);
             Book newBook = new Book();
-//            newBook.setIsbn(id);
-            newBook.setId(id);
+            newBook.setIsbn(id);
+            //newBook.setId(id);
             switch (option) {
                 case 1:
                     String title = inputTitle(InputOption.UPDATE);
@@ -105,8 +105,8 @@ public class BookItemView {
     //Tái sử dụng khi sort tránh đổi thứ tự list gốc
     public void showBooks(InputOption inputOption) {
         System.out.println("-----------------------------------------DANH SÁCH SÁCH-------------------------------------------");
-        System.out.printf("%-10s %-10s %-20s %-15s %-15s %-15s %-10s %-10s  %-10s  %-10s \n",
-                "Id",
+        System.out.printf(" %-10s %-20s %-15s %-15s %-15s %-10s %-10s  %-10s  %-10s \n",
+
                 "ISBN",
                 "Tên sách",
                 "Tác giả",
@@ -117,8 +117,8 @@ public class BookItemView {
                 "Ngày tạo",
                 "Ngày cập nhật");
         for (Book book : bookService.findAll()) {
-            System.out.printf("%-10s %-10s %-20s %-15s %-15s %-15s %-10s %-10s  %-10s  %-10s \n",
-                    book.getId(),
+            System.out.printf(" %-10s %-20s %-15s %-15s %-15s %-10s %-10s  %-10s  %-10s \n",
+                    //book.getId(),
                     book.getIsbn(),
                     book.getTitle(),
                     book.getAuthor(),
