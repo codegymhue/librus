@@ -17,6 +17,20 @@ public class Book {
     public Book() {
     }
 
+    public Book(long id, String isbn, String title, String author, String subject, String publisher, String language, int numberOfPages, Instant createdAt, Instant updatedAt) {
+        this.id = id;
+        this.isbn = isbn;
+        this.title = title;
+        this.author = author;
+        this.subject = subject;
+        this.publisher = publisher;
+        this.language = language;
+        this.numberOfPages = numberOfPages;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+
+    }
+
     public Book(long id, String isbn, String title, String author, String subject, String publisher, String language, int numberOfPages) {
         this.id = id;
         this.isbn = isbn;
@@ -41,18 +55,20 @@ public class Book {
 
     public static Book parse(String raw) {
         String[] fields = raw.split(",");
-        long id = Long.parseLong(fields[0]);
-        String ISBN = fields[1];
-        String title = fields[2];
-        String author = fields[3];
-        String subject = fields[4];
-        String publisher = fields[5];
-        String language = fields[6];
-        int numberOfPage = Integer.parseInt(fields[7]);
-        return new Book(id,ISBN, title, author, subject, publisher, language, numberOfPage);
+//        long id = Long.parseLong(fields[0]);
+        String ISBN = fields[0];
+        String title = fields[1];
+        String author = fields[2];
+        String subject = fields[3];
+        String publisher = fields[4];
+        String language = fields[5];
+        int numberOfPage = Integer.parseInt(fields[6]);
+        return new Book( ISBN, title, author, subject, publisher, language, numberOfPage);
     }
 
-    public long getId() {return id;}
+    public long getId() {
+        return id;
+    }
 
     public void setId(long id) {
         this.id = id;
@@ -132,13 +148,6 @@ public class Book {
 
     @Override
     public String toString() {
-        return String.format("%s,%s,%s,%s,%s,%s,%s",
-                isbn,
-                title,
-                author,
-                subject,
-                publisher,
-                language,
-                numberOfPages);
+        return String.format("%s,%s,%s,%s,%s,%s,%s", isbn, title, author, subject, publisher, language, numberOfPages);
     }
 }
