@@ -42,7 +42,7 @@ public class AppUtils {
     public static String retryString(String fieldName) {
         String result;
         System.out.print(" ⭆ ");
-        while ((result = scanner.nextLine()).isEmpty()) {
+        while ((result = scanner.nextLine().trim()).isEmpty()) {
             System.out.printf("%s không được để trống\n", fieldName);
             System.out.print(" ⭆ ");
         }
