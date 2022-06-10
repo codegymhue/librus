@@ -1,10 +1,9 @@
 package vn.hd.librus.views;
-import vn.hd.librus.model.Book;
+
+import vn.hd.librus.model.BookItem;
 import vn.hd.librus.services.BookService;
 import vn.hd.librus.services.IBookService;
 import vn.hd.librus.utils.AppUtils;
-import vn.hd.librus.utils.InstantUtils;
-
 
 import java.time.Instant;
 import java.util.Scanner;
@@ -20,19 +19,20 @@ public class BookItemView {
         bookService = BookService.getInstance();
 
     }
+
     public void add() {
         do {
             //long id = inputId(InputOption.ADD);
             //long id = System.currentTimeMillis() / 1000;
             String isbn = inputISBN(InputOption.ADD);
-            String title = inputBarcode(InputOption.ADD);
-            String author = inputBorrowedAt(InputOption.ADD);
-            String subject = InputDueAt(InputOption.ADD);
-            String publisher = inputPrice(InputOption.ADD);
+            long barcode = inputBarcode(InputOption.ADD);
+            //String author = inputBorrowedAt(InputOption.ADD);
+            //   String subject = InputDueAt(InputOption.ADD);
+            // String publisher = inputPrice(InputOption.ADD);
             String language = inputBookFormat(InputOption.ADD);
             int numberOfPages = inputNumberOfPages(InputOption.ADD);
-            Book newBook = new Book( isbn, title, author, subject, publisher, language, numberOfPages);
-            bookService.add(newBook);
+            //    Book newBook = new Book( isbn, title, author, subject, publisher, language, numberOfPages);
+            //   bookService.add(newBook);
             System.out.println("Bạn đã thêm sách thành công\n");
 
         } while (AppUtils.isRetry(InputOption.ADD));
@@ -42,8 +42,8 @@ public class BookItemView {
         boolean isRetry;
         do {
             //showBooks(InputOption.UPDATE);
-            String id = inputISBN(InputOption.UPDATE);
-//            long id = inputId(InputOption.UPDATE);
+            //  String id = inputISBN(InputOption.UPDATE);
+            long id = inputId(InputOption.UPDATE);
             System.out.println("┌ - - - - SỬA  - - - ┐");
             System.out.println("| 1.Sửa tên sách     |");
             System.out.println("| 2.Sửa tác giả      |");
@@ -55,45 +55,45 @@ public class BookItemView {
             System.out.println("└ - - - - - -  - - - ┘");
             System.out.println("Chọn chức năng: ");
             int option = AppUtils.retryChoose(1, 7);
-            Book newBook = new Book();
-            newBook.setIsbn(id);
+            BookItem newBookItem = new BookItem();
+            newBookItem.setId(id);
             //newBook.setId(id);
             switch (option) {
                 case 1:
-                    String title = inputBarcode(InputOption.UPDATE);
-                    newBook.setTitle(title);
-                    bookService.update(newBook);
-                    System.out.println("Tên sách đã cập nhật thành công");
+//                    long title = inputBarcode(InputOption.UPDATE);
+//                    newBookItem.setTitle(title);
+//                    bookService.update(newBook);
+//                    System.out.println("Tên sách đã cập nhật thành công");
                     break;
                 case 2:
-                    String author = inputBorrowedAt(InputOption.UPDATE);
-                    newBook.setAuthor(author);
-                    bookService.update(newBook);
-                    System.out.println("Tác giả đã cập nhật thành công");
+//                    String author = inputBorrowedAt(InputOption.UPDATE);
+//                    newBook.setAuthor(author);
+//                    bookService.update(newBook);
+//                    System.out.println("Tác giả đã cập nhật thành công");
                     break;
                 case 3:
-                    String subject = InputDueAt(InputOption.UPDATE);
-                    newBook.setSubject(subject);
-                    bookService.update(newBook);
-                    System.out.println("Tác giả đã cập nhật thành công");
+//                    String subject = InputDueAt(InputOption.UPDATE);
+//                    newBook.setSubject(subject);
+//                    bookService.update(newBook);
+//                    System.out.println("Tác giả đã cập nhật thành công");
                     break;
                 case 4:
-                    String publisher = inputPrice(InputOption.UPDATE);
-                    newBook.setPublisher(publisher);
-                    bookService.update(newBook);
-                    System.out.println("Tác giả đã cập nhật thành công");
+//                    String publisher = inputPrice(InputOption.UPDATE);
+//                    newBook.setPublisher(publisher);
+//                    bookService.update(newBook);
+//                    System.out.println("Tác giả đã cập nhật thành công");
                     break;
                 case 5:
-                    String language = inputBookFormat(InputOption.UPDATE);
-                    newBook.setPublisher(language);
-                    bookService.update(newBook);
-                    System.out.println("Tác giả đã cập nhật thành công");
+//                    String language = inputBookFormat(InputOption.UPDATE);
+//                    newBook.setPublisher(language);
+//                    bookService.update(newBook);
+//                    System.out.println("Tác giả đã cập nhật thành công");
                     break;
                 case 6:
-                    int numberOfPages = inputNumberOfPages(InputOption.UPDATE);
-                    newBook.setNumberOfPages(numberOfPages);
-                    bookService.update(newBook);
-                    System.out.println("Số trang sách thành công");
+//                    int numberOfPages = inputNumberOfPages(InputOption.UPDATE);
+//                    newBook.setNumberOfPages(numberOfPages);
+//                    bookService.update(newBook);
+//                    System.out.println("Số trang sách thành công");
                     break;
             }
             isRetry = option != 7 && AppUtils.isRetry(InputOption.UPDATE);
@@ -114,21 +114,21 @@ public class BookItemView {
                 "Số trang",
                 "Ngày tạo",
                 "Ngày cập nhật");
-        for (Book book : bookService.findAll()) {
-            System.out.printf(" %-10s %-20s %-15s %-15s %-15s %-10s %-10s  %-10s  %-10s \n",
-                    //book.getId(),
-                    book.getIsbn(),
-                    book.getTitle(),
-                    book.getAuthor(),
-                    book.getSubject(),
-                    book.getPublisher(),
-                    book.getLanguage(),
-                    book.getNumberOfPages(),
-                    InstantUtils.instantToString(book.getCreatedAt()),
-                    book.getUpdatedAt() == null ? "" : InstantUtils.instantToString(book.getUpdatedAt()));
-        }
-        System.out.println("--------------------------------------------------------------------------------------------------\n");
-        if (inputOption == InputOption.SHOW) AppUtils.isRetry(InputOption.SHOW);
+//        for (Book book : bookService.findAll()) {
+//            System.out.printf(" %-10s %-20s %-15s %-15s %-15s %-10s %-10s  %-10s  %-10s \n",
+//                    //book.getId(),
+//                    book.getIsbn(),
+//                    book.getTitle(),
+//                    book.getAuthor(),
+//                    book.getSubject(),
+//                    book.getPublisher(),
+//                    book.getLanguage(),
+//                    book.getNumberOfPages(),
+//                    InstantUtils.instantToString(book.getCreatedAt()),
+//                    book.getUpdatedAt() == null ? "" : InstantUtils.instantToString(book.getUpdatedAt()));
+//        }
+//        System.out.println("--------------------------------------------------------------------------------------------------\n");
+//        if (inputOption == InputOption.SHOW) AppUtils.isRetry(InputOption.SHOW);
     }
 
     public void remove() {
@@ -210,7 +210,7 @@ public class BookItemView {
                 System.out.println("Nhập mã Barcode muốn sửa: ");
                 break;
         }
-        return (AppUtils.retryParseLong());
+        return AppUtils.retryParseLong();
 
     }
 
@@ -252,7 +252,7 @@ public class BookItemView {
         return (AppUtils.retryParseDouble());
     }
 
-    private  inputBookFormat(InputOption option) {
+    private String inputBookFormat(InputOption option) {
         switch (option) {
             case ADD:
                 System.out.println("Nhập ngôn ngữ của sách: ");
@@ -317,7 +317,7 @@ public class BookItemView {
     }
 
 
-    public void showBookSort(){
+    public void showBookSort() {
 
 
     }
