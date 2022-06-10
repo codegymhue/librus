@@ -28,8 +28,8 @@ public class BookItemView {
             String title = inputBarcode(InputOption.ADD);
             String author = inputBorrowedAt(InputOption.ADD);
             String subject = InputDueAt(InputOption.ADD);
-            String publisher = inputPublisher(InputOption.ADD);
-            String language = inputLanguage(InputOption.ADD);
+            String publisher = inputPrice(InputOption.ADD);
+            String language = inputBookFormat(InputOption.ADD);
             int numberOfPages = inputNumberOfPages(InputOption.ADD);
             Book newBook = new Book( isbn, title, author, subject, publisher, language, numberOfPages);
             bookService.add(newBook);
@@ -78,13 +78,13 @@ public class BookItemView {
                     System.out.println("Tác giả đã cập nhật thành công");
                     break;
                 case 4:
-                    String publisher = inputPublisher(InputOption.UPDATE);
+                    String publisher = inputPrice(InputOption.UPDATE);
                     newBook.setPublisher(publisher);
                     bookService.update(newBook);
                     System.out.println("Tác giả đã cập nhật thành công");
                     break;
                 case 5:
-                    String language = inputLanguage(InputOption.UPDATE);
+                    String language = inputBookFormat(InputOption.UPDATE);
                     newBook.setPublisher(language);
                     bookService.update(newBook);
                     System.out.println("Tác giả đã cập nhật thành công");
@@ -201,7 +201,7 @@ public class BookItemView {
         return id;
     }
 
-    private CharSequence inputBarcode(InputOption option) {
+    private long inputBarcode(InputOption option) {
         switch (option) {
             case ADD:
                 System.out.println("Nhập mã Barcode ");
@@ -210,7 +210,8 @@ public class BookItemView {
                 System.out.println("Nhập mã Barcode muốn sửa: ");
                 break;
         }
-        return (AppUtils.retryString("Mã Barcode"));
+        return (AppUtils.retryParseLong());
+
     }
 
     private Instant inputBorrowedAt(InputOption option) {
@@ -226,7 +227,7 @@ public class BookItemView {
 
     }
 
-    private String InputDueAt(InputOption option) {
+    private Instant InputDueAt(InputOption option) {
         switch (option) {
             case ADD:
                 System.out.println("Nhập ngày trả sách ");
@@ -235,22 +236,23 @@ public class BookItemView {
                 System.out.println("Nhập ngày trả sách muốn sửa: ");
                 break;
         }
-        return AppUtils.retryString("Hạn trả sách");
+        return Instant.parse(AppUtils.retryString("Hạn trả sách"));
+
     }
 
-    private String inputPublisher(InputOption option) {
+    private double inputPrice(InputOption option) {
         switch (option) {
             case ADD:
-                System.out.println("Nhập nhà xuất bản: ");
+                System.out.println("Nhập giá sách : ");
                 break;
             case UPDATE:
-                System.out.println("Nhập nhà xuất bản muốn sửa: ");
+                System.out.println("Nhập giá sách muốn sửa: ");
                 break;
         }
-        return AppUtils.retryString("Chủ đề");
+        return (AppUtils.retryParseDouble());
     }
 
-    private String inputLanguage(InputOption option) {
+    private  inputBookFormat(InputOption option) {
         switch (option) {
             case ADD:
                 System.out.println("Nhập ngôn ngữ của sách: ");
