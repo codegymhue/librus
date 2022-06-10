@@ -1,6 +1,7 @@
 package vn.hd.librus.services;
 
 import vn.hd.librus.model.BookItem;
+import vn.hd.librus.model.BookLending;
 import vn.hd.librus.utils.CSVUtils;
 
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ public class BookItemService implements IBookItemService {
 
     private BookItemService() {
     }
+
 
     public static BookItemService getInstance() {
         if (instance == null)
@@ -46,12 +48,18 @@ public class BookItemService implements IBookItemService {
 
     @Override
     public BookItem findByBarcode(long barcode) {
+        List<BookItem> bookItems = findAll();
+        for (BookItem bookItem : bookItems){
+            if (bookItem.getBarcode()== barcode){
+                return bookItem;
+            }
+        }
         return null;
     }
 
     @Override
     public boolean existByBarcode(long barcode) {
-        return false;
+        return findByBarcode(barcode) !=null;
     }
 
     @Override
@@ -61,11 +69,22 @@ public class BookItemService implements IBookItemService {
 
     @Override
     public void checkout(BookItem bookItem) {
-
+//        if(findByBarcode(bookItem.getBarcode()) !=null){
+//            returnBookItem(bookItem);
+//        }
     }
 
     @Override
     public void checkForFine(String barcode) {
+//        BookLending bookLending = BookLending.fetchLendingDetails(bookItemBarcode);
+//        Date dueDate = bookLending.getDueDate();
+//        Date today = new Date();
+//        // check if the book has been returned within the due date
+//        if (today.compareTo(dueDate) > 0) {
+//            long diff = todayDate.getTime() - dueDate.getTime();
+//            long diffDays = diff / (24 * 60 * 60 * 1000);
+//            Fine.collectFine(memberId, diffDays);
+//        }
 
     }
 
@@ -91,6 +110,7 @@ public class BookItemService implements IBookItemService {
     public void update(BookItem newBook) {
         List<BookItem> books = findAll();
         for (BookItem book : books) {
+
 //            if (book.getIsbn() == newBook.getIsbn()) {
 //                String title = newBook.getTitle();
 //                if (title != null && !title.isEmpty())
@@ -118,7 +138,7 @@ public class BookItemService implements IBookItemService {
 //            }
         }
 
-    }
+   }
 
 
 }

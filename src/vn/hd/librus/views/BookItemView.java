@@ -6,29 +6,28 @@ import vn.hd.librus.utils.AppUtils;
 import vn.hd.librus.utils.InstantUtils;
 
 
-
+import java.time.Instant;
 import java.util.Scanner;
 
 public class BookItemView {
 
-    public static void main(String[] args) {
-        BookItemView BIV = new BookItemView();
-        BIV.add();
-    }
+
     private IBookService bookService; //Dependency Inversion Principle (SOLID)
     private final Scanner scanner = new Scanner(System.in);
 
+
     public BookItemView() {
         bookService = BookService.getInstance();
+
     }
     public void add() {
         do {
             //long id = inputId(InputOption.ADD);
             //long id = System.currentTimeMillis() / 1000;
             String isbn = inputISBN(InputOption.ADD);
-            String title = inputTitle(InputOption.ADD);
-            String author = inputAuthor(InputOption.ADD);
-            String subject = inputSubject(InputOption.ADD);
+            String title = inputBarcode(InputOption.ADD);
+            String author = inputBorrowedAt(InputOption.ADD);
+            String subject = InputDueAt(InputOption.ADD);
             String publisher = inputPublisher(InputOption.ADD);
             String language = inputLanguage(InputOption.ADD);
             int numberOfPages = inputNumberOfPages(InputOption.ADD);
@@ -43,8 +42,8 @@ public class BookItemView {
         boolean isRetry;
         do {
             //showBooks(InputOption.UPDATE);
-//            String id = inputISBN(InputOption.UPDATE);
-            long id = inputId(InputOption.UPDATE);
+            String id = inputISBN(InputOption.UPDATE);
+//            long id = inputId(InputOption.UPDATE);
             System.out.println("┌ - - - - SỬA  - - - ┐");
             System.out.println("| 1.Sửa tên sách     |");
             System.out.println("| 2.Sửa tác giả      |");
@@ -57,23 +56,23 @@ public class BookItemView {
             System.out.println("Chọn chức năng: ");
             int option = AppUtils.retryChoose(1, 7);
             Book newBook = new Book();
-//            newBook.setIsbn(id);
-            newBook.setId(id);
+            newBook.setIsbn(id);
+            //newBook.setId(id);
             switch (option) {
                 case 1:
-                    String title = inputTitle(InputOption.UPDATE);
+                    String title = inputBarcode(InputOption.UPDATE);
                     newBook.setTitle(title);
                     bookService.update(newBook);
                     System.out.println("Tên sách đã cập nhật thành công");
                     break;
                 case 2:
-                    String author = inputAuthor(InputOption.UPDATE);
+                    String author = inputBorrowedAt(InputOption.UPDATE);
                     newBook.setAuthor(author);
                     bookService.update(newBook);
                     System.out.println("Tác giả đã cập nhật thành công");
                     break;
                 case 3:
-                    String subject = inputSubject(InputOption.UPDATE);
+                    String subject = InputDueAt(InputOption.UPDATE);
                     newBook.setSubject(subject);
                     bookService.update(newBook);
                     System.out.println("Tác giả đã cập nhật thành công");
@@ -102,11 +101,10 @@ public class BookItemView {
     }
 
 
-    //Tái sử dụng khi sort tránh đổi thứ tự list gốc
+    //Tái sử dụng khi vn.hd.librus.sort tránh đổi thứ tự list gốc
     public void showBooks(InputOption inputOption) {
         System.out.println("-----------------------------------------DANH SÁCH SÁCH-------------------------------------------");
-        System.out.printf("%-10s %-10s %-20s %-15s %-15s %-15s %-10s %-10s  %-10s  %-10s \n",
-                "Id",
+        System.out.printf(" %-10s %-20s %-15s %-15s %-15s %-10s %-10s  %-10s  %-10s \n",
                 "ISBN",
                 "Tên sách",
                 "Tác giả",
@@ -117,8 +115,8 @@ public class BookItemView {
                 "Ngày tạo",
                 "Ngày cập nhật");
         for (Book book : bookService.findAll()) {
-            System.out.printf("%-10s %-10s %-20s %-15s %-15s %-15s %-10s %-10s  %-10s  %-10s \n",
-                    book.getId(),
+            System.out.printf(" %-10s %-20s %-15s %-15s %-15s %-10s %-10s  %-10s  %-10s \n",
+                    //book.getId(),
                     book.getIsbn(),
                     book.getTitle(),
                     book.getAuthor(),
@@ -168,8 +166,8 @@ public class BookItemView {
 
     }
 
-    private int inputId(InputOption option) {
-        int id;
+    private long inputId(InputOption option) {
+        long id;
         switch (option) {
             case ADD:
                 System.out.println("Nhập Id");
@@ -183,7 +181,7 @@ public class BookItemView {
         }
         boolean isRetry = false;
         do {
-            id = AppUtils.retryParseInt();
+            id = AppUtils.retryParseLong();
             boolean exist = bookService.existsById(id);
             switch (option) {
                 case ADD:
@@ -203,40 +201,41 @@ public class BookItemView {
         return id;
     }
 
-    private String inputTitle(InputOption option) {
+    private CharSequence inputBarcode(InputOption option) {
         switch (option) {
             case ADD:
-                System.out.println("Nhập tên sách ");
+                System.out.println("Nhập mã Barcode ");
                 break;
             case UPDATE:
-                System.out.println("Nhập tên sách muốn sửa: ");
+                System.out.println("Nhập mã Barcode muốn sửa: ");
                 break;
         }
-        return AppUtils.retryString("Tên sách");
+        return (AppUtils.retryString("Mã Barcode"));
     }
 
-    private String inputAuthor(InputOption option) {
+    private Instant inputBorrowedAt(InputOption option) {
         switch (option) {
             case ADD:
-                System.out.println("Nhập tên tác giả ");
+                System.out.println("Nhập ngày mượn sách ");
                 break;
             case UPDATE:
-                System.out.println("Nhập tên tác giả muốn sửa: ");
+                System.out.println("Nhập ngày mượn sách muốn sửa: ");
                 break;
         }
-        return AppUtils.retryString("Tên tác giả");
+        return Instant.parse(AppUtils.retryString("Mã Barcode"));
+
     }
 
-    private String inputSubject(InputOption option) {
+    private String InputDueAt(InputOption option) {
         switch (option) {
             case ADD:
-                System.out.println("Nhập chủ đề sách: ");
+                System.out.println("Nhập ngày trả sách ");
                 break;
             case UPDATE:
-                System.out.println("Nhập chủ đề sách muốn sửa: ");
+                System.out.println("Nhập ngày trả sách muốn sửa: ");
                 break;
         }
-        return AppUtils.retryString("Chủ đề");
+        return AppUtils.retryString("Hạn trả sách");
     }
 
     private String inputPublisher(InputOption option) {
@@ -313,6 +312,12 @@ public class BookItemView {
             if (numberOfPages <= 0) System.out.println("Số trang phải lớn hơn 0 (số trang > 0)");
         } while (numberOfPages <= 0);
         return numberOfPages;
+    }
+
+
+    public void showBookSort(){
+
+
     }
 
 //    public void showProductsSort(InputOption inputOption, List<Bô> products) {

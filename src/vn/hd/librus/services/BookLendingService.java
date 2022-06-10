@@ -61,6 +61,7 @@ public class BookLendingService implements  IBookLendingService{
     public void update(BookLending newBook) {
         List<BookLending> books = findAll();
         for (BookLending book : books) {
+
 //            if (book.getIsbn() == newBook.getIsbn()) {
 //                String title = newBook.getTitle();
 //                if (title != null && !title.isEmpty())

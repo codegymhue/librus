@@ -49,6 +49,19 @@ public class AppUtils {
         return result;
     }
 
+    public static long retryParseLong(){
+        long result;
+        do {
+            System.out.println("⭆");
+            try{
+                result = Long.parseLong(scanner.nextLine());
+                return result;
+            }catch (Exception e){
+                System.out.println("Nhập sai.Vui lòng nhập lại.");
+            }
+        } while (true);
+    }
+
     public static double retryParseDouble() {
         double result;
         do {

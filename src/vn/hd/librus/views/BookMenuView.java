@@ -1,44 +1,41 @@
 package vn.hd.librus.views;
-
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class BookItemMenuView {
-
-//    public static void main(String[] args) {
-//        BookItemMenuView.launch();
-//    }
-
+public class BookMenuView {
     public static void launch() {
         int choice;
         do {
             Scanner input = new Scanner(System.in);
-            BookItemView bookItemView = new BookItemView();
-            menuBookItem();
+            BookView bookView = new BookView();
+            menuBook();
             try {
                 System.out.println("Chọn chức năng :");
                 System.out.println("=>");
                 choice = input.nextInt();
                 switch (choice) {
                     case 1:
-                        bookItemView.add();
+                        bookView.add();
                         break;
                     case 2:
-                        bookItemView.update();
+                        bookView.update();
                         break;
                     case 3:
-                        bookItemView.remove();
+                        bookView.remove();
                         break;
                     case 4:
-                        bookItemView.showBooks(InputOption.SHOW);
+                        bookView.showBooks(InputOption.SHOW);
                         break;
                     case 5:
-                        System.out.println("Find Book");
+                        bookView.findBooksByName();
                         break;
-                    case 6:
-                        MenuView.managementBook();
+                    case 6 :
+                        bookView.findBooksByAuthor();
                         break;
                     case 7:
+                       // MenuView.managementBook();
+                        break;
+                    case 8:
                         System.exit(0);
                         break;
                     default:
@@ -54,15 +51,16 @@ public class BookItemMenuView {
         } while (true);
     }
 
-    public static void menuBookItem() {
-        System.out.println("*------------ Menu BookItem ----------*");
-        System.out.println("|    1.Add book                       |");
-        System.out.println("|    2.Update book                    |");
-        System.out.println("|    3.Remove book                    |");
-        System.out.println("|    4.Show Book                      |");
-        System.out.println("|    5.Find Book                      |");
-        System.out.println("|    6.Back to Menu ManagementBook    |");
-        System.out.println("|    7.Exit                           |");
+    public static void menuBook() {
+        System.out.println("*-------------- Menu Book  -----------*");
+        System.out.println("|    1.Thêm sách                       |");
+        System.out.println("|    2.Chỉnh sửa sách                  |");
+        System.out.println("|    3.Xóa sách                        |");
+        System.out.println("|    4.Hiển thị danh sách sách         |");
+        System.out.println("|    5.Tìm kiếm sách theo tên sách     |");
+        System.out.println("|    6.Tìm kiếm sách theo tên tác giả  |");
+        System.out.println("|    7.Quay lại Menu                   |");
+        System.out.println("|    8.Exit                            |");
         System.out.println("*-------------------------------------*");
 
     }

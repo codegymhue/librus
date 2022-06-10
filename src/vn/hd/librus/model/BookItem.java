@@ -1,5 +1,7 @@
 package vn.hd.librus.model;
 
+import vn.hd.librus.utils.InstantUtils;
+
 import java.time.Instant;
 
 public class BookItem {
@@ -28,9 +30,9 @@ public class BookItem {
         bookItem.price = Double.parseDouble(fields[4]);
         bookItem.format = BookFormat.parserBookFormat(fields[5]);
         bookItem.status = BookStatus.parseBookStatus(fields[6]);
-        bookItem.dateOfPurchase = Instant.parse(fields[7]);
-        bookItem.publicationAt = Instant.parse(fields[8]);
-        bookItem.updatedAt = Instant.parse(fields[9]);
+        bookItem.dateOfPurchase = InstantUtils.parseInstant(fields[7]);
+        bookItem.publicationAt = InstantUtils.parseInstant(fields[8]);
+        bookItem.updatedAt = InstantUtils.parseInstant(fields[9]);
         bookItem.bookId = Long.parseLong(fields[10]);
         return bookItem;
     }

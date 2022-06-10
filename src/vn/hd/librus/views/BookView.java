@@ -3,13 +3,24 @@ package vn.hd.librus.views;
 
 import vn.hd.librus.model.Book;
 import vn.hd.librus.services.IBookService;
+import vn.hd.librus.sort.SortByIsbnASC;
+import vn.hd.librus.sort.SortByIsbnDESC;
+import vn.hd.librus.sort.SortByNameASC;
+import vn.hd.librus.sort.SortByNameDES;
 import vn.hd.librus.utils.AppUtils;
 import vn.hd.librus.services.BookService;
 import vn.hd.librus.utils.InstantUtils;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class BookView {
+
+    public static void main(String[] args) {
+        BookView bookView = new BookView();
+        bookView.update();
+    }
     private IBookService bookService; //Dependency Inversion Principle (SOLID)
     private final Scanner scanner = new Scanner(System.in);
 
@@ -20,7 +31,7 @@ public class BookView {
     public void add() {
         do {
 //                int id = inputId(InputOption.ADD);
-              long id = System.currentTimeMillis() / 1000;
+            long id = System.currentTimeMillis() / 1000;
             String isbn = inputISBN(InputOption.ADD);
             String title = inputTitle(InputOption.ADD);
             String author = inputAuthor(InputOption.ADD);
@@ -96,7 +107,7 @@ public class BookView {
     }
 
 
-    //Tái sử dụng khi sort tránh đổi thứ tự list gốc
+    //Tái sử dụng khi vn.hd.librus.sort tránh đổi thứ tự list gốc
     public void showBooks(InputOption inputOption) {
         System.out.println("-----------------------------------------DANH SÁCH SÁCH-------------------------------------------");
         System.out.printf("%-15s %-30s %-25s %-10s %-20s %-20s %-20s %-20s  %-20s  %-20s \n",
@@ -161,6 +172,76 @@ public class BookView {
         }
 
     }
+
+    public Book findBooksByName() {
+        bookService.findAll();
+        System.out.println("Nhập tên sách mà bạn muốn tìm kiếm : ");
+        String title = scanner.nextLine().toLowerCase();
+        for (Book book : bookService.findAll()) {
+            if (book.getTitle().toLowerCase().contains(title)) {
+                return book;
+            }
+        }
+        return null;
+    }
+
+    public List<Book> initBooks() {
+        List<Book> bookList = new ArrayList<>();
+        bookList.add(new Book("903753","Tuyết giữa mùa hè","Sayadaw UJotika","Văn học","First new","Tiếng Việt",200));
+        bookList.add(new Book("2748264","Sapiens - Lược sử loài người","Yuval Noah Harari","Khoa học","Omega plus","Tiếng Việt",443));
+        bookList.add(new Book("4586486","Pro SQL","Cu Tran","IT","CodeGym editor","English",180));
+        bookList.add(new Book("468268","Master JAVA Programming","Loc Vo","IT","LocVo Editor","English",100));
+        bookList.add(new Book("4517458164","The Diary of Anne Frank","Anne Frank","Autobiography","Omega Plus","English",500));
+        bookList.add(new Book("4361574","How to become master Dev-Java","Minh Bui","IT","CodeGym editor","English",120));
+
+        return bookList;
+    }
+
+
+
+    public void displayBook(){
+        int choice;
+        do{
+            showBooks(InputOption.SHOW);
+            System.out.println("1.Hiển thị danh sách BOOKS theo Tên (A-Z)");
+            System.out.println("2.Hiển thị danh sách BOOKS theo Tên (Z-A)");
+            System.out.println("3.Hiển thị danh sách BOOKS theo mã Isbn (tăng dần)");
+            System.out.println("4.Hiển thị danh sách BOOKS theo mã Isbn (giảm dần)");
+            System.out.println("5.Quay lại");
+            choice =  Integer.parseInt(scanner.nextLine());
+            switch (choice){
+                case 1 :
+                    initBooks().sort(new SortByNameASC());
+                    break;
+                case 2:
+                    initBooks().sort(new SortByNameDES());
+                    break;
+                case 3 :
+                    initBooks().sort(new SortByIsbnASC());
+                    break;
+                case 4:
+                    initBooks().sort(new SortByIsbnDESC());
+                    break;
+                case 5 :
+                    break;
+                default:
+                    System.out.println("Bạn đã nhập sai chức năng. Vui lòng nhập lại.");
+            }
+        }while (choice !=6);
+    }
+
+    public Book findBooksByAuthor() {
+        bookService.findAll();
+        System.out.println("Nhập tên tác giả mà bạn muốn tìm kiếm: ");
+        String author = scanner.nextLine().toLowerCase();
+        for (Book book : bookService.findAll()) {
+            if (book.getAuthor().toLowerCase().contains(author)) {
+                return book;
+            }
+        }
+        return null;
+    }
+
 
     private int inputId(InputOption option) {
         int id;
@@ -308,23 +389,5 @@ public class BookView {
         } while (numberOfPages <= 0);
         return numberOfPages;
     }
-
-//    public void showProductsSort(InputOption inputOption, List<Bô> products) {
-//        System.out.println("-----------------------------------------DANH SÁCH BÁNH-------------------------------------------");
-//        System.out.printf("%-15s %-30s %-25s %-10s %-20s %-20s %-20s\n", "Id", "Tên bánh", "Giá bánh", "Số lượng", "Ngày tạo", "Ngày cập nhật", "Mô tả");
-//        for (Product product : products) {
-//            System.out.printf("%-15d %-30s %-25s %-10d %-20s %-20s %-20s\n", product.getId(), product.getTitle(), AppUtils.doubleToVND(product.getPrice()), product.getQuantity(), InstantUtils.instantToString(product.getCreatedAt()), product.getUpdatedAt() == null ? "" : InstantUtils.instantToString(product.getUpdatedAt()), product.getDescription());
-//        }
-//        System.out.println("--------------------------------------------------------------------------------------------------\n");
-//        if (inputOption == InputOption.SHOW) AppUtils.isRetry(InputOption.SHOW);
-//    }
-
-//    public void sortByPriceOrderByASC() {
-//        showProductsSort(InputOption.SHOW, bookService.findAllOrderByPriceASC());
-//    }
-//
-//    public void sortByPriceOrderByDESC() {
-//        showProductsSort(InputOption.SHOW, bookService.findAllOrderByPriceDESC());
-//    }
 
 }
