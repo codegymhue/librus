@@ -5,10 +5,6 @@ import java.util.Scanner;
 
 public class BookItemMenuView {
 
-//    public static void main(String[] args) {
-//        BookItemMenuView.launch();
-//    }
-
     public static void launch() {
         int choice;
         do {
@@ -27,18 +23,16 @@ public class BookItemMenuView {
                         bookItemView.update();
                         break;
                     case 3:
-                        bookItemView.remove();
+
                         break;
                     case 4:
-                        bookItemView.showBooks(InputOption.SHOW);
+
                         break;
                     case 5:
-                        System.out.println("Find Book");
+
                         break;
+
                     case 6:
-                        MenuView.managementBook();
-                        break;
-                    case 7:
                         System.exit(0);
                         break;
                     default:
@@ -55,15 +49,15 @@ public class BookItemMenuView {
     }
 
     public static void menuBookItem() {
-        System.out.println("*------------ Menu BookItem ----------*");
-        System.out.println("|    1.Add book                       |");
-        System.out.println("|    2.Update book                    |");
-        System.out.println("|    3.Remove book                    |");
-        System.out.println("|    4.Show Book                      |");
-        System.out.println("|    5.Find Book                      |");
-        System.out.println("|    6.Back to Menu ManagementBook    |");
-        System.out.println("|    7.Exit                           |");
-        System.out.println("*-------------------------------------*");
+
+        System.out.println("┌ - - - - - - - Menu BookItem - - - - - ┐");
+        System.out.println("|   1.Thêm BookItem                     |");
+        System.out.println("|   2.Sửa BookItem                      |");
+        System.out.println("|   3.Checkout BookItem                 |");
+        System.out.println("|   4.Làm mới BookItem                  |");
+        System.out.println("|   5.Quay lại Menu                     |");
+        System.out.println("|   6.Thoát chương trình                |");
+        System.out.println("└ - - - - - -  - - - - - - - - - - - - -┘");
 
     }
 }

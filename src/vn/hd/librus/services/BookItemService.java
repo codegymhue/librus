@@ -1,7 +1,6 @@
 package vn.hd.librus.services;
 
 import vn.hd.librus.model.BookItem;
-import vn.hd.librus.model.BookLending;
 import vn.hd.librus.utils.CSVUtils;
 
 import java.util.ArrayList;
@@ -33,7 +32,7 @@ public class BookItemService implements IBookItemService {
 
     @Override
     public BookItem findById(long id) {
-        List<BookItem> bookItems = findAll();
+        List<BookItem> bookItems =findAll();
         for (BookItem bookItem : bookItems) {
             if (bookItem.getId() == id)
                 return bookItem;
@@ -68,23 +67,12 @@ public class BookItemService implements IBookItemService {
     }
 
     @Override
-    public void checkout(BookItem bookItem) {
-//        if(findByBarcode(bookItem.getBarcode()) !=null){
-//            returnBookItem(bookItem);
-//        }
+    public boolean checkout(BookItem bookItem) { return false;
     }
 
     @Override
     public void checkForFine(String barcode) {
-//        BookLending bookLending = BookLending.fetchLendingDetails(bookItemBarcode);
-//        Date dueDate = bookLending.getDueDate();
-//        Date today = new Date();
-//        // check if the book has been returned within the due date
-//        if (today.compareTo(dueDate) > 0) {
-//            long diff = todayDate.getTime() - dueDate.getTime();
-//            long diffDays = diff / (24 * 60 * 60 * 1000);
-//            Fine.collectFine(memberId, diffDays);
-//        }
+
 
     }
 
@@ -100,7 +88,7 @@ public class BookItemService implements IBookItemService {
 
     @Override
     public void add(BookItem newBook) {
-        List<BookItem> books = findAll();
+        List<BookItem> books =findAll();
         newBook.setBookId(System.currentTimeMillis() / 1000);
         books.add(newBook);
         CSVUtils.write(PATH, books);
@@ -111,34 +99,8 @@ public class BookItemService implements IBookItemService {
         List<BookItem> books = findAll();
         for (BookItem book : books) {
 
-//            if (book.getIsbn() == newBook.getIsbn()) {
-//                String title = newBook.getTitle();
-//                if (title != null && !title.isEmpty())
-//                    book.setTitle(newBook.getTitle());
-//
-//                String author = newBook.getAuthor();
-//                if (author != null)
-//                    book.setAuthor(newBook.getAuthor());
-//
-//                String subject = newBook.getSubject();
-//                if (subject != null)
-//                    book.setSubject(newBook.getSubject());
-//
-//                String publisher = newBook.getPublisher();
-//                if (publisher != null)
-//                    book.setPublisher(newBook.getPublisher());
-//
-//                String language = newBook.getLanguage();
-//                if (language != null)
-//                    book.setLanguage(newBook.getLanguage());
-//
-//                Integer numberOfPage = newBook.getNumberOfPages();
-//                if (numberOfPage != null)
-//                    book.setNumberOfPages(newBook.getNumberOfPages());
-//            }
         }
 
    }
-
 
 }

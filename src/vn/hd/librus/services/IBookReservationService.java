@@ -15,5 +15,4 @@ public interface IBookReservationService {
 
     BookReservation findById(long id);
 
-
 }

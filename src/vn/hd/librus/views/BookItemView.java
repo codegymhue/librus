@@ -1,8 +1,10 @@
 package vn.hd.librus.views;
 
+import vn.hd.librus.model.BookFormat;
 import vn.hd.librus.model.BookItem;
-import vn.hd.librus.services.BookService;
-import vn.hd.librus.services.IBookService;
+import vn.hd.librus.model.BookStatus;
+import vn.hd.librus.services.BookItemService;
+import vn.hd.librus.services.IBookItemService;
 import vn.hd.librus.utils.AppUtils;
 
 import java.time.Instant;
@@ -10,30 +12,30 @@ import java.util.Scanner;
 
 public class BookItemView {
 
-
-    private IBookService bookService; //Dependency Inversion Principle (SOLID)
+    private IBookItemService bookItemService;
     private final Scanner scanner = new Scanner(System.in);
 
 
     public BookItemView() {
-        bookService = BookService.getInstance();
-
+        bookItemService = BookItemService.getInstance();
     }
 
     public void add() {
         do {
-            //long id = inputId(InputOption.ADD);
-            //long id = System.currentTimeMillis() / 1000;
-            String isbn = inputISBN(InputOption.ADD);
+            long id = System.currentTimeMillis() / 1000;
             long barcode = inputBarcode(InputOption.ADD);
-            //String author = inputBorrowedAt(InputOption.ADD);
-            //   String subject = InputDueAt(InputOption.ADD);
-            // String publisher = inputPrice(InputOption.ADD);
-            String language = inputBookFormat(InputOption.ADD);
-            int numberOfPages = inputNumberOfPages(InputOption.ADD);
-            //    Book newBook = new Book( isbn, title, author, subject, publisher, language, numberOfPages);
-            //   bookService.add(newBook);
-            System.out.println("Bạn đã thêm sách thành công\n");
+            Instant borrowedAt = inputBorrowedAt(InputOption.ADD);
+            Instant dueAt = inputDueAt(InputOption.ADD);
+            double price = inputPrice(InputOption.ADD);
+            String format = inputBookFormat(InputOption.ADD);
+            String status = inputBookStatus(InputOption.ADD);
+            Instant dateOfPurchase = inputDateOfPurchase(InputOption.ADD);
+            Instant publicationAt = inputPulicationAt(InputOption.ADD);
+            Instant updatedAt = inputUpdateAt(InputOption.ADD);
+            Long bookId = inputBookId(InputOption.ADD);
+            BookItem newBookItem = new BookItem(id, barcode, borrowedAt, dueAt, price, format,
+                    status,dateOfPurchase,publicationAt,updatedAt,bookId);
+            System.out.println("Bạn đã thêm BookItem thành công\n");
 
         } while (AppUtils.isRetry(InputOption.ADD));
     }
@@ -41,130 +43,128 @@ public class BookItemView {
     public void update() {
         boolean isRetry;
         do {
-            //showBooks(InputOption.UPDATE);
-            //  String id = inputISBN(InputOption.UPDATE);
+            showBooksItem(InputOption.UPDATE);
             long id = inputId(InputOption.UPDATE);
-            System.out.println("┌ - - - - SỬA  - - - ┐");
-            System.out.println("| 1.Sửa tên sách     |");
-            System.out.println("| 2.Sửa tác giả      |");
-            System.out.println("| 3.Sửa chủ đề       |");
-            System.out.println("| 4.Sửa nhà xuất bản |");
-            System.out.println("| 5.Sửa ngôn ngữ     |");
-            System.out.println("| 6.Sửa số trang     |");
-            System.out.println("| 7.Quay lại MENU    |");
-            System.out.println("└ - - - - - -  - - - ┘");
+            System.out.println("┌ - - - - - - - SỬA  - - - - - ┐");
+            System.out.println("| 1.Sửa barcode                |");
+            System.out.println("| 2.Sửa ngày mượn sách         |");
+            System.out.println("| 3.Sửa ngày trả sách          |");
+            System.out.println("| 4.Sửa giá sách               |");
+            System.out.println("| 5.Sửa định dạng sách         |");
+            System.out.println("| 6.Sửa trạng thái sách        |");
+            System.out.println("| 7.Sửa ngày mua sách          |");
+            System.out.println("| 8.Sửa ngày xuất bản sách     |");
+            System.out.println("| 9.Sửa ngày update sách       |");
+            System.out.println("| 10.Quay lại Menu             |");
+            System.out.println("└ - - - - - -  - - - - - - - - ┘");
             System.out.println("Chọn chức năng: ");
-            int option = AppUtils.retryChoose(1, 7);
+            int option = AppUtils.retryChoose(1, 10);
             BookItem newBookItem = new BookItem();
             newBookItem.setId(id);
-            //newBook.setId(id);
+
             switch (option) {
                 case 1:
-//                    long title = inputBarcode(InputOption.UPDATE);
-//                    newBookItem.setTitle(title);
-//                    bookService.update(newBook);
-//                    System.out.println("Tên sách đã cập nhật thành công");
+                    long barcode = inputBarcode(InputOption.UPDATE);
+                    newBookItem.setBarcode(barcode);
+                    bookItemService.update(newBookItem);
+                    System.out.println("Barcode sách đã cập nhật thành công");
                     break;
                 case 2:
-//                    String author = inputBorrowedAt(InputOption.UPDATE);
-//                    newBook.setAuthor(author);
-//                    bookService.update(newBook);
-//                    System.out.println("Tác giả đã cập nhật thành công");
+                    Instant borrowedAt  = inputBorrowedAt(InputOption.UPDATE);
+                    newBookItem.setBorrowedAt(borrowedAt);
+                    bookItemService.update(newBookItem);
+                    System.out.println("Ngày mượn sách đã cập nhật thành công");
                     break;
                 case 3:
-//                    String subject = InputDueAt(InputOption.UPDATE);
-//                    newBook.setSubject(subject);
-//                    bookService.update(newBook);
-//                    System.out.println("Tác giả đã cập nhật thành công");
+                    Instant dueAt = inputDueAt(InputOption.UPDATE);
+                    newBookItem.setDueAt(dueAt);
+                    bookItemService.update(newBookItem);
+                    System.out.println("Ngày trả sách đã cập nhật thành công");
                     break;
                 case 4:
-//                    String publisher = inputPrice(InputOption.UPDATE);
-//                    newBook.setPublisher(publisher);
-//                    bookService.update(newBook);
-//                    System.out.println("Tác giả đã cập nhật thành công");
+                    double price = inputPrice(InputOption.UPDATE);
+                    newBookItem.setPrice(price);
+                    bookItemService.update(newBookItem);
+                    System.out.println("Gía sách đã cập nhật thành công");
                     break;
                 case 5:
-//                    String language = inputBookFormat(InputOption.UPDATE);
-//                    newBook.setPublisher(language);
-//                    bookService.update(newBook);
-//                    System.out.println("Tác giả đã cập nhật thành công");
+                    String bookFormat = inputBookFormat(InputOption.UPDATE);
+                    newBookItem.setFormat(BookFormat.parserBookFormat(bookFormat));
+                    bookItemService.update(newBookItem);
+                    System.out.println("Định dạng sách đã cập nhật thành công");
                     break;
                 case 6:
-//                    int numberOfPages = inputNumberOfPages(InputOption.UPDATE);
-//                    newBook.setNumberOfPages(numberOfPages);
-//                    bookService.update(newBook);
-//                    System.out.println("Số trang sách thành công");
+                    String status = inputBookStatus(InputOption.UPDATE);
+                    newBookItem.setStatus(BookStatus.parseBookStatus(status));
+                    bookItemService.update(newBookItem);
+                    System.out.println("Trạng thái sách đã cập nhật thành công");
                     break;
+                case 7 :
+                    Instant dateOfPurchase = inputDateOfPurchase(InputOption.UPDATE);
+                    newBookItem.setDateOfPurchase(dateOfPurchase);
+                    bookItemService.update(newBookItem);
+                    System.out.println("Ngày mua sách đã cập nhật thành công");
+                    break;
+                case 8 :
+                    Instant publicationAt = inputPulicationAt(InputOption.UPDATE);
+                    newBookItem.setPublicationAt(publicationAt);
+                    bookItemService.update(newBookItem);
+                    System.out.println("Ngày xuất bản sách đã cập nhật thành công");
+                    break;
+                case 9 :
+                    Instant updatedAt = inputUpdateAt(InputOption.UPDATE);
+                    newBookItem.setUpdatedAt(updatedAt);
+                    bookItemService.update(newBookItem);
+                    System.out.println("Ngày updated sách đã cập nhật thành công");
+                    break;
+                case 10 :
+                    break;
+
             }
-            isRetry = option != 7 && AppUtils.isRetry(InputOption.UPDATE);
+            isRetry = option != 10 && AppUtils.isRetry(InputOption.UPDATE);
         } while (isRetry);
     }
 
 
+
     //Tái sử dụng khi vn.hd.librus.sort tránh đổi thứ tự list gốc
-    public void showBooks(InputOption inputOption) {
-        System.out.println("-----------------------------------------DANH SÁCH SÁCH-------------------------------------------");
-        System.out.printf(" %-10s %-20s %-15s %-15s %-15s %-10s %-10s  %-10s  %-10s \n",
-                "ISBN",
-                "Tên sách",
-                "Tác giả",
-                "Chủ đề",
-                "Nhà xuất bản",
-                "Ngôn ngữ",
-                "Số trang",
-                "Ngày tạo",
-                "Ngày cập nhật");
-//        for (Book book : bookService.findAll()) {
-//            System.out.printf(" %-10s %-20s %-15s %-15s %-15s %-10s %-10s  %-10s  %-10s \n",
-//                    //book.getId(),
-//                    book.getIsbn(),
-//                    book.getTitle(),
-//                    book.getAuthor(),
-//                    book.getSubject(),
-//                    book.getPublisher(),
-//                    book.getLanguage(),
-//                    book.getNumberOfPages(),
-//                    InstantUtils.instantToString(book.getCreatedAt()),
-//                    book.getUpdatedAt() == null ? "" : InstantUtils.instantToString(book.getUpdatedAt()));
-//        }
-//        System.out.println("--------------------------------------------------------------------------------------------------\n");
-//        if (inputOption == InputOption.SHOW) AppUtils.isRetry(InputOption.SHOW);
+    public void showBooksItem(InputOption inputOption) {
+        System.out.println("-----------------------------------------BOOK ITEM-------------------------------------------");
+        System.out.printf(" %-15s %-15s %-15s %-15s %-15s %-15s %-15s  %-15s  %-15s %-15s %-15s  %-15s \n",
+                "Id",
+                "Barcode",
+                "Ngày mượn sách",
+                "Ngày trả sách",
+                "Gía sách",
+                "Định dạng sách",
+                "Trạng thái sách",
+                "Ngày mua sách",
+                "Ngày xuất bản sách",
+                "Ngày update",
+                "Id của sách",
+                "Sách",
+        "");
+        for (BookItem bookItem : bookItemService.findAll()) {
+            System.out.printf(" %-15s %-15s %-15s %-15s %-15s %-15s %-15s  %-15s  %-15s %-15s %-15s  %-15s \n",
+                    bookItem.getId(),
+                    bookItem.getBarcode(),
+                    bookItem.getBorrowedAt(),
+                    bookItem.getDueAt(),
+                    bookItem.getPrice(),
+                    bookItem.getFormat(),
+                    bookItem.getStatus(),
+                    bookItem.getDateOfPurchase(),
+                    bookItem.getPublicationAt(),
+                    bookItem.getUpdatedAt(),
+                    bookItem.getBookId(),
+                    bookItem.getBook(),
+                    "");
+
+        }
+        System.out.println("--------------------------------------------------------------------------------------------------\n");
+        if (inputOption == InputOption.SHOW) AppUtils.isRetry(InputOption.SHOW);
     }
 
-    public void remove() {
-        showBooks(InputOption.DELETE);
-        long id;
-        while (!bookService.existsById(id = inputId(InputOption.DELETE))) {
-            System.out.println("Không tìm thấy sản phẩm cần xóa");
-            System.out.println("Nhấn 'y' để thêm tiếp \t|\t 'q' để quay lại \t|\t 't' để thoát chương trình");
-            System.out.print(" ⭆ ");
-            String option = scanner.nextLine();
-            switch (option) {
-                case "y":
-                    break;
-                case "q":
-                    return;
-                case "t":
-                    AppUtils.exit();
-                    break;
-                default:
-                    System.out.println("Chọn chức năng không đúng! Vui lòng chọn lại");
-                    break;
-            }
-        }
-
-        System.out.println("❄ ❄ ❄ ❄ REMOVE COMFIRM ❄ ❄ ❄");
-        System.out.println("❄  1. Nhấn 1 để xoá        ❄");
-        System.out.println("❄  2. Nhấn 2 để quay lại   ❄");
-        System.out.println("❄ ❄ ❄ ❄ ❄ ❄ ❄  ❄ ❄ ❄ ❄ ❄ ❄ ❄");
-        int option = AppUtils.retryChoose(1, 2);
-        if (option == 1) {
-            bookService.deleteById(id);
-            System.out.println("Đã xoá sản phẩm thành công! \uD83C\uDF8A");
-            AppUtils.isRetry(InputOption.DELETE);
-        }
-
-    }
 
     private long inputId(InputOption option) {
         long id;
@@ -182,7 +182,7 @@ public class BookItemView {
         boolean isRetry = false;
         do {
             id = AppUtils.retryParseLong();
-            boolean exist = bookService.existsById(id);
+            boolean exist = bookItemService.existById(id);
             switch (option) {
                 case ADD:
                     if (exist) {
@@ -201,17 +201,15 @@ public class BookItemView {
         return id;
     }
 
-    private long inputBarcode(InputOption option) {
-        switch (option) {
+    private long inputBarcode(InputOption option){
+        switch (option){
             case ADD:
-                System.out.println("Nhập mã Barcode ");
+                System.out.println("Nhập mã barcode cho sách:");
                 break;
             case UPDATE:
-                System.out.println("Nhập mã Barcode muốn sửa: ");
-                break;
+                System.out.println("Nhập mã barcode cần sửa cho sách");
         }
         return AppUtils.retryParseLong();
-
     }
 
     private Instant inputBorrowedAt(InputOption option) {
@@ -227,7 +225,7 @@ public class BookItemView {
 
     }
 
-    private Instant InputDueAt(InputOption option) {
+    private Instant inputDueAt(InputOption option) {
         switch (option) {
             case ADD:
                 System.out.println("Nhập ngày trả sách ");
@@ -237,8 +235,44 @@ public class BookItemView {
                 break;
         }
         return Instant.parse(AppUtils.retryString("Hạn trả sách"));
-
     }
+
+    private Instant inputDateOfPurchase(InputOption option){
+        switch (option){
+            case ADD:
+                System.out.println("Nhập ngày mua sách: ");
+                break;
+            case UPDATE:
+                System.out.println("Nhập ngày mua sách mà bạn muốn sửa:");
+                break;
+        }
+        return Instant.parse(AppUtils.retryString("Ngày mua sách"));
+    }
+
+    private Instant inputUpdateAt (InputOption option){
+        switch (option){
+            case ADD:
+                System.out.println("Nhập ngày update sách: ");
+                break;
+            case UPDATE:
+                System.out.println("Nhập ngày update sách mà bạn muốn sửa:");
+                break;
+        }
+        return Instant.parse(AppUtils.retryString("Ngày update sách"));
+    }
+
+    private Instant inputPulicationAt(InputOption option){
+        switch (option){
+            case ADD:
+                System.out.println("Nhập ngày phát hành sách: ");
+                break;
+            case UPDATE:
+                System.out.println("Nhập ngày phát hành sách mà bạn muốn sửa:");
+                break;
+        }
+        return Instant.parse(AppUtils.retryString("Ngày phát hành sách"));
+    }
+
 
     private double inputPrice(InputOption option) {
         switch (option) {
@@ -255,89 +289,36 @@ public class BookItemView {
     private String inputBookFormat(InputOption option) {
         switch (option) {
             case ADD:
-                System.out.println("Nhập ngôn ngữ của sách: ");
+                System.out.println("Nhập kiểu định dạng của sách:(Paperback/hardcover/newspaper/magazine/ebook) ");
                 break;
             case UPDATE:
-                System.out.println("Nhập ngôn ngữ của sách muốn sửa: ");
+                System.out.println("Nhập kiểu định dạng của sách muốn sửa:(Paperback/hardcover/newspaper/magazine/ebook) ");
                 break;
         }
-        return AppUtils.retryString("Ngôn ngữ sách");
+        return AppUtils.retryString("Kiểu định dạng");
     }
 
-    private String inputISBN(InputOption option) {
-        String isbn;
+    private String inputBookStatus(InputOption option){
         switch (option) {
             case ADD:
-                System.out.println("Nhập ISBN");
+                System.out.println("Nhập trạng thái của sách : ");
                 break;
             case UPDATE:
-                System.out.println("Nhập ISBN bạn muốn sửa");
-                break;
-            case DELETE:
-                System.out.println("Nhập ISBN bạn cần xoá: ");
+                System.out.println("Nhập trạng thái của sách muốn sửa: ");
                 break;
         }
-        boolean isRetry = false;
-        do {
-            isbn = AppUtils.retryString("ISBN");
-            boolean exist = bookService.existByISBN(isbn);
-            switch (option) {
-                case ADD:
-                    if (exist) {
-                        System.out.println("ISBN này đã tồn tại. Vui lòng nhập isbn khác!");
-                    }
-                    isRetry = exist;
-                    break;
-                case UPDATE:
-                    if (!exist) {
-                        System.out.println("Không tìm thấy isbn! Vui lòng nhập lại");
-                    }
-                    isRetry = !exist;
-                    break;
-            }
-        } while (isRetry);
-        return isbn;
+        return AppUtils.retryString("Kiểu định dạng");
     }
 
-    private int inputNumberOfPages(InputOption option) {
-        switch (option) {
+    private Long inputBookId(InputOption option){
+        switch (option){
             case ADD:
-                System.out.println("Nhập số trang sách: ");
+                System.out.println("Nhập Id của sách");
                 break;
             case UPDATE:
-                System.out.println("Nhập số trang sách muốn sửa: ");
+                System.out.println("Nhập Id của sách muốn sửa");
                 break;
         }
-        int numberOfPages;
-        do {
-            numberOfPages = AppUtils.retryParseInt();
-            if (numberOfPages <= 0) System.out.println("Số trang phải lớn hơn 0 (số trang > 0)");
-        } while (numberOfPages <= 0);
-        return numberOfPages;
+        return AppUtils.retryParseLong();
     }
-
-
-    public void showBookSort() {
-
-
-    }
-
-//    public void showProductsSort(InputOption inputOption, List<Bô> products) {
-//        System.out.println("-----------------------------------------DANH SÁCH BÁNH-------------------------------------------");
-//        System.out.printf("%-15s %-30s %-25s %-10s %-20s %-20s %-20s\n", "Id", "Tên bánh", "Giá bánh", "Số lượng", "Ngày tạo", "Ngày cập nhật", "Mô tả");
-//        for (Product product : products) {
-//            System.out.printf("%-15d %-30s %-25s %-10d %-20s %-20s %-20s\n", product.getId(), product.getTitle(), AppUtils.doubleToVND(product.getPrice()), product.getQuantity(), InstantUtils.instantToString(product.getCreatedAt()), product.getUpdatedAt() == null ? "" : InstantUtils.instantToString(product.getUpdatedAt()), product.getDescription());
-//        }
-//        System.out.println("--------------------------------------------------------------------------------------------------\n");
-//        if (inputOption == InputOption.SHOW) AppUtils.isRetry(InputOption.SHOW);
-//    }
-
-//    public void sortByPriceOrderByASC() {
-//        showProductsSort(InputOption.SHOW, bookService.findAllOrderByPriceASC());
-//    }
-//
-//    public void sortByPriceOrderByDESC() {
-//        showProductsSort(InputOption.SHOW, bookService.findAllOrderByPriceDESC());
-//    }
-
 }
