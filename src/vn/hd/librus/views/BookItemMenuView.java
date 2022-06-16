@@ -53,7 +53,7 @@ public class BookItemMenuView {
         System.out.println("┌ - - - - - - - Menu BookItem - - - - - ┐");
         System.out.println("|   1.Thêm BookItem                     |");
         System.out.println("|   2.Sửa BookItem                      |");
-        System.out.println("|   3.Checkout BookItem                 |");
+        System.out.println("|   3.Checkout BookItem                 |");//renew book + fine
         System.out.println("|   4.Làm mới BookItem                  |");
         System.out.println("|   5.Quay lại Menu                     |");
         System.out.println("|   6.Thoát chương trình                |");

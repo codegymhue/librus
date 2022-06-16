@@ -1,8 +1,11 @@
 package vn.hd.librus.services;
 
+import vn.hd.librus.Constants;
 import vn.hd.librus.model.BookItem;
 import vn.hd.librus.utils.CSVUtils;
 
+import java.time.Instant;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +15,6 @@ public class BookItemService implements IBookItemService {
 
     private BookItemService() {
     }
-
 
     public static BookItemService getInstance() {
         if (instance == null)
@@ -32,7 +34,7 @@ public class BookItemService implements IBookItemService {
 
     @Override
     public BookItem findById(long id) {
-        List<BookItem> bookItems =findAll();
+        List<BookItem> bookItems = findAll();
         for (BookItem bookItem : bookItems) {
             if (bookItem.getId() == id)
                 return bookItem;
@@ -48,8 +50,8 @@ public class BookItemService implements IBookItemService {
     @Override
     public BookItem findByBarcode(long barcode) {
         List<BookItem> bookItems = findAll();
-        for (BookItem bookItem : bookItems){
-            if (bookItem.getBarcode()== barcode){
+        for (BookItem bookItem : bookItems) {
+            if (bookItem.getBarcode() == barcode) {
                 return bookItem;
             }
         }
@@ -58,17 +60,18 @@ public class BookItemService implements IBookItemService {
 
     @Override
     public boolean existByBarcode(long barcode) {
-        return findByBarcode(barcode) !=null;
+        return findByBarcode(barcode) != null;
     }
 
-    @Override
-    public boolean reserveBookItem(BookItem bookItem) {
-        return false;
-    }
-
-    @Override
-    public boolean checkout(BookItem bookItem) { return false;
-    }
+//    @Override
+//    public boolean reserveBookItem(BookItem bookItem) {
+//        return false;
+//    }
+//
+//    @Override
+//    public boolean checkout(BookItem bookItem) {
+//        return false;
+//    }
 
     @Override
     public void checkForFine(String barcode) {
@@ -86,10 +89,19 @@ public class BookItemService implements IBookItemService {
 
     }
 
+
     @Override
     public void add(BookItem newBook) {
-        List<BookItem> books =findAll();
+        BookItem bookItem = new BookItem();
+        List<BookItem> books = findAll();
         newBook.setBookId(System.currentTimeMillis() / 1000);
+
+        Instant now = Instant.now();
+        bookItem.setBorrowedAt(now);
+
+        Instant dueAt = Instant.ofEpochMilli(now.toEpochMilli());
+        now.plus(Period.ofDays(Constants.MAX_LENDING_DAYS));
+
         books.add(newBook);
         CSVUtils.write(PATH, books);
     }
@@ -101,6 +113,6 @@ public class BookItemService implements IBookItemService {
 
         }
 
-   }
+    }
 
 }

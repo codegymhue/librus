@@ -1,5 +1,4 @@
 package vn.hd.librus.views;
-
 import vn.hd.librus.model.Book;
 import vn.hd.librus.services.IBookService;
 import vn.hd.librus.sort.SortByIsbnASC;
@@ -15,10 +14,6 @@ import java.util.Scanner;
 
 public class BookView {
 
-    public static void main(String[] args) {
-        BookView bookView = new BookView();
-        bookView.update();
-    }
     private IBookService bookService; //Dependency Inversion Principle (SOLID)
     private final Scanner scanner = new Scanner(System.in);
 
@@ -108,7 +103,7 @@ public class BookView {
     //Tái sử dụng khi vn.hd.librus.sort tránh đổi thứ tự list gốc
     public void showBooks(InputOption inputOption) {
         System.out.println("-----------------------------------------DANH SÁCH SÁCH-------------------------------------------");
-        System.out.printf("%-15s %-30s %-25s %-10s %-20s %-20s %-20s %-20s  %-20s  %-20s \n",
+        System.out.printf("  %-10s %-10s %-25s %-10s %-20s %-20s %-20s %-20s  %-20s  %-20s \n",
                 "Id",
                 "ISBN",
                 "Tên sách",
@@ -120,7 +115,7 @@ public class BookView {
                 "Ngày tạo",
                 "Ngày cập nhật");
         for (Book book : bookService.findAll()) {
-            System.out.printf("%-15s %-30s %-25s %-10s %-20s %-20s %-20s %-20s  %-20s  %-20s\n",
+            System.out.printf("%-10s %-10s %-25s %-10s %-20s %-20s %-20s %-20s  %-20s  %-20s\n",
                     book.getId(),
                     book.getIsbn(),
                     book.getTitle(),
@@ -191,7 +186,6 @@ public class BookView {
         bookList.add(new Book("468268","Master JAVA Programming","Loc Vo","IT","LocVo Editor","English",100));
         bookList.add(new Book("4517458164","The Diary of Anne Frank","Anne Frank","Autobiography","Omega Plus","English",500));
         bookList.add(new Book("4361574","How to become master Dev-Java","Minh Bui","IT","CodeGym editor","English",120));
-
         return bookList;
     }
 
@@ -200,7 +194,7 @@ public class BookView {
     public void displayBook(){
         int choice;
         do{
-            showBooks(InputOption.SHOW);
+            initBooks();
             System.out.println("1.Hiển thị danh sách BOOKS theo Tên (A-Z)");
             System.out.println("2.Hiển thị danh sách BOOKS theo Tên (Z-A)");
             System.out.println("3.Hiển thị danh sách BOOKS theo mã Isbn (tăng dần)");

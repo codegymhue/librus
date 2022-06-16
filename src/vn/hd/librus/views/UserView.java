@@ -14,12 +14,17 @@ import java.util.Scanner;
 
 public class UserView {//Single Responsibility Principle (SOLID)
 
+//    public static void main(String[] args) {
+//        UserView userView = new UserView();
+//        userView.login(Role.LIBRARIAN);
+//    }
     protected final IUserService userService;//Dependency Inversion Principle (SOLID)
     private final Scanner scanner = new Scanner(System.in);
 
     public UserView() {
         userService = UserService.getInstance();
     }
+
 
     public void addUser() {
         do {
@@ -66,11 +71,11 @@ public class UserView {//Single Responsibility Principle (SOLID)
     }
 
     public void showUsers(InputOption inputOption) {
-        System.out.println("----------------------------------------- DANH SÁCH NGƯỜI DÙNG--------------------------------------- ");
-        System.out.printf("%-15s %-22s %-15s %-22s %-20s %-10s %-20s %-20s\n", "Id", "Tên", "Số điện thoại", "Email", "Địa chỉ", "Người dùng", "Ngày tạo", "Ngày cập nhật");
+        System.out.println("------------------------------------------------------- DANH SÁCH NGƯỜI DÙNG --------------------------------------------------------- ");
+        System.out.printf("%-15s %-15s %-15s %-22s %-13s %-13s %-20s %-20s\n", "Id", "Tên", "Số điện thoại", "Email", "Địa chỉ", "Người dùng", "Ngày tạo", "Ngày cập nhật");
         List<User> users = userService.findAll();
         for (User user : users) {
-            System.out.printf("%-15d %-22s %-15s %-22s %-20s %-10s %-20s %-20s\n",
+            System.out.printf("%-15s %-15s %-15s %-22s %-13s %-13s %-20s %-20s\n",
                     user.getId(),
                     user.getFullName(),
                     user.getMobile(),
@@ -81,7 +86,7 @@ public class UserView {//Single Responsibility Principle (SOLID)
                     user.getUpdatedAt() == null ? "" : InstantUtils.instantToString(user.getUpdatedAt())
             );
         }
-        System.out.println("-----------------------------------------------------------------------------------------------------  ");
+        System.out.println("---------------------------------------------------------------------------------------------------------------------------------------  ");
         if (inputOption == InputOption.SHOW) AppUtils.isRetry(InputOption.SHOW);
     }
 
@@ -162,8 +167,8 @@ public class UserView {//Single Responsibility Principle (SOLID)
 
     public String inputUsername() {
         System.out.println("Nhập Username (không bao gồm dấu cách, kí tự đặc biệt)");
-        System.out.print(" ⭆ ");
-        String username;
+//        System.out.print(" ⭆ ");
+        String username ;
 
         do {
             if (!ValidateUtils.isUsernameValid(username = AppUtils.retryString("Username"))) {
@@ -185,7 +190,7 @@ public class UserView {//Single Responsibility Principle (SOLID)
     private String inputFullName(InputOption option) {
         switch (option) {
             case ADD:
-                System.out.println("Nhập họ và tên (vd: Ho Thi Thuan) ");
+                System.out.println("Nhập họ và tên (vd: Dinh Hang) ");
                 break;
             case UPDATE:
                 System.out.println("Nhập tên mà bạn muốn sửa đổi");
@@ -196,7 +201,7 @@ public class UserView {//Single Responsibility Principle (SOLID)
         String fullName;
         while (!ValidateUtils.isNameValid(fullName = scanner.nextLine())) {
             System.out.println("Tên " + fullName + "không đúng định dạng." + " Vui lòng nhập lại!" + " (Tên phải viết hoa chữ cái đầu và không dấu)");
-            System.out.println("Nhập tên (vd: Ho Thuan) ");
+            System.out.println("Nhập tên (vd: Dinh Hang) ");
             System.out.print(" ⭆ ");
         }
         return fullName;
@@ -233,19 +238,19 @@ public class UserView {//Single Responsibility Principle (SOLID)
     }
 
     private String inputEmail() {
-        System.out.println("Nhập email (vd: thuan@gmail.com)");
+        System.out.println("Nhập email (vd: hang@gmail.com)");
         System.out.print(" ⭆ ");
         String email;
         do {
             if (!ValidateUtils.isEmailValid(email = scanner.nextLine())) {
                 System.out.println("Email " + email + "của bạn không đúng định dạng! Vui lòng kiểm tra và nhập lại ");
-                System.out.println("Nhập email (vd: thuan@gmail.com)");
+                System.out.println("Nhập email (vd: hang@gmail.com)");
                 System.out.print(" ⭆ ");
                 continue;
             }
             if (userService.existsByEmail(email)) {
                 System.out.println("Email " + email + "của bạn đã tồn tại! vui lòng kiểm tra lại");
-                System.out.println("Nhập email (vd: thuan@gmail.com)");
+                System.out.println("Nhập email (vd: hang@gmail.com)");
                 System.out.print(" ⭆ ");
                 continue;
             }
@@ -300,7 +305,7 @@ public class UserView {//Single Responsibility Principle (SOLID)
                 isRetry = isRetry();
             } else {
                 System.out.println("Bạn đã đăng nhập thành công \uD83C\uDF8A \n");
-                System.out.println("CHÀO MỪNG BẠN ĐÃ ĐẾN VỚI THƯ VIỆN HẰNG ĐÌNH\n");
+                System.out.println("CHÀO MỪNG BẠN ĐÃ ĐẾN VỚI THƯ VIỆN HẰNG ĐINH\n");
                 isRetry = false;
             }
         } while (isRetry);

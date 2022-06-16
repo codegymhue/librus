@@ -69,6 +69,7 @@ public class UserService implements IUserService {
     @Override
     public void add(User newUser) {
         newUser.setCreatedAt(Instant.now());
+        newUser.setUpdatedAt(Instant.now());
         List<User> users = findAll();
         users.add(newUser);
         CSVUtils.write(PATH, users);
@@ -143,7 +144,6 @@ public class UserService implements IUserService {
 
     @Override
     public void blockMember(long id) {
-
     }
 
     @Override

@@ -3,7 +3,8 @@ package vn.hd.librus.utils;
 import java.util.regex.Pattern;
 
 public class ValidateUtils {
-    public static final String USERNAME_PATTERN = "^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$";
+//    public static final String USERNAME_PATTERN = "^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$";
+    public static final String USERNAME_PATTERN = "^[A-Za-z0-9_]{4,20}$";
     public static final String PASSWORD_PATTERN = "^([a-zA-Z0-9]{8,})";
     public static final String NAME_REGEX = "^([A-Z]+[a-z]*[ ]?)+$";
     public static final String PHONE_REGEX = "^[0][1-9][0-9]{8,9}$";
@@ -13,8 +14,8 @@ public class ValidateUtils {
         return Pattern.compile(PASSWORD_PATTERN).matcher(password).matches();
     }
 
-    public static boolean isUsernameValid(String password) {
-        return Pattern.compile(USERNAME_PATTERN).matcher(password).matches();
+    public static boolean isUsernameValid(String username) {
+        return Pattern.compile(USERNAME_PATTERN).matcher(username).matches();
     }
 
     public static boolean isNameValid(String name) {

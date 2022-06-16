@@ -148,6 +148,7 @@ public class Book {
 
     @Override
     public String toString() {
-        return String.format("%s,%s,%s,%s,%s,%s,%s", isbn, title, author, subject, publisher, language, numberOfPages);
+        return String.format("%s,%s,%s,%s,%s,%s,%s",
+                isbn, title, author, subject, publisher, language, numberOfPages);
     }
 }
