@@ -36,7 +36,7 @@ public class BookItemView {
             String format = inputBookFormat(InputOption.ADD);
             String status = inputBookStatus(InputOption.ADD);
             Instant dateOfPurchase = inputDateOfPurchase(InputOption.ADD);
-            Instant publicationAt = inputPulicationAt(InputOption.ADD);
+            Integer publicationAt = inputPulicationAt(InputOption.ADD);
             Instant updatedAt = inputUpdateAt(InputOption.ADD);
             Long bookId = inputBookId(InputOption.ADD);
             BookItem newBookItem = new BookItem(id, barcode, borrowedAt, dueAt, price, format,
@@ -112,7 +112,7 @@ public class BookItemView {
                     System.out.println("Ngày mua sách đã cập nhật thành công");
                     break;
                 case 8:
-                    Instant publicationAt = inputPulicationAt(InputOption.UPDATE);
+                    Integer publicationAt = inputPulicationAt(InputOption.UPDATE);
                     newBookItem.setPublicationAt(publicationAt);
                     bookItemService.update(newBookItem);
                     System.out.println("Ngày xuất bản sách đã cập nhật thành công");
@@ -270,7 +270,7 @@ public class BookItemView {
     }
 
     private Instant inputBorrowedAt(InputOption option) {
-        Instant borrowedAt ;
+        Instant borrowedAt = InstantUtils.parseInstant("Ngày mượn sách") ;
 ////        Instant instant = Instant.parse("2019-10-01");
 //
 //        // print result
@@ -294,11 +294,12 @@ public class BookItemView {
                 System.out.println("Nhập ngày mượn sách muốn sửa: ");
                 break;
         }
-        return InstantUtils.parseInstant(borrowedAt);
+        return borrowedAt;
 
     }
 
     private Instant inputDueAt(InputOption option) {
+        Instant dueAt = InstantUtils.parseInstant("Ngày trả sách");
         switch (option) {
             case ADD:
                 System.out.println("Nhập ngày trả sách ");
@@ -307,10 +308,11 @@ public class BookItemView {
                 System.out.println("Nhập ngày trả sách muốn sửa: ");
                 break;
         }
-        return Instant.parse(AppUtils.retryString("Hạn trả sách"));
+        return dueAt;
     }
 
     private Instant inputDateOfPurchase(InputOption option) {
+        Instant dateOfPurchase = InstantUtils.parseInstant("Ngày mua sách") ;
         switch (option) {
             case ADD:
                 System.out.println("Nhập ngày mua sách: ");
@@ -319,10 +321,11 @@ public class BookItemView {
                 System.out.println("Nhập ngày mua sách mà bạn muốn sửa:");
                 break;
         }
-        return Instant.parse(AppUtils.retryString("Ngày mua sách"));
+        return dateOfPurchase;
     }
 
     private Instant inputUpdateAt(InputOption option) {
+        Instant updatedAt = InstantUtils.parseInstant("Ngày update sách");
         switch (option) {
             case ADD:
                 System.out.println("Nhập ngày update sách: ");
@@ -331,10 +334,11 @@ public class BookItemView {
                 System.out.println("Nhập ngày update sách mà bạn muốn sửa:");
                 break;
         }
-        return Instant.parse(AppUtils.retryString("Ngày update sách"));
+        return updatedAt;
     }
 
-    private Instant inputPulicationAt(InputOption option) {
+    private int inputPulicationAt(InputOption option) {
+        int publicationAt = AppUtils.retryParseInt();
         switch (option) {
             case ADD:
                 System.out.println("Nhập ngày phát hành sách: ");
@@ -343,11 +347,12 @@ public class BookItemView {
                 System.out.println("Nhập ngày phát hành sách mà bạn muốn sửa:");
                 break;
         }
-        return Instant.parse(AppUtils.retryString("Ngày phát hành sách"));
+        return publicationAt ;
     }
 
 
     private double inputPrice(InputOption option) {
+        double price = AppUtils.retryParseDouble();
         switch (option) {
             case ADD:
                 System.out.println("Nhập giá sách : ");
@@ -356,10 +361,11 @@ public class BookItemView {
                 System.out.println("Nhập giá sách muốn sửa: ");
                 break;
         }
-        return (AppUtils.retryParseDouble());
+        return price;
     }
 
-    private String inputBookFormat(InputOption option) {
+    private BookFormat inputBookFormat(InputOption option) {
+        BookFormat format = BookFormat.parserBookFormat(AppUtils.retryString("")) ;
         switch (option) {
             case ADD:
                 System.out.println("Nhập kiểu định dạng của sách:(Paperback/hardcover/newspaper/magazine/ebook) ");
@@ -368,10 +374,11 @@ public class BookItemView {
                 System.out.println("Nhập kiểu định dạng của sách muốn sửa:(Paperback/hardcover/newspaper/magazine/ebook) ");
                 break;
         }
-        return AppUtils.retryString("Kiểu định dạng");
+        return format;
     }
 
-    private String inputBookStatus(InputOption option) {
+    private BookStatus inputBookStatus(InputOption option) {
+        BookStatus bookStatus = BookStatus.parseBookStatus(AppUtils.retryString("Kiểu định dạng"));
         switch (option) {
             case ADD:
                 System.out.println("Nhập trạng thái của sách : ");
@@ -380,10 +387,11 @@ public class BookItemView {
                 System.out.println("Nhập trạng thái của sách muốn sửa: ");
                 break;
         }
-        return AppUtils.retryString("Kiểu định dạng");
+        return bookStatus;
     }
 
     private Long inputBookId(InputOption option) {
+        long bookId = AppUtils.retryParseLong();
         switch (option) {
             case ADD:
                 System.out.println("Nhập Id của sách");
@@ -392,6 +400,6 @@ public class BookItemView {
                 System.out.println("Nhập Id của sách muốn sửa");
                 break;
         }
-        return AppUtils.retryParseLong();
+        return bookId;
     }
 }
