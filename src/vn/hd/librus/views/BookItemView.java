@@ -1,19 +1,19 @@
 package vn.hd.librus.views;
 
-import vn.hd.librus.model.*;
+import vn.hd.librus.model.BookFormat;
+import vn.hd.librus.model.BookItem;
+import vn.hd.librus.model.User;
 import vn.hd.librus.services.*;
 import vn.hd.librus.utils.AppUtils;
 import vn.hd.librus.utils.InstantUtils;
 
 import java.text.ParseException;
 import java.time.Instant;
-import java.util.Scanner;
 
 public class BookItemView {
     private IUserService userService;
     private IBookItemService bookItemService;
     private IBookLendingService bookLendingService;
-    private final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
         BookItemView bookItemView = new BookItemView();
@@ -28,18 +28,17 @@ public class BookItemView {
 
     public void add() {
         do {
-            long id = System.currentTimeMillis() / 1000;
             long barcode = inputBarcode(InputOption.ADD);
             Instant borrowedAt = inputBorrowedAt(InputOption.ADD);
             Instant dueAt = inputDueAt(InputOption.ADD);
             double price = inputPrice(InputOption.ADD);
             BookFormat format = inputBookFormat(InputOption.ADD);
-            //   String status = inputBookStatus(InputOption.ADD);
+
             Instant dateOfPurchase = inputDateOfPurchase(InputOption.ADD);
-            Integer publicationAt = inputPublicationAt(InputOption.ADD);
+            int publicationAt = inputPublicationAt(InputOption.ADD);
             Instant updatedAt = inputUpdateAt(InputOption.ADD);
             Long bookId = inputBookId(InputOption.ADD);
-            BookItem newBookItem = new BookItem(id, barcode, borrowedAt, dueAt, price, format,
+            BookItem newBookItem = new BookItem(barcode, borrowedAt, dueAt, price, format,
                     dateOfPurchase, publicationAt, updatedAt, bookId);
             System.out.println("Bạn đã thêm BookItem thành công\n");
 

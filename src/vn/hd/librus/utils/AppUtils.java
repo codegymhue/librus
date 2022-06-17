@@ -6,7 +6,7 @@ import java.text.DecimalFormat;
 import java.util.Scanner;
 
 public class AppUtils {
-    static Scanner scanner = new Scanner(System.in);
+    final static Scanner scanner = new Scanner(System.in);
 
     public static int retryChoose(int min, int max) {
         int option;
@@ -49,14 +49,14 @@ public class AppUtils {
         return result;
     }
 
-    public static long retryParseLong(){
+    public static long retryParseLong() {
         long result;
         do {
             System.out.println("⭆");
-            try{
+            try {
                 result = Long.parseLong(scanner.nextLine());
                 return result;
-            }catch (Exception e){
+            } catch (Exception e) {
                 System.out.println("Nhập sai.Vui lòng nhập lại.");
             }
         } while (true);

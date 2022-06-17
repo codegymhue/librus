@@ -21,7 +21,7 @@ public class BookItem {
     private Rack placedAt;
     private Book book;
 
-    public BookItem(long id, long barcode, Instant borrowedAt, Instant dueAt,
+    public BookItem(long barcode, Instant borrowedAt, Instant dueAt,
                     double price, BookFormat format, Instant dateOfPurchase,
                     int publicationAt, Instant updatedAt, Long bookId) {
         this.id = id;
@@ -39,7 +39,6 @@ public class BookItem {
     public BookItem() {
     }
 
-    ;
 
     public static BookItem parse(String record) {
         BookItem bookItem = new BookItem();
