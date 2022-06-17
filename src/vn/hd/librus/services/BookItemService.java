@@ -95,13 +95,10 @@ public class BookItemService implements IBookItemService {
         BookItem bookItem = new BookItem();
         List<BookItem> books = findAll();
         newBook.setBookId(System.currentTimeMillis() / 1000);
-
         Instant now = Instant.now();
         bookItem.setBorrowedAt(now);
-
-        Instant dueAt = Instant.ofEpochMilli(now.toEpochMilli());
-        now.plus(Period.ofDays(Constants.MAX_LENDING_DAYS));
-
+        bookItem.setDateOfPurchase(now);
+        bookItem.setPublicationAt(1);
         books.add(newBook);
         CSVUtils.write(PATH, books);
     }

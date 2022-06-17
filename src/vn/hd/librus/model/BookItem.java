@@ -14,7 +14,7 @@ public class BookItem {
     private BookFormat format;
     private BookStatus status;
     private Instant dateOfPurchase;
-    private Instant publicationAt;
+    private int publicationAt;
     private boolean referenceOnly;
     private Instant updatedAt;
     private Long bookId;
@@ -23,7 +23,7 @@ public class BookItem {
 
     public BookItem(long id, long barcode, Instant borrowedAt, Instant dueAt,
                     double price, String format, String status, Instant dateOfPurchase,
-                    Instant publicationAt, Instant updatedAt, Long bookId) {
+                    int publicationAt, Instant updatedAt, Long bookId) {
         this.id = id;
         this.barcode = barcode;
         this.borrowedAt = borrowedAt;
@@ -53,7 +53,7 @@ public class BookItem {
         bookItem.format = BookFormat.parserBookFormat(fields[5]);
         bookItem.status = BookStatus.parseBookStatus(fields[6]);
         bookItem.dateOfPurchase = InstantUtils.parseInstant(fields[7]);
-        bookItem.publicationAt = InstantUtils.parseInstant(fields[8]);
+        bookItem.publicationAt = Integer.parseInt(fields[8]);
         bookItem.updatedAt = InstantUtils.parseInstant(fields[9]);
         bookItem.bookId = Long.parseLong(fields[10]);
         return bookItem;
@@ -123,11 +123,11 @@ public class BookItem {
         this.dateOfPurchase = dateOfPurchase;
     }
 
-    public Instant getPublicationAt() {
+    public int getPublicationAt() {
         return publicationAt;
     }
 
-    public void setPublicationAt(Instant publicationAt) {
+    public void setPublicationAt(int publicationAt) {
         this.publicationAt = publicationAt;
     }
 
