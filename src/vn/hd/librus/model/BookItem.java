@@ -22,15 +22,15 @@ public class BookItem {
     private Book book;
 
     public BookItem(long id, long barcode, Instant borrowedAt, Instant dueAt,
-                    double price, String format, String status, Instant dateOfPurchase,
+                    double price, BookFormat format, BookStatus status, Instant dateOfPurchase,
                     int publicationAt, Instant updatedAt, Long bookId) {
         this.id = id;
         this.barcode = barcode;
         this.borrowedAt = borrowedAt;
         this.dueAt = dueAt;
         this.price = price;
-        this.format = BookFormat.parserBookFormat(format);
-        this.status = BookStatus.parseBookStatus(status);
+        this.format = BookFormat.parserBookFormat(format.getValue());
+        this.status = BookStatus.parseBookStatus(status.getValue());
         this.dateOfPurchase = dateOfPurchase;
         this.publicationAt = publicationAt;
         this.updatedAt = updatedAt;
@@ -39,8 +39,7 @@ public class BookItem {
 
     public BookItem() {
     }
-
-    ;
+    
 
     public static BookItem parse(String record) {
         BookItem bookItem = new BookItem();

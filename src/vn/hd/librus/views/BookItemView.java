@@ -33,8 +33,8 @@ public class BookItemView {
             Instant borrowedAt = inputBorrowedAt(InputOption.ADD);
             Instant dueAt = inputDueAt(InputOption.ADD);
             double price = inputPrice(InputOption.ADD);
-            String format = inputBookFormat(InputOption.ADD);
-            String status = inputBookStatus(InputOption.ADD);
+            BookFormat format = inputBookFormat(InputOption.ADD);
+            BookStatus status = inputBookStatus(InputOption.ADD);
             Instant dateOfPurchase = inputDateOfPurchase(InputOption.ADD);
             Integer publicationAt = inputPulicationAt(InputOption.ADD);
             Instant updatedAt = inputUpdateAt(InputOption.ADD);
