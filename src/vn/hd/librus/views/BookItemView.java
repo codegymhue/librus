@@ -9,15 +9,10 @@ import java.time.Instant;
 import java.util.Scanner;
 
 public class BookItemView {
-
-
     private IBookService bookService; //Dependency Inversion Principle (SOLID)
     private final Scanner scanner = new Scanner(System.in);
-
-
     public BookItemView() {
         bookService = BookService.getInstance();
-
     }
 
     public void add() {
