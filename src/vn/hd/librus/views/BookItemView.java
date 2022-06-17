@@ -29,12 +29,13 @@ public class BookItemView {
     public void add()  {
         do {
             long id = System.currentTimeMillis() / 1000;
-            long barcode = inputBarcode(InputOption.ADD);
-            Instant borrowedAt = inputBorrowedAt(InputOption.ADD);
-            Instant dueAt = inputDueAt(InputOption.ADD);
+//            long barcode = inputBarcode(InputOption.ADD);
+//            Instant borrowedAt = inputBorrowedAt(InputOption.ADD);
+//            Instant dueAt = inputDueAt(InputOption.ADD);
             double price = inputPrice(InputOption.ADD);
             BookFormat format = inputBookFormat(InputOption.ADD);
-            BookStatus status = inputBookStatus(InputOption.ADD);
+//            BookStatus status = inputBookStatus(InputOption.ADD);
+            status=Bo
             Instant dateOfPurchase = inputDateOfPurchase(InputOption.ADD);
             Integer publicationAt = inputPulicationAt(InputOption.ADD);
             Instant updatedAt = inputUpdateAt(InputOption.ADD);
@@ -94,14 +95,14 @@ public class BookItemView {
                     System.out.println("Gía sách đã cập nhật thành công");
                     break;
                 case 5:
-                    String bookFormat = inputBookFormat(InputOption.UPDATE);
-                    newBookItem.setFormat(BookFormat.parserBookFormat(bookFormat));
+                    BookFormat bookFormat = inputBookFormat(InputOption.UPDATE);
+                    newBookItem.setFormat(BookFormat.parserBookFormat(bookFormat.getValue()));
                     bookItemService.update(newBookItem);
                     System.out.println("Định dạng sách đã cập nhật thành công");
                     break;
                 case 6:
-                    String status = inputBookStatus(InputOption.UPDATE);
-                    newBookItem.setStatus(BookStatus.parseBookStatus(status));
+                    BookStatus status = inputBookStatus(InputOption.UPDATE);
+                    newBookItem.setStatus(BookStatus.parseBookStatus(status.getValue()));
                     bookItemService.update(newBookItem);
                     System.out.println("Trạng thái sách đã cập nhật thành công");
                     break;

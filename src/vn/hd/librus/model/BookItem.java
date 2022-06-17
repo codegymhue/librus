@@ -39,7 +39,7 @@ public class BookItem {
 
     public BookItem() {
     }
-    
+
 
     public static BookItem parse(String record) {
         BookItem bookItem = new BookItem();
