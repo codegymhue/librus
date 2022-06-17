@@ -3,6 +3,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class BookMenuView {
+
     public static void launch() {
         int choice;
         do {

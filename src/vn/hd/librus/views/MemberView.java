@@ -9,6 +9,10 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class MemberView extends UserView {
+    public static void main(String[] args) {
+        MemberView memberView = new MemberView();
+        memberView.launch();
+    }
     private final IBookItemService bookItemService;
 
     public MemberView() {
@@ -38,7 +42,7 @@ public class MemberView extends UserView {
                         BookItemMenuView.launch();
                         break;
                     case 3:
-                        BookReservationMenuView.launch();
+                       // BookReservationMenuView.launch();
                         break;
                     default:
                         System.out.println("Chọn chức năng không đúng! Vui lòng chọn lại");
@@ -66,10 +70,10 @@ public class MemberView extends UserView {
     }
 
     public void showMenu() {
-        System.out.println("✬                                                                       ✬");
-        System.out.println("✬     1. Đổi thông tin cá nhân                 ✬");
+        System.out.println("✬                                 ✬");
+        System.out.println("✬     1. Đổi thông tin cá nhân    ✬");
         System.out.println("✬     2. Xem sách đang mượn       ✬");
-        System.out.println("✬                                  ✬");
+        System.out.println("✬                                 ✬");
         System.out.println("✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬");
     }
 }

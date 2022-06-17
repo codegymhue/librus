@@ -1,16 +1,25 @@
 package vn.hd.librus.services;
 
+import vn.hd.librus.Constants;
+import vn.hd.librus.model.BookItem;
 import vn.hd.librus.model.BookLending;
+import vn.hd.librus.model.BookStatus;
+import vn.hd.librus.model.LendingStatus;
 import vn.hd.librus.utils.CSVUtils;
 
+import java.time.Instant;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BookLendingService implements  IBookLendingService{
+public class BookLendingService implements IBookLendingService {
     public final static String PATH = "data/books.csv";
+    private IBookItemService bookItemService;
+
     private static BookLendingService instance;
 
     private BookLendingService() {
+        bookItemService = BookItemService.getInstance();
     }
 
     public static BookLendingService getInstance() {
@@ -40,9 +49,41 @@ public class BookLendingService implements  IBookLendingService{
     }
 
     @Override
-    public boolean lendBook(String barcode, long userId) {
-        return false;
+    public boolean isBookIssuedQuotaExceeded(long userId) {
+        return countBookItemLendingByUserIdAndStatus(userId) >= Constants.MAX_BOOKS_ISSUED_TO_A_USER;
     }
+
+    @Override
+    public int countBookItemLendingByUserIdAndStatus(long userId) {
+        int count = 0;
+
+        // findAll()
+        //tim lending co status != Return && userId ==userId tham so
+
+        return 0;
+    }
+
+    @Override
+    public void lendBook(long userId, long bookItemId) {
+        BookItem bookItem = bookItemService.findById(bookItemId);
+        BookLending bookLending = new BookLending();
+        bookLending.setId(System.currentTimeMillis() / 1000);
+        bookLending.setBookItemId(bookItemId);
+        bookLending.setUserId(userId);
+       // bookLending.setStatus(LendingStatus.parseRole("DUE"));
+        bookLending.setStatus(LendingStatus.DUE);
+        Instant now = Instant.now();
+        bookLending.setCreatedAt(now);
+
+        Instant dueAt = Instant.ofEpochMilli(now.toEpochMilli());
+        now.plus(Period.ofDays(Constants.MAX_LENDING_DAYS));
+        bookLending.setDueAt(dueAt);
+
+        bookItem.setStatus(BookStatus.LOANED);
+        bookItemService.update(bookItem);
+
+    }
+
 
     @Override
     public boolean existById(long id) {

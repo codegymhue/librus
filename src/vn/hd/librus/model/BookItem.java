@@ -15,19 +15,40 @@ public class BookItem {
     private BookStatus status;
     private Instant dateOfPurchase;
     private Instant publicationAt;
-    boolean isReferenceOnly;
+    private boolean referenceOnly;
     private Instant updatedAt;
     private Long bookId;
     private Rack placedAt;
     private Book book;
+
+    public BookItem(long id, long barcode, Instant borrowedAt, Instant dueAt,
+                    double price, String format, String status, Instant dateOfPurchase,
+                    Instant publicationAt, Instant updatedAt, Long bookId) {
+        this.id = id;
+        this.barcode = barcode;
+        this.borrowedAt = borrowedAt;
+        this.dueAt = dueAt;
+        this.price = price;
+        this.format = BookFormat.parserBookFormat(format);
+        this.status = BookStatus.parseBookStatus(status);
+        this.dateOfPurchase = dateOfPurchase;
+        this.publicationAt = publicationAt;
+        this.updatedAt = updatedAt;
+        this.bookId = bookId;
+    }
+
+    public BookItem() {
+    }
+
+    ;
 
     public static BookItem parse(String record) {
         BookItem bookItem = new BookItem();
         String[] fields = record.split(",");
         bookItem.id = Long.parseLong(fields[0]);
         bookItem.barcode = Long.parseLong(fields[1]);
-        bookItem.borrowedAt = Instant.parse(fields[2]);
-        bookItem.dueAt = Instant.parse(fields[3]);
+        bookItem.borrowedAt = InstantUtils.parseInstant(fields[2]);
+        bookItem.dueAt = InstantUtils.parseInstant(fields[3]);
         bookItem.price = Double.parseDouble(fields[4]);
         bookItem.format = BookFormat.parserBookFormat(fields[5]);
         bookItem.status = BookStatus.parseBookStatus(fields[6]);
@@ -46,7 +67,7 @@ public class BookItem {
         this.id = id;
     }
 
-    public Long getBarcode() {
+    public long getBarcode() {
         return barcode;
     }
 
@@ -111,12 +132,13 @@ public class BookItem {
     }
 
     public boolean isReferenceOnly() {
-        return isReferenceOnly;
+        return referenceOnly;
     }
 
     public void setReferenceOnly(boolean referenceOnly) {
-        isReferenceOnly = referenceOnly;
+        this.referenceOnly = referenceOnly;
     }
+
 
     public long getBookId() {
         return bookId;
@@ -154,7 +176,7 @@ public class BookItem {
                 status,
                 dateOfPurchase,
                 publicationAt,
-                isReferenceOnly,
+                referenceOnly,
                 updatedAt,
                 bookId,
                 placedAt
@@ -162,3 +184,5 @@ public class BookItem {
 
     }
 }
+
+

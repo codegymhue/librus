@@ -5,7 +5,7 @@ import vn.hd.librus.model.BookItem;
 import java.util.List;
 
 public interface IBookItemService {
-    List<BookItem> findAll();
+    abstract List<BookItem> findAll();
 
     BookItem findById(long id);
 
@@ -19,14 +19,15 @@ public interface IBookItemService {
 
     boolean existByBarcode(long barcode);
 
-    boolean reserveBookItem(BookItem bookItem);
+    //boolean reserveBookItem(BookItem bookItem);
 
-    void checkout(BookItem bookItem);
+   // boolean checkout(BookItem bookItem);
 
     void checkForFine(String barcode);
 
     boolean renewBookItem(BookItem bookItem);
 
     void returnBookItem(BookItem bookItem);
+
 
 }

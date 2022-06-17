@@ -4,8 +4,9 @@ import java.time.Instant;
 
 public class BookLending {
     private Long id;
-    private Long bookItemBarcode;
+    private Long bookItemId;
     private Long userId;
+    private LendingStatus status;
     private Instant createdAt;
     private Instant dueAt;
     private Instant returnAt;
@@ -22,12 +23,12 @@ public class BookLending {
         this.id = id;
     }
 
-    public Long getBookItemBarcode() {
-        return bookItemBarcode;
+    public Long getBookItemId() {
+        return bookItemId;
     }
 
-    public void setBookItemBarcode(Long bookItemBarcode) {
-        this.bookItemBarcode = bookItemBarcode;
+    public void setBookItemId(Long bookItemId) {
+        this.bookItemId = bookItemId;
     }
 
     public Long getUserId() {
@@ -36,6 +37,14 @@ public class BookLending {
 
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    public LendingStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(LendingStatus status) {
+        this.status = status;
     }
 
     public Instant getCreatedAt() {
