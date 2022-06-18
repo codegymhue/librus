@@ -17,7 +17,7 @@ public class BookItemMenuView {
                 choice = input.nextInt();
                 switch (choice) {
                     case 1:
-                        bookItemView.add();
+                      //  bookItemView.add();
                         break;
                     case 2:
                         bookItemView.update();

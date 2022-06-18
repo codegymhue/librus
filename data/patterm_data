@@ -1,0 +1,2 @@
+Bookitem.data
+id|barcode|publisher|numberOfPages|borrowedAt|dueAt|price|format|status|dateOfPurchase|publicationAt|updatedAt|bookId

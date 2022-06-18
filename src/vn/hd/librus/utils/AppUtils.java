@@ -6,14 +6,14 @@ import java.text.DecimalFormat;
 import java.util.Scanner;
 
 public class AppUtils {
-    static Scanner scanner = new Scanner(System.in);
+   public final static Scanner SCANNER = new Scanner(System.in);
 
     public static int retryChoose(int min, int max) {
         int option;
         do {
             System.out.print(" ⭆ ");
             try {
-                option = Integer.parseInt(scanner.nextLine());
+                option = Integer.parseInt(SCANNER.nextLine());
                 if (option > max || option < min) {
                     System.out.println("Chọn chức năng không đúng! Vui lòng chọn lại");
                     continue;
@@ -31,7 +31,7 @@ public class AppUtils {
         do {
             System.out.print(" ⭆ ");
             try {
-                result = Integer.parseInt(scanner.nextLine());
+                result = Integer.parseInt(SCANNER.nextLine());
                 return result;
             } catch (Exception ex) {
                 System.out.println("Nhập sai! vui lòng nhập lại");
@@ -42,21 +42,21 @@ public class AppUtils {
     public static String retryString(String fieldName) {
         String result;
         System.out.print(" ⭆ ");
-        while ((result = scanner.nextLine().trim()).isEmpty()) {
+        while ((result = SCANNER.nextLine().trim()).isEmpty()) {
             System.out.printf("%s không được để trống\n", fieldName);
             System.out.print(" ⭆ ");
         }
         return result;
     }
 
-    public static long retryParseLong(){
+    public static long retryParseLong() {
         long result;
         do {
             System.out.println("⭆");
-            try{
-                result = Long.parseLong(scanner.nextLine());
+            try {
+                result = Long.parseLong(SCANNER.nextLine());
                 return result;
-            }catch (Exception e){
+            } catch (Exception e) {
                 System.out.println("Nhập sai.Vui lòng nhập lại.");
             }
         } while (true);
@@ -67,7 +67,7 @@ public class AppUtils {
         do {
             System.out.print(" ⭆ ");
             try {
-                result = Double.parseDouble(scanner.nextLine());
+                result = Double.parseDouble(SCANNER.nextLine());
                 return result;
             } catch (Exception ex) {
                 System.out.println("Nhập sai! vui lòng nhập lại");
@@ -101,7 +101,7 @@ public class AppUtils {
             }
 
             System.out.print(" ⭆ ");
-            String option = scanner.nextLine();
+            String option = SCANNER.nextLine();
             switch (option) {
                 case "y":
                     return true;

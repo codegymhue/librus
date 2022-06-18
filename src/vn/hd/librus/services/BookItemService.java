@@ -36,7 +36,7 @@ public class BookItemService implements IBookItemService {
     public BookItem findById(long id) {
         List<BookItem> bookItems = findAll();
         for (BookItem bookItem : bookItems) {
-            if (bookItem.getId() == id)
+            if (bookItem.getBookItemID() == id)
                 return bookItem;
         }
         return null;
@@ -63,15 +63,7 @@ public class BookItemService implements IBookItemService {
         return findByBarcode(barcode) != null;
     }
 
-//    @Override
-//    public boolean reserveBookItem(BookItem bookItem) {
-//        return false;
-//    }
-//
-//    @Override
-//    public boolean checkout(BookItem bookItem) {
-//        return false;
-//    }
+
 
     @Override
     public void checkForFine(String barcode) {
@@ -97,6 +89,10 @@ public class BookItemService implements IBookItemService {
         newBook.setBookId(System.currentTimeMillis() / 1000);
         Instant now = Instant.now();
         bookItem.setBorrowedAt(now);
+
+        Instant dueAt =  Instant.now().plus(Period.ofDays(Constants.MAX_LENDING_DAYS));
+        bookItem.setDueAt(dueAt);
+
         bookItem.setDateOfPurchase(now);
         bookItem.setPublicationAt(1);
         books.add(newBook);
@@ -109,7 +105,6 @@ public class BookItemService implements IBookItemService {
         for (BookItem book : books) {
 
         }
-
     }
 
 }

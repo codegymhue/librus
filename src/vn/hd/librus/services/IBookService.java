@@ -20,4 +20,6 @@ public interface IBookService {
     void deleteById(long id);
 
     boolean existsById(long id);
+
+    List<Book> findAllByTitle(String title);
 }

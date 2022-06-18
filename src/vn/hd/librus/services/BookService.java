@@ -1,17 +1,22 @@
 package vn.hd.librus.services;
 
 
+import vn.hd.librus.Constants;
 import vn.hd.librus.model.Book;
+import vn.hd.librus.model.BookItem;
 import vn.hd.librus.utils.CSVUtils;
 
 import java.time.Instant;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.function.Predicate;
 
 public class BookService implements IBookService {
     public final static String PATH = "data/books.csv";
     private static BookService instance;
+
 
     private BookService() {
     }
@@ -45,9 +50,15 @@ public class BookService implements IBookService {
     @Override
     public void add(Book newBook) {
         List<Book> books = findAll();
+
         newBook.setId(System.currentTimeMillis() / 1000);
+        Instant now = Instant.now();
+        newBook.setCreatedAt(now);
+        newBook.setUpdatedAt(now);
         books.add(newBook);
         CSVUtils.write(PATH, books);
+
+
     }
 
     @Override
@@ -67,17 +78,17 @@ public class BookService implements IBookService {
                 if (subject != null)
                     book.setSubject(newBook.getSubject());
 
-                String publisher = newBook.getPublisher();
-                if (publisher != null)
-                    book.setPublisher(newBook.getPublisher());
-
                 String language = newBook.getLanguage();
                 if (language != null)
                     book.setLanguage(newBook.getLanguage());
 
-                int numberOfPage = newBook.getNumberOfPages();
-                if (numberOfPage != 0)
-                    book.setNumberOfPages(newBook.getNumberOfPages());
+                Instant createdAt = newBook.getCreatedAt();
+                if (createdAt !=null)
+                    book.setCreatedAt(newBook.getCreatedAt());
+
+                Instant updatedAt = newBook.getUpdatedAt();
+                if (updatedAt !=null)
+                    book.setUpdatedAt(newBook.getUpdatedAt());
 
                 book.setUpdatedAt(Instant.now());
                 CSVUtils.write(PATH, books);
@@ -112,16 +123,25 @@ public class BookService implements IBookService {
         books.removeIf(new Predicate<Book>() {
             @Override
             public boolean test(Book book) {
-                return book.getId()==id;
+                return book.getId() == id;
             }
         });
-        CSVUtils.write(PATH,books);
-        }
-
+        CSVUtils.write(PATH, books);
+    }
 
 
     @Override
     public boolean existsById(long id) {
         return findById(id) != null;
+    }
+
+    @Override
+    public List<Book> findAllByTitle(String title) {
+        List<Book> newBooks = new ArrayList<>();
+        List<Book> books = findAll();
+        for (Book book : books)
+            if (book.getTitle().toLowerCase().contains(title.toLowerCase()))
+                newBooks.add(book);
+        return newBooks;
     }
 }
