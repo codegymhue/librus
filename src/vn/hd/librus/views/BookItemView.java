@@ -1,9 +1,9 @@
 package vn.hd.librus.views;
+
 import vn.hd.librus.model.*;
 import vn.hd.librus.services.*;
 import vn.hd.librus.utils.AppUtils;
 import vn.hd.librus.utils.InstantUtils;
-
 
 
 public class BookItemView {
@@ -13,7 +13,7 @@ public class BookItemView {
 
     public static void main(String[] args) {
         BookItemView bookItemView = new BookItemView();
-        bookItemView.update();
+        bookItemView.checkoutBook();
 
     }
 
@@ -21,6 +21,7 @@ public class BookItemView {
     public BookItemView() {
         userService = UserService.getInstance();
         bookItemService = BookItemService.getInstance();
+        bookLendingService = BookLendingService.getInstance();
     }
 
 
@@ -38,7 +39,7 @@ public class BookItemView {
             System.out.println("|   6. Quay lại Menu               |");
             System.out.println("└ - - - - - - - - - - - - - - - - -┘");
             System.out.println("Chọn chức năng: ");
-            int option = AppUtils.retryChoose(1,6);
+            int option = AppUtils.retryChoose(1, 6);
             BookItem newBookItem = new BookItem();
             newBookItem.setBookItemID(id);
 
@@ -84,18 +85,17 @@ public class BookItemView {
     }
 
 
-
     public void showBooksItem(InputOption inputOption) {
         System.out.println("--------------------------------------------------------------- BOOK ITEM --------------------------------------------------------------------");
         System.out.printf(" %-11s %-11s %-12s %-12s %-12s %-14s %-14s %-16s %-16s %-16s \n",
                 "Id",
-                "Id sách",
-                "Nhà xuất bản",
-                "Năm xuất bản",
+                "Tên sách",
+                "Nhà XB",
+                "Năm XB",
                 "Gía sách",
                 "Định dạng ",
                 "Trạng thái ",
-                "Ngày giao dịch",
+                "Ngày nhập vào TV",
                 "Ngày mượn sách",
                 "Ngày trả sách"
 
@@ -103,7 +103,7 @@ public class BookItemView {
         for (BookItem bookItem : bookItemService.findAll()) {
             System.out.printf(" %-11s %-11s %-12s %-12s %-12s %-14s %-14s %-16s %-16s %-16s \n",
                     bookItem.getBookItemID(),
-                    bookItem.getBookId(),
+                    bookItem.getBook().getTitle(),
                     bookItem.getPublisher(),
                     bookItem.getPublicationAt(),
                     AppUtils.doubleToVND(bookItem.getPrice()),
@@ -118,6 +118,26 @@ public class BookItemView {
         if (inputOption == InputOption.SHOW)
             AppUtils.isRetry(InputOption.SHOW);
     }
+
+    private void checkoutBook() {
+
+        long id = inputId(InputOption.CHECKOUT);
+        BookItem bookItem = bookItemService.findById(id);
+        System.out.println("Thông tin của sách: " + bookItem);
+        if (bookItem.isReferenceOnly()) {
+            System.out.println("Sách này chỉ được đọc ở Thư Viện, không được phép mượn");
+            return;
+        }
+        long userId = inputUserId();
+        if (bookLendingService.isBookIssuedQuotaExceeded(userId)) {
+            System.out.println("Người dùng đã mượn quá số lượng sách cho phép");
+            return;
+        }
+
+        bookLendingService.lendBook(userId, bookItem.getBookItemID());
+        System.out.println("Mượn sách thành công");
+    }
+
 
 //    private void checkOutBook() {
 //        long barcode = inputBarcode(InputOption.OTHER);
@@ -154,6 +174,9 @@ public class BookItemView {
             case ADD:
                 System.out.println("Nhập Id");
                 break;
+            case CHECKOUT:
+                System.out.println("Nhập Id để checkout sách");
+                break;
             case UPDATE:
                 System.out.println("Nhập id bạn muốn sửa");
                 break;
@@ -172,6 +195,14 @@ public class BookItemView {
                     }
                     isRetry = exist;
                     break;
+
+                case CHECKOUT:
+                    if (!exist) {
+                        System.out.println("Không tìm thấy sách ! Vui lòng nhập lại");
+                    }
+                    isRetry = !exist;
+                    break;
+
                 case UPDATE:
                     if (!exist) {
                         System.out.println("Không tìm thấy id! Vui lòng nhập lại");
@@ -181,6 +212,15 @@ public class BookItemView {
             }
         } while (isRetry);
         return id;
+    }
+
+    private long inputUserId() {
+        long userId;
+        System.out.println("Nhập UserId để checkout sách");
+        while (!userService.existById(userId = AppUtils.retryParseLong())) {
+            System.out.println("Không tìm thấy người dùng ! Vui lòng nhập lại");
+        }
+        return userId;
     }
 
 
@@ -208,9 +248,9 @@ public class BookItemView {
         int publicationAt;
         do {
             publicationAt = AppUtils.retryParseInt();
-            if (publicationAt <=0)
+            if (publicationAt <= 0)
                 System.out.println("Năm xuất bản phải lớn hơn 0 ");
-        } while (publicationAt <=0);
+        } while (publicationAt <= 0);
         return publicationAt;
     }
 

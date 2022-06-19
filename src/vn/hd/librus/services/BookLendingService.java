@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BookLendingService implements IBookLendingService {
-    public final static String PATH = "data/books.csv";
+    public final static String PATH = "data/book-lending.csv";
     private IBookItemService bookItemService;
 
     private static BookLendingService instance;
@@ -30,18 +30,18 @@ public class BookLendingService implements IBookLendingService {
 
     @Override
     public List<BookLending> findAll() {
-        List<BookLending> books = new ArrayList<>();
+        List<BookLending> bookLendingList = new ArrayList<>();
         List<String> records = CSVUtils.read(PATH);
         for (String record : records) {
-            books.add(BookLending.parse(record));
+            bookLendingList.add(BookLending.parse(record));
         }
-        return books;
+        return bookLendingList;
     }
 
     @Override
     public BookLending findById(long id) {
-        List<BookLending> bookItems = findAll();
-        for (BookLending BookLending : bookItems) {
+        List<BookLending> bookLendingList = findAll();
+        for (BookLending BookLending : bookLendingList) {
             if (BookLending.getId() == id)
                 return BookLending;
         }
@@ -56,32 +56,35 @@ public class BookLendingService implements IBookLendingService {
     @Override
     public int countBookItemLendingByUserIdAndStatus(long userId) {
         int count = 0;
-
-        // findAll()
+        List<BookLending> bookLendingList = findAll();
+        for (BookLending bookLending : bookLendingList)
+            if (bookLending.getStatus() != LendingStatus.RETURN &&
+                    bookLending.getUserId() == userId)
+                count += 1;
         //tim lending co status != Return && userId ==userId tham so
-
-        return 0;
+        return count;
     }
 
     @Override
     public void lendBook(long userId, long bookItemId) {
         BookItem bookItem = bookItemService.findById(bookItemId);
-        BookLending bookLending = new BookLending();
-        bookLending.setId(System.currentTimeMillis() / 1000);
-        bookLending.setBookItemId(bookItemId);
-        bookLending.setUserId(userId);
-       // bookLending.setStatus(LendingStatus.parseRole("DUE"));
-        bookLending.setStatus(LendingStatus.DUE);
+        BookLending newBookLending = new BookLending();
+
+        newBookLending.setBookItemId(bookItemId);
+        newBookLending.setUserId(userId);
+        newBookLending.setStatus(LendingStatus.DUE);
         Instant now = Instant.now();
-        bookLending.setCreatedAt(now);
+        newBookLending.setCreatedAt(now);
 
         Instant dueAt = Instant.ofEpochMilli(now.toEpochMilli());
         now.plus(Period.ofDays(Constants.MAX_LENDING_DAYS));
-        bookLending.setDueAt(dueAt);
+        newBookLending.setDueAt(dueAt);
 
+        bookItem.setBorrowedAt(now);
+        bookItem.setDueAt(dueAt);
         bookItem.setStatus(BookStatus.LOANED);
         bookItemService.update(bookItem);
-
+        add(newBookLending);
     }
 
 
@@ -92,42 +95,18 @@ public class BookLendingService implements IBookLendingService {
 
 
     @Override
-    public void add(BookLending newBook) {
-        List<BookLending> books = findAll();
-        books.add(newBook);
-        CSVUtils.write(PATH, books);
+    public void add(BookLending newBookLending) {
+        List<BookLending> bookLendingList = findAll();
+        newBookLending.setId(System.currentTimeMillis() / 1000);
+        bookLendingList.add(newBookLending);
+        CSVUtils.write(PATH, bookLendingList);
     }
 
     @Override
-    public void update(BookLending newBook) {
-        List<BookLending> books = findAll();
-        for (BookLending book : books) {
+    public void update(BookLending newBookLending) {
+        List<BookLending> bookLendingList = findAll();
+        for (BookLending bookLending : bookLendingList) {
 
-//            if (book.getIsbn() == newBook.getIsbn()) {
-//                String title = newBook.getTitle();
-//                if (title != null && !title.isEmpty())
-//                    book.setTitle(newBook.getTitle());
-//
-//                String author = newBook.getAuthor();
-//                if (author != null)
-//                    book.setAuthor(newBook.getAuthor());
-//
-//                String subject = newBook.getSubject();
-//                if (subject != null)
-//                    book.setSubject(newBook.getSubject());
-//
-//                String publisher = newBook.getPublisher();
-//                if (publisher != null)
-//                    book.setPublisher(newBook.getPublisher());
-//
-//                String language = newBook.getLanguage();
-//                if (language != null)
-//                    book.setLanguage(newBook.getLanguage());
-//
-//                Integer numberOfPage = newBook.getNumberOfPages();
-//                if (numberOfPage != null)
-//                    book.setNumberOfPages(newBook.getNumberOfPages());
-//            }
         }
 
     }

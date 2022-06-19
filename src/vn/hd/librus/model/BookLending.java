@@ -1,5 +1,8 @@
 package vn.hd.librus.model;
 
+import javafx.geometry.Insets;
+import vn.hd.librus.utils.InstantUtils;
+
 import java.time.Instant;
 
 public class BookLending {
@@ -11,8 +14,28 @@ public class BookLending {
     private Instant dueAt;
     private Instant returnAt;
 
+    public BookLending(){};
+    public BookLending(long id, long bookItemId, long userId, LendingStatus status, Instant createdAt, Instant dueAt, Instant returnAt) {
+        this.id =id;
+        this.bookItemId = bookItemId;
+        this.userId = userId;
+        this.status = status;
+        this.createdAt = createdAt;
+        this.dueAt = dueAt;
+        this.returnAt = returnAt;
+    }
+
+
     public static BookLending parse(String record) {
-        return null;
+        String[]fields = record.split(",");
+        long id = Long.parseLong(fields[0]);
+        long bookItemId = Long.parseLong(fields[1]);
+        long userId = Long.parseLong(fields[2]);
+        LendingStatus status = LendingStatus.parseRole(fields[3]);
+        Instant createdAt = InstantUtils.parseInstant(fields[4]);
+        Instant dueAt = InstantUtils.parseInstant(fields[5]);
+        Instant returnAt = InstantUtils.parseInstant(fields[6]);
+        return new BookLending(id,bookItemId,userId,status,createdAt,dueAt,returnAt);
     }
 
     public long getId() {
@@ -31,11 +54,11 @@ public class BookLending {
         this.bookItemId = bookItemId;
     }
 
-    public Long getUserId() {
+    public long getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(long userId) {
         this.userId = userId;
     }
 
@@ -69,5 +92,17 @@ public class BookLending {
 
     public void setReturnAt(Instant returnAt) {
         this.returnAt = returnAt;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s,%s,%s,%s,%s,%s,%s",
+                id,
+                bookItemId,
+                userId,
+                status,
+                createdAt,
+                dueAt,
+                returnAt);
     }
 }

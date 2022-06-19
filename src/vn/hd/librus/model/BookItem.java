@@ -18,6 +18,7 @@ public class BookItem {
     private boolean referenceOnly;
     private Instant updatedAt;
     private Long bookId;
+    private Book book;
 
 
     public BookItem() {
@@ -164,11 +165,11 @@ public class BookItem {
         this.updatedAt = updatedAt;
     }
 
-    public Long getBookId() {
+    public long getBookId() {
         return bookId;
     }
 
-    public void setBookId(Long bookId) {
+    public void setBookId(long bookId) {
         this.bookId = bookId;
     }
 
@@ -189,6 +190,14 @@ public class BookItem {
                 updatedAt,
                 bookId);
 
+    }
+
+    public void setBook(Book book) {
+        this.book = book;
+    }
+
+    public Book getBook() {
+        return book;
     }
 }
 

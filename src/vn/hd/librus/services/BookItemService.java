@@ -1,6 +1,7 @@
 package vn.hd.librus.services;
 
 import vn.hd.librus.Constants;
+import vn.hd.librus.model.Book;
 import vn.hd.librus.model.BookFormat;
 import vn.hd.librus.model.BookItem;
 import vn.hd.librus.model.BookStatus;
@@ -14,8 +15,10 @@ import java.util.List;
 public class BookItemService implements IBookItemService {
     public final static String PATH = "data/book-items.csv";
     private static BookItemService instance;
+    private  IBookService bookService;
 
     private BookItemService() {
+        bookService=BookService.getInstance();
     }
 
     public static BookItemService getInstance() {
@@ -29,7 +32,11 @@ public class BookItemService implements IBookItemService {
         List<BookItem> books = new ArrayList<>();
         List<String> records = CSVUtils.read(PATH);
         for (String record : records) {
-            books.add(BookItem.parse(record));
+            BookItem bookItem=BookItem.parse(record);
+            long bookId = bookItem.getBookId();
+            Book book = bookService.findById(bookId);
+            bookItem.setBook(book);
+            books.add(bookItem);
         }
         return books;
     }
