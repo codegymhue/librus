@@ -1,2 +1,4 @@
 Bookitem.data
-id|barcode|publisher|numberOfPages|borrowedAt|dueAt|price|format|status|dateOfPurchase|publicationAt|updatedAt|bookId
+idBookItem|title|publisher|numberOfPages|borrowedAt|dueAt|price|format|status|dateOfPurchase|publicationAt|updatedAt|bookId
+Book.data
+idBook|isbn|title|author|subject|language|createdAt|updateAt

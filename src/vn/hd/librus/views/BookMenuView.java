@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 public class BookMenuView {
 
+
     public static void launch() {
         int choice;
         do {
@@ -12,7 +13,7 @@ public class BookMenuView {
             menuBook();
             try {
                 System.out.println("Chọn chức năng :");
-                System.out.println("=>");
+                System.out.println(" ⭆");
                 choice = input.nextInt();
                 switch (choice) {
                     case 1:
@@ -31,12 +32,9 @@ public class BookMenuView {
                         bookView.findBooksByName();
                         break;
                     case 6 :
-                        bookView.findBooksByAuthor();
+
                         break;
                     case 7:
-                       // MenuView.managementBook();
-                        break;
-                    case 8:
                         System.exit(0);
                         break;
                     default:
@@ -53,16 +51,15 @@ public class BookMenuView {
     }
 
     public static void menuBook() {
-        System.out.println("*-------------- Menu Book  -----------*");
-        System.out.println("|    1.Thêm sách                       |");
-        System.out.println("|    2.Chỉnh sửa sách                  |");
-        System.out.println("|    3.Xóa sách                        |");
-        System.out.println("|    4.Hiển thị danh sách sách         |");
-        System.out.println("|    5.Tìm kiếm sách theo tên sách     |");
-        System.out.println("|    6.Tìm kiếm sách theo tên tác giả  |");
-        System.out.println("|    7.Quay lại Menu                   |");
-        System.out.println("|    8.Exit                            |");
-        System.out.println("*-------------------------------------*");
+        System.out.println("❄ ❄ ❄ ❄ ❄ ❄ ❄  Menu Book  ❄ ❄ ❄ ❄ ❄ ❄ ❄");
+        System.out.println("❄        1. Thêm sách                      ❄");
+        System.out.println("❄        2. Chỉnh sửa sách                 ❄");
+        System.out.println("❄        3. Xóa sách                       ❄");
+        System.out.println("❄        4. Hiển thị danh sách sách        ❄");
+        System.out.println("❄        5. Tìm kiếm sách theo tên         ❄");
+        System.out.println("❄        6. Quay lại Menu                  ❄");
+        System.out.println("❄        7. Exit                           ❄");
+        System.out.println("❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄");
 
     }
 }

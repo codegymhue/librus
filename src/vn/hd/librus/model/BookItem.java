@@ -6,7 +6,6 @@ import java.time.Instant;
 
 public class BookItem {
     private Long bookItemID;
-    private Long barcode;
     private String publisher;
     private Integer numberOfPages;
     private Instant borrowedAt;
@@ -19,65 +18,53 @@ public class BookItem {
     private boolean referenceOnly;
     private Instant updatedAt;
     private Long bookId;
-    //private Rack placedAt;
-    private Book book;
 
-    public BookItem(){};
 
-    public BookItem(long bookItemID, long barcode, String publisher, int numberOfPages,
-                    Instant borrowedAt, Instant dueAt, double price,
+    public BookItem() {
+    };
+
+    public BookItem(long bookItemID, String publisher, int numberOfPages,
+                    double price,
                     BookFormat format, BookStatus status, Instant dateOfPurchase,
-                    Integer publicationAt, Instant updatedAt, Long bookId) {
+                    int publicationAt, Long bookId) {
         this.bookItemID = bookItemID;
-        this.barcode = barcode;
         this.publisher = publisher;
         this.numberOfPages = numberOfPages;
-        this.borrowedAt = borrowedAt;
-        this.dueAt = dueAt;
         this.price = price;
         this.format = format;
         this.status = status;
         this.dateOfPurchase = dateOfPurchase;
         this.publicationAt = publicationAt;
-        this.updatedAt = updatedAt;
         this.bookId = bookId;
-
     }
 
-    public BookItem(long bookItemID, long barcode, String publisher, int numberOfPages, Instant borrowedAt, Instant dueAt, double price,
-                    BookFormat format, BookStatus status, Instant dateOfPurchase, Integer publicationAt, Instant updatedAt) {
-        this.bookItemID = bookItemID;
-        this.barcode = barcode;
+    public BookItem(String publisher, int numberOfPages, double price,
+                    BookFormat format, int publicationAt,
+                    long bookId) {
         this.publisher = publisher;
         this.numberOfPages = numberOfPages;
-        this.borrowedAt = borrowedAt;
-        this.dueAt = dueAt;
         this.price = price;
         this.format = format;
-        this.status = status;
-        this.dateOfPurchase = dateOfPurchase;
         this.publicationAt = publicationAt;
-        this.updatedAt = updatedAt;
-
+        this.bookId = bookId;
     }
 
 
-    public static BookItem parse(String record){
+    public static BookItem parse(String record) {
         BookItem bookItem = new BookItem();
-        String[]fields = record.split(",");
+        String[] fields = record.split(",");
         bookItem.bookItemID = Long.parseLong(fields[0]);
-        bookItem.barcode = Long.parseLong(fields[1]);
-        bookItem.publisher = fields[2];
-        bookItem.numberOfPages = Integer.parseInt(fields[3]);
-        bookItem.borrowedAt = InstantUtils.parseInstant(fields[4]);
-        bookItem.dueAt = InstantUtils.parseInstant(fields[5]);
-        bookItem.price = Double.parseDouble(fields[6]);
-        bookItem.format = BookFormat.parserBookFormat(fields[7]);
-        bookItem.status = BookStatus.parseBookStatus(fields[8]);
-        bookItem.dateOfPurchase = InstantUtils.parseInstant(fields[9]);
-        bookItem.publicationAt = Integer.parseInt(fields[10]);
-        bookItem.updatedAt = InstantUtils.parseInstant(fields[11]);
-        bookItem.bookId = Long.parseLong(fields[12]) ;
+        bookItem.publisher = fields[1];
+        bookItem.numberOfPages = Integer.parseInt(fields[2]);
+        bookItem.borrowedAt = InstantUtils.parseInstant(fields[3]);
+        bookItem.dueAt = InstantUtils.parseInstant(fields[4]);
+        bookItem.price = Double.parseDouble(fields[5]);
+        bookItem.format = BookFormat.parserBookFormat(fields[6]);
+        bookItem.status = BookStatus.parseBookStatus(fields[7]);
+        bookItem.dateOfPurchase = InstantUtils.parseInstant(fields[8]);
+        bookItem.publicationAt = Integer.parseInt(fields[9]);
+        bookItem.updatedAt = InstantUtils.parseInstant(fields[10]);
+        bookItem.bookId = Long.parseLong(fields[11]);
         return bookItem;
     }
 
@@ -87,14 +74,6 @@ public class BookItem {
 
     public void setBookItemID(long bookItemID) {
         this.bookItemID = bookItemID;
-    }
-
-    public long getBarcode() {
-        return barcode;
-    }
-
-    public void setBarcode(long barcode) {
-        this.barcode = barcode;
     }
 
     public String getPublisher() {
@@ -193,33 +172,22 @@ public class BookItem {
         this.bookId = bookId;
     }
 
-    public Book getBook() {
-        return book;
-    }
-
-    public void setBook(Book book) {
-        this.book = book;
-    }
-
-
-
 
     @Override
     public String toString() {
-        return String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",
+        return String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",
                 bookItemID,
-                barcode ,
                 publisher,
                 numberOfPages,
-                borrowedAt ,
-                dueAt ,
-                price ,
-                format ,
-                status ,
-                dateOfPurchase ,
-                publicationAt ,
-                updatedAt ,
-                bookId );
+                borrowedAt,
+                dueAt,
+                price,
+                format,
+                status,
+                dateOfPurchase,
+                publicationAt,
+                updatedAt,
+                bookId);
 
     }
 }

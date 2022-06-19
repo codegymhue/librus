@@ -50,15 +50,12 @@ public class BookService implements IBookService {
     @Override
     public void add(Book newBook) {
         List<Book> books = findAll();
-
         newBook.setId(System.currentTimeMillis() / 1000);
         Instant now = Instant.now();
         newBook.setCreatedAt(now);
         newBook.setUpdatedAt(now);
         books.add(newBook);
         CSVUtils.write(PATH, books);
-
-
     }
 
     @Override
@@ -143,5 +140,15 @@ public class BookService implements IBookService {
             if (book.getTitle().toLowerCase().contains(title.toLowerCase()))
                 newBooks.add(book);
         return newBooks;
+    }
+
+    @Override
+    public List<Book> findAllByAuthor(String author) {
+        List<Book> newBooks = new ArrayList<>();
+        List<Book> books = findAll();
+        for (Book book : books)
+            if (book.getAuthor().toLowerCase().contains(author.toLowerCase()))
+                newBooks.add(book);
+        return null;
     }
 }

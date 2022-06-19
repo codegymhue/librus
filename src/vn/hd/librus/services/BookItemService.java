@@ -1,7 +1,9 @@
 package vn.hd.librus.services;
 
 import vn.hd.librus.Constants;
+import vn.hd.librus.model.BookFormat;
 import vn.hd.librus.model.BookItem;
+import vn.hd.librus.model.BookStatus;
 import vn.hd.librus.utils.CSVUtils;
 
 import java.time.Instant;
@@ -48,26 +50,7 @@ public class BookItemService implements IBookItemService {
     }
 
     @Override
-    public BookItem findByBarcode(long barcode) {
-        List<BookItem> bookItems = findAll();
-        for (BookItem bookItem : bookItems) {
-            if (bookItem.getBarcode() == barcode) {
-                return bookItem;
-            }
-        }
-        return null;
-    }
-
-    @Override
-    public boolean existByBarcode(long barcode) {
-        return findByBarcode(barcode) != null;
-    }
-
-
-
-    @Override
     public void checkForFine(String barcode) {
-
 
     }
 
@@ -83,27 +66,44 @@ public class BookItemService implements IBookItemService {
 
 
     @Override
-    public void add(BookItem newBook) {
-        BookItem bookItem = new BookItem();
-        List<BookItem> books = findAll();
-        newBook.setBookId(System.currentTimeMillis() / 1000);
+    public void add(BookItem newBookItem) {
+        List<BookItem> bookItems = findAll();
+        newBookItem.setBookItemID(System.currentTimeMillis()/1000);
         Instant now = Instant.now();
-        bookItem.setBorrowedAt(now);
-
-        Instant dueAt =  Instant.now().plus(Period.ofDays(Constants.MAX_LENDING_DAYS));
-        bookItem.setDueAt(dueAt);
-
-        bookItem.setDateOfPurchase(now);
-        bookItem.setPublicationAt(1);
-        books.add(newBook);
-        CSVUtils.write(PATH, books);
+        newBookItem.setStatus(BookStatus.AVAILABLE);
+        newBookItem.setDateOfPurchase(now);
+        bookItems.add(newBookItem);
+        CSVUtils.write(PATH, bookItems);
     }
 
     @Override
-    public void update(BookItem newBook) {
-        List<BookItem> books = findAll();
-        for (BookItem book : books) {
+    public void update(BookItem newBookItem) {
+        List<BookItem> bookItems = findAll();
+        for (BookItem book : bookItems) {
+            if (book.getBookItemID() == newBookItem.getBookItemID()){
+                String publisher = newBookItem.getPublisher();
+                if (publisher != null && !publisher.isEmpty())
+                    book.setPublisher(newBookItem.getPublisher());
 
+                Integer publicationAt = newBookItem.getPublicationAt();
+                if (publicationAt != null )
+                    book.setPublicationAt(newBookItem.getPublicationAt());
+
+                Double price = newBookItem.getPrice();
+                if (price != null)
+                book.setPrice(newBookItem.getPrice());
+
+                BookFormat format = newBookItem.getFormat();
+                if(format != null)
+                    book.setFormat( newBookItem.getFormat());
+
+                BookStatus status = newBookItem.getStatus();
+                if(status != null)
+                    book.setStatus(newBookItem.getStatus());
+
+                CSVUtils.write(PATH,bookItems);
+
+            }
         }
     }
 

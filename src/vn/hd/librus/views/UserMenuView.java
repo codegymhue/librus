@@ -2,7 +2,7 @@ package vn.hd.librus.views;
 
 import java.util.Scanner;
 
-//So Code dài các bạn không hiểu nên tách sang đây
+
 public class UserMenuView {
     public static void launch() {
         Scanner scanner = new Scanner(System.in);
@@ -11,7 +11,7 @@ public class UserMenuView {
         do {
             menuUser();
             try {
-                do {//Khong thich hien lại cả menu
+                do {
                     System.out.println("Chọn chức năng");
                     System.out.print(" ⭆ ");
                     option = Integer.parseInt(scanner.nextLine());

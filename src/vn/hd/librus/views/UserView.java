@@ -14,10 +14,10 @@ import java.util.Scanner;
 
 public class UserView {//Single Responsibility Principle (SOLID)
 
-//    public static void main(String[] args) {
-//        UserView userView = new UserView();
-//        userView.login(Role.LIBRARIAN);
-//    }
+    public static void main(String[] args) {
+        UserView userView = new UserView();
+        userView.login(Role.LIBRARIAN);
+    }
     protected final IUserService userService;//Dependency Inversion Principle (SOLID)
     private final Scanner scanner = new Scanner(System.in);
 
@@ -29,8 +29,6 @@ public class UserView {//Single Responsibility Principle (SOLID)
     public void addUser() {
         do {
             try {
-                //Id ton tai thi van nam trong vong lap khong thoat ra khoi ham;
-                //  Integer id = inputId(InputOption.ADD);
                 long id = System.currentTimeMillis() / 1000;
                 String username = inputUsername();
                 String password = inputPassword();

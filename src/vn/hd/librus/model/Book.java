@@ -14,7 +14,7 @@ public class Book {
     private Instant createdAt;
     private Instant updatedAt;
 
-    public Book(){};
+   public Book(){};
 
     public Book(Long id, String isbn, String title, String author, String subject, String language, Instant createdAt, Instant updatedAt) {
         this.id = id;
@@ -34,6 +34,8 @@ public class Book {
         this.subject = subject;
         this.language = language;
     }
+
+
 
 
     public static Book parse(String raw) {

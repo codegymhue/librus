@@ -22,4 +22,6 @@ public interface IBookService {
     boolean existsById(long id);
 
     List<Book> findAllByTitle(String title);
+
+    List<Book> findAllByAuthor(String author);
 }

@@ -9,6 +9,7 @@ public class ValidateUtils {
     public static final String NAME_REGEX = "^([A-Z]+[a-z]*[ ]?)+$";
     public static final String PHONE_REGEX = "^[0][1-9][0-9]{8,9}$";
     public static final String EMAIL_REGEX = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,3}$";
+    public static final String ISBN_REGEX = "^(?:ISBN(?:-10)?:? )?(?=[0-9X]{10}$|(?=(?:[0-9]+[- ]){3})[- 0-9X]{13}$)[0-9]{1,5}[- ]?[0-9]+[- ]?[0-9]+[- ]?[0-9X]$";
 
     public static boolean isPasswordValid(String password) {
         return Pattern.compile(PASSWORD_PATTERN).matcher(password).matches();
@@ -29,5 +30,7 @@ public class ValidateUtils {
     public static boolean isEmailValid(String email) {
         return Pattern.compile(EMAIL_REGEX).matcher(email).matches();
     }
+
+    public static boolean isIsbnValid(String isbn){return Pattern.compile(ISBN_REGEX).matcher(isbn).matches();}
 
 }

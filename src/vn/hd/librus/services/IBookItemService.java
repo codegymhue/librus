@@ -15,11 +15,6 @@ public interface IBookItemService {
 
     void update(BookItem newBook);
 
-    BookItem findByBarcode(long barcode);
-
-    boolean existByBarcode(long barcode);
-
-    //boolean reserveBookItem(BookItem bookItem);
 
    // boolean checkout(BookItem bookItem);
 
