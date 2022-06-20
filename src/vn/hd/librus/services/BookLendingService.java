@@ -1,10 +1,7 @@
 package vn.hd.librus.services;
 
 import vn.hd.librus.Constants;
-import vn.hd.librus.model.BookItem;
-import vn.hd.librus.model.BookLending;
-import vn.hd.librus.model.BookStatus;
-import vn.hd.librus.model.LendingStatus;
+import vn.hd.librus.model.*;
 import vn.hd.librus.utils.CSVUtils;
 
 import java.time.Instant;
@@ -37,6 +34,7 @@ public class BookLendingService implements IBookLendingService {
         }
         return bookLendingList;
     }
+
 
     @Override
     public BookLending findById(long id) {
@@ -76,8 +74,8 @@ public class BookLendingService implements IBookLendingService {
         Instant now = Instant.now();
         newBookLending.setCreatedAt(now);
 
-        Instant dueAt = Instant.ofEpochMilli(now.toEpochMilli());
-        now.plus(Period.ofDays(Constants.MAX_LENDING_DAYS));
+//        Instant dueAt = Instant.ofEpochMilli(now.toEpochMilli());
+        Instant dueAt = now.plus(Period.ofDays(Constants.MAX_LENDING_DAYS));
         newBookLending.setDueAt(dueAt);
 
         bookItem.setBorrowedAt(now);
@@ -106,9 +104,24 @@ public class BookLendingService implements IBookLendingService {
     public void update(BookLending newBookLending) {
         List<BookLending> bookLendingList = findAll();
         for (BookLending bookLending : bookLendingList) {
+            if (bookLending.getId() == newBookLending.getId()){
+                LendingStatus status = newBookLending.getStatus();
+                if (status != null)
+                    bookLending.setStatus(newBookLending.getStatus());
+
+                Instant createdAt = newBookLending.getCreatedAt();
+                if (createdAt != null)
+                    bookLending.setCreatedAt(newBookLending.getCreatedAt());
+
+                Instant dueAt = newBookLending.getDueAt();
+                if (dueAt != null)
+                    bookLending.setDueAt(newBookLending.getDueAt());
+                CSVUtils.write(PATH,bookLendingList);
+
+            }
+
 
         }
-
     }
 
 

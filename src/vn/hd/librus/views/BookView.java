@@ -16,10 +16,10 @@ public class BookView {
     private IBookService bookService; //Dependency Inversion Principle (SOLID)
     private final Scanner scanner = new Scanner(System.in);
 
-    public static void main(String[] args) {
-        BookView bookView = new BookView();
-        bookView.showBooks(InputOption.SHOW);
-    }
+//    public static void main(String[] args) {
+//        BookView bookView = new BookView();
+//        bookView.showBooks(InputOption.SHOW);
+//    }
 
     public BookView() {
         bookService = BookService.getInstance();

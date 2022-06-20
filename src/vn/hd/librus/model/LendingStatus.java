@@ -4,6 +4,7 @@ public enum LendingStatus {
     LENDING("LENDING"),
     DUE("DUE"),
     RETURN("RETURN");
+
     private final String value;
 
     private LendingStatus(String value) {

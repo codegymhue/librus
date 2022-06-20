@@ -5,17 +5,18 @@ import vn.hd.librus.services.*;
 import vn.hd.librus.utils.AppUtils;
 import vn.hd.librus.utils.InstantUtils;
 
+import static vn.hd.librus.model.LendingStatus.RETURN;
+
 
 public class BookItemView {
     private IUserService userService;
     private IBookItemService bookItemService;
     private IBookLendingService bookLendingService;
 
-    public static void main(String[] args) {
-        BookItemView bookItemView = new BookItemView();
-        bookItemView.checkoutBook();
-
-    }
+//    public static void main(String[] args) {
+//        BookItemView bookItemView = new BookItemView();
+//        bookItemView.checkoutBook();
+//    }
 
 
     public BookItemView() {
@@ -139,33 +140,13 @@ public class BookItemView {
     }
 
 
-//    private void checkOutBook() {
-//        long barcode = inputBarcode(InputOption.OTHER);
-//        BookItem bookItem = bookItemService.findByBarcode(barcode);
-//
-//        System.out.println("Thông tin sách " + bookItem);
-//        if (bookItem.isReferenceOnly()) {
-//            System.out.println("Sách này chỉ được đọc ở Thư Viện, không được phép mượn");
-//            return;
-//        }
-//
-//        User user = userService.getCurrentUser();
-//        if (bookLendingService.isBookIssuedQuotaExceeded(user.getId())) {
-//            System.out.println("Người dùng đã mượn quá số lượng sách cho phép");
-//            return;
-//        }
-//
-//        bookLendingService.lendBook(user.getId(), bookItem.getBookItemID());
-//        System.out.println("Mượn sách thành công");
-//    }
-
-//    private void returnBook() {
-//        long barcode = inputBarcode(InputOption.OTHER);
-//        BookItem bookItem = BookItemService.getInstance().findByBarcode(barcode);
-//        System.out.println("Thông tin sách " + bookItem);
-//        // check Fine
-//        // Tăng numberBook
-//    }
+    private void returnBook(){
+        long id = inputId(InputOption.RETURN);
+        BookItem bookItem = bookItemService.findById(id);
+        System.out.println("Thông tin sách " + bookItem);
+        //check Fine
+        //Tăng numberBook
+    }
 
 
     private long inputId(InputOption option) {
@@ -177,11 +158,13 @@ public class BookItemView {
             case CHECKOUT:
                 System.out.println("Nhập Id để checkout sách");
                 break;
+            case RETURN:
+                System.out.println("Nhập Id để trả sách");
             case UPDATE:
-                System.out.println("Nhập id bạn muốn sửa");
+                System.out.println("Nhập Id bạn muốn sửa");
                 break;
             case DELETE:
-                System.out.println("Nhập id bạn cần xoá: ");
+                System.out.println("Nhập Id bạn cần xoá: ");
                 break;
         }
         boolean isRetry = false;
