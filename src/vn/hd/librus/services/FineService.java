@@ -1,16 +1,25 @@
 package vn.hd.librus.services;
 
+import vn.hd.librus.model.BookItem;
 import vn.hd.librus.model.Fine;
+import vn.hd.librus.model.User;
 import vn.hd.librus.utils.CSVUtils;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
 public class FineService implements IFineService {
     public final static String PATH = "data/books.csv";
     private static FineService instance;
+    private UserService userService;
+    private BookLendingService bookLendingService;
+    private BookItemService bookItemService;
 
     private FineService() {
+        userService = UserService.getInstance();
+        bookLendingService = BookLendingService.getInstance();
+        bookItemService = BookItemService.getInstance();
     }
 
     public static FineService getInstance() {
@@ -41,6 +50,14 @@ public class FineService implements IFineService {
 
     @Override
     public void collectFine(long userId, long days) {
+        //tim user , vuot qua ngay thi nop phat
+        User user = userService.findById(userId);
+
+
+
+
+
+
 
     }
 
@@ -87,7 +104,6 @@ public class FineService implements IFineService {
 //                    book.setNumberOfPages(newBook.getNumberOfPages());
 //            }
         }
-
     }
 
 

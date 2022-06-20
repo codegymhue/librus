@@ -9,7 +9,7 @@ public class MenuView {
     public static Scanner input = new Scanner(System.in);
 
     public static void exit() {
-        System.out.println(" END PROGRAM | HẸN GẶP LẠI  ");
+        System.out.println(" END PROGRAM | HẸN GẶP LẠI \uD83C\uDF8A ");
         System.exit(0);
     }
 
@@ -24,7 +24,6 @@ public class MenuView {
 
     }
 
-    
     public static void showSelection() {
         int choice ;
         while (true) {

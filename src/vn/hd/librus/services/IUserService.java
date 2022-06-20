@@ -9,9 +9,7 @@ public interface IUserService {
 
     public User getCurrentUser();
 
-    User librarianLogin(String username, String password);
-
-    User memberLogin(String username, String password);
+    public User login(String username,String password);
 
     void add(User newUser);
 

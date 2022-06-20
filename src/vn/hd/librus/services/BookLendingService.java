@@ -56,12 +56,14 @@ public class BookLendingService implements IBookLendingService {
         int count = 0;
         List<BookLending> bookLendingList = findAll();
         for (BookLending bookLending : bookLendingList)
+            //tim lending co status != Return && userId ==userId tham so
             if (bookLending.getStatus() != LendingStatus.RETURN &&
                     bookLending.getUserId() == userId)
                 count += 1;
-        //tim lending co status != Return && userId ==userId tham so
         return count;
     }
+
+
 
     @Override
     public void lendBook(long userId, long bookItemId) {

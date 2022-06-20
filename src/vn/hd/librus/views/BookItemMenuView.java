@@ -22,6 +22,9 @@ public class BookItemMenuView {
                     case 2:
                         bookItemView.checkoutBook();
                         break;
+//                    case 3 :
+//                        bookItemView. returnBook();
+//                        break;
                     case 3:
                         bookItemView.showBooksItem(InputOption.SHOW);
                         break;
@@ -50,6 +53,7 @@ public class BookItemMenuView {
         System.out.println("❄                                          ❄");
         System.out.println("❄        1. Chỉnh sửa BookItem             ❄");
         System.out.println("❄        2. Checkout BookItem              ❄");
+//        System.out.println("❄        3. Return Book                    ❄");
         System.out.println("❄        3. Hiển thị danh sách BookItem    ❄");
         System.out.println("❄        4. Quay lại Menu Librarian        ❄");
         System.out.println("❄        5. Exit                           ❄");

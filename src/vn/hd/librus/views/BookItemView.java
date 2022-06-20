@@ -1,9 +1,13 @@
 package vn.hd.librus.views;
 
+import vn.hd.librus.Constants;
 import vn.hd.librus.model.*;
 import vn.hd.librus.services.*;
 import vn.hd.librus.utils.AppUtils;
 import vn.hd.librus.utils.InstantUtils;
+
+import java.time.Duration;
+import java.time.Instant;
 
 import static vn.hd.librus.model.LendingStatus.RETURN;
 
@@ -140,10 +144,14 @@ public class BookItemView {
     }
 
 
-    private void returnBook(){
+    void returnBook(){
         long id = inputId(InputOption.RETURN);
         BookItem bookItem = bookItemService.findById(id);
         System.out.println("Thông tin sách " + bookItem);
+        Duration duration = Duration.between(bookItem.getBorrowedAt(),bookItem.getDueAt());
+        System.out.println(duration.toDays());
+//        if (duration > Constants.MAX_LENDING_DAYS)
+//            System.out.println("Người dùng vượt quá số sách cho phép");
         //check Fine
         //Tăng numberBook
     }

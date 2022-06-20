@@ -36,8 +36,6 @@ public class Book {
     }
 
 
-
-
     public static Book parse(String raw) {
         String[] fields = raw.split(",");
         long id = Long.parseLong(fields[0]);

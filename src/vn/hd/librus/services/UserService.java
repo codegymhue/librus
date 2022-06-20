@@ -47,25 +47,13 @@ public class UserService implements IUserService {
         return users;
     }
 
-    @Override
-    public User librarianLogin(String username, String password) {
-        List<User> users = findAll();
+    public User login(String username,String password) {
+        List <User> users = findAll();
         for (User user : users) {
-            if (user.getUsername().equals(username) && user.getPassword().equals(password)
-                    && user.getRole().equals(Role.LIBRARIAN)) {
-                return currentUser = user;
-            }
-        }
-        return null;
-    }
-
-    @Override
-    public User memberLogin(String username, String password) {
-        List<User> users = findAll();
-        for (User user : users) {
-            if (user.getUsername().equals(username) && user.getPassword().equals(password)
-                    && user.getRole().equals(Role.MEMBER)) {
-                return currentUser = user;
+            if (user.getUsername().equals(username)
+                    && user.getPassword().equals(password))
+            {
+                return user;
             }
         }
         return null;

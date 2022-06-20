@@ -1,33 +1,29 @@
 package vn.hd.librus.views;
 
+import vn.hd.librus.model.BookItem;
 import vn.hd.librus.model.Role;
 import vn.hd.librus.model.User;
-import vn.hd.librus.services.BookItemService;
-import vn.hd.librus.services.BookLendingService;
-import vn.hd.librus.services.IBookItemService;
-import vn.hd.librus.services.IBookLendingService;
+import vn.hd.librus.services.*;
+import vn.hd.librus.utils.AppUtils;
 
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 public class MemberView extends UserView {
 
-    public static void main(String[] args) {
-        MemberView memberView = new MemberView();
-        memberView.showHeader();
-        //memberView.launch();
-    }
     private final IBookItemService bookItemService;
     private final IBookLendingService bookLendingService;
+    private final IUserService userService;
 
     public MemberView() {
         bookItemService = BookItemService.getInstance();
         bookLendingService = BookLendingService.getInstance();
+        userService = UserService.getInstance();
     }
 
     public static void launch() {
         MemberView memberView = new MemberView();
-        memberView.login(Role.MEMBER);
         memberView.menuOption();
     }
 
@@ -66,19 +62,51 @@ public class MemberView extends UserView {
     }
 
 
+//    public static void main(String[] args) {
+//        MemberView mbv = new MemberView();
+//        mbv.showHeader();
+//    }
     public void showHeader() {
-        User user = userService.getCurrentUser();
-        System.out.println("\t✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬  LIBRUS  ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬");
 
-        System.out.println("\t ✬                Đinh Phan Thị Khánh Hằng           ✬");
-        System.out.println("\t ✬ ✬ ✬ ✬ ✬ ✬   Số sách đã mượn: 4       ✬ ✬ ✬ ✬ ✬ ✬ ");
-        System.out.println("\t ✬ ✬ ✬ ✬ ✬ ✬   Số sách đang mượn: 4     ✬ ✬ ✬ ✬ ✬ ✬ ");
-        System.out.println("\t ✬ ✬ ✬ ✬ ✬ ✬   hangcute@gmail.com       ✬ ✬ ✬ ✬ ✬ ✬ ");
-        System.out.println("\t ✬ ✬ ✬ ✬ ✬ ✬   0981234567               ✬ ✬ ✬ ✬ ✬ ✬ ");
-        System.out.println("\t ✬                                                    ✬");
-        System.out.println("\t✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ");
+        long id = inputUserId();
+        System.out.println("\t✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬  LIBRUS  ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬");
+        System.out.println();
+        System.out.printf("\t %5s,%12s,%5s %12s %5s %12s %5s %12s \n",
+                "✬"
+                ,"Tên Người Dùng    "
+                ,"✬"
+                ,"Số điện thoại  ",
+                "✬",
+                "Email  ",
+                "✬",
+                "Số sách đang mượn");
+
+        User user = userService.findById(id);
+            System.out.printf("\t %5s,%12s,%5s %12s %5s %12s %5s %12s\n",
+                    "✬  ✬",
+                    user.getUsername(),
+                    "✬  ✬",
+                    user.getMobile(),
+                    "✬  ✬",
+                    user.getEmail(),
+                    "✬  ✬",
+                    bookLendingService.countBookItemLendingByUserIdAndStatus(user.getId()));
+
+        System.out.println();
+        System.out.println("\t✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ");
+        }
+
+
+
+
+    private long inputUserId() {
+        long userId;
+        System.out.println("Nhập UserId để xem thông tin của bạn");
+        while (!userService.existById(userId = AppUtils.retryParseLong())) {
+            System.out.println("Không tìm thấy người dùng ! Vui lòng nhập lại");
+        }
+        return userId;
     }
-
     public void showMenu() {
         System.out.println("\t ✬ ✬ ✬ ✬ ✬ ✬ ✬ MENU MEMBER  ✬ ✬ ✬ ✬ ✬ ✬ ✬");
         System.out.println("\t ✬                                    ✬");

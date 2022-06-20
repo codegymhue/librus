@@ -161,7 +161,7 @@ public class UserView {//Single Responsibility Principle (SOLID)
 
     public String inputUsername() {
         System.out.println("Nhập Username (không bao gồm dấu cách, kí tự đặc biệt)");
-//        System.out.print(" ⭆ ");
+        System.out.print(" ⭆ ");
         String username ;
 
         do {
@@ -277,30 +277,29 @@ public class UserView {//Single Responsibility Principle (SOLID)
         return scanner.nextLine();
     }
 
-    public void login(Role role) {
-        boolean isRetry;
+    public void login() {
+        boolean isRetry = false;
         System.out.println("✽ ✽ ✽ ✽ ✽ ✽ ✽ ✽ ĐĂNG NHẬP HỆ THỐNG ✽ ✽ ✽ ✽ ✽ ✽ ✽ ✽ ");
         do {
             System.out.println("Tên đăng nhập");
             String username = AppUtils.retryString("Tên đăng nhập");
             System.out.println("Mật khẩu");
             String password = AppUtils.retryString("Mật khẩu");
-            User user = null;
-            switch (role) {
-                case LIBRARIAN:
-                    user = userService.librarianLogin(username, password);
-                    break;
-                case MEMBER:
-                    user = userService.memberLogin(username, password);
-                    break;
-            }
+            User user = userService.login(username,password);
+
             if (user == null) {
                 System.out.println("Tài khoản không hợp lệ ");
                 isRetry = isRetry();
-            } else {
+
+            }else if (user.getRole() == Role.LIBRARIAN){
+                System.out.println("LIBRARIAN đã đăng nhập thành công \uD83C\uDF8A \n");
+                System.out.println("CHÀO MỪNG BẠN ĐÃ ĐẾN VỚI THƯ VIỆN HẰNG ĐINH\n");
+                LibrarianView.menuOption();
+
+            } else if (user.getRole() == Role.MEMBER ) {
                 System.out.println("Bạn đã đăng nhập thành công \uD83C\uDF8A \n");
                 System.out.println("CHÀO MỪNG BẠN ĐÃ ĐẾN VỚI THƯ VIỆN HẰNG ĐINH\n");
-                isRetry = false;
+                MemberView.launch();
             }
         } while (isRetry);
     }
