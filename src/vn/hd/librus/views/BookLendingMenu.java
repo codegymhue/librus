@@ -13,7 +13,7 @@ public class BookLendingMenu {
         System.out.println("❄ ❄ ❄ ❄ ❄   Menu BookLending   ❄ ❄ ❄ ❄ ❄");
         System.out.println("❄    1. Chỉnh sửa BookLending              ❄");
         System.out.println("❄    2. Hiển thị danh sách BookLending     ❄");
-        System.out.println("❄    3. Quay lại Menu                      ❄");
+        System.out.println("❄    3. Quay lại Menu Librarian            ❄");
         System.out.println("❄    4. Exit                               ❄");
         System.out.println("❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄");
     }
@@ -36,11 +36,9 @@ public class BookLendingMenu {
                         bookLendingView.showBooksLending(InputOption.SHOW);
                         break;
                     case 3 :
+                        LibrarianView.menuOption();
+                        break;
 
-                        break;
-                    case 4:
-                        System.exit(0);
-                        break;
                     default:
                         System.out.println("Chọn chức năng không đúng. Vui lòng nhập lại.");
                 }

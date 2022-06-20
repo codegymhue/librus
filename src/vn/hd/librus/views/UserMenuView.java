@@ -30,6 +30,7 @@ public class UserMenuView {
                         userView.showUsers(InputOption.SHOW);
                         break;
                     case 4:
+                        LibrarianView.menuOption();
                         break;
                     default:
                         System.out.println("Chọn chức năng không đúng! Vui lòng chọn lại");
@@ -43,13 +44,13 @@ public class UserMenuView {
     }
 
     public static void menuUser() {
-        System.out.println("⚪ ⚪ ⚪ ⚪ ⚪  USERS MANAGER  ⚪ ⚪ ⚪ ⚪ ⚪");
+        System.out.println("⚪ ⚪ ⚪ ⚪ ⚪   USERS MANAGER   ⚪ ⚪ ⚪ ⚪ ⚪");
         System.out.println("⚪                                      ⚪");
         System.out.println("⚪     1. Thêm người dùng               ⚪");
         System.out.println("⚪     2. Sửa thông tin người dùng      ⚪");
         System.out.println("⚪     3. Hiện danh sách người dùng     ⚪");
-        System.out.println("⚪     4. Quay lại                      ⚪");
+        System.out.println("⚪     4. Quay lại Menu Librarian       ⚪");
         System.out.println("⚪                                      ⚪");
-        System.out.println("⚪ ⚪ ⚪ ⚪ ⚪ ⚪ ⚪ ⚪ ⚪ ⚪ ⚪ ⚪ ⚪ ⚪ ⚪ ⚪");
+        System.out.println("⚪ ⚪ ⚪ ⚪ ⚪ ⚪ ⚪ ⚪ ⚪ ⚪ ⚪ ⚪ ⚪ ⚪ ⚪ ⚪ ⚪ ⚪");
     }
 }

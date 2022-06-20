@@ -22,6 +22,11 @@ public class UserService implements IUserService {
     private User currentUser;
 
     public User getCurrentUser() {
+//        List <User> newUsers = new ArrayList<>();
+//        List <User> users = findAll();
+//        for (User currentUser : users)
+//            if (currentUser.getUsername().toLowerCase().contains(currentUser.getUsername()))
+//                newUsers.add(currentUser);
         return currentUser;
     }
 

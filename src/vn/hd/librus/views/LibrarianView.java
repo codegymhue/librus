@@ -7,10 +7,14 @@ import java.util.Scanner;
 
 public class LibrarianView extends UserView {
 
+    public static void main(String[] args) {
+        LibrarianView librarianView = new LibrarianView();
+        librarianView.launch();
+    }
     public static void launch() {
         LibrarianView librarianView = new LibrarianView();
         librarianView.login(Role.LIBRARIAN);
-        menuOption();
+        librarianView.menuOption();
     }
 
     public static void menuOption() {
@@ -23,13 +27,22 @@ public class LibrarianView extends UserView {
                 int number = scanner.nextInt();
                 switch (number) {
                     case 1:
-                        UserMenuView.launch();
+                        BookMenuView.launch();
                         break;
                     case 2:
                         BookItemMenuView.launch();
                         break;
                     case 3:
-                       // BookReservationMenuView.launch();
+                        BookLendingMenu.launch();
+                        break;
+                    case 4:
+                        UserMenuView.launch();
+                        break;
+                    case 5 :
+                        MenuView.showSelection();
+                        break;
+                    case 6 :
+                        MenuView.exit();
                         break;
                     default:
                         System.out.println("Chọn chức năng không đúng! Vui lòng chọn lại");
@@ -46,21 +59,16 @@ public class LibrarianView extends UserView {
 
 
     public static void mainMenu() {
-        System.out.println("\t ✬ ✬ ✬ ✬ ✬ ✬ ✬MAIN MENU✬ ✬ ✬ ✬ ✬ ✬ ✬");
-        System.out.println("\t ✬                                 ✬");
-        System.out.println("\t ✬     1. Quản lí người dùng       ✬");
-        System.out.println("\t ✬     2. Quản lí bánh             ✬");
-        System.out.println("\t ✬     3. Quản lí đơn đặt hàng     ✬");
-        System.out.println("\t ✬                                 ✬");
-        System.out.println("\t ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬");
+        System.out.println("\t ✬ ✬ ✬ ✬ ✬  MENU LIBRARIAN  ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ");
+        System.out.println("\t ✬                                     ✬");
+        System.out.println("\t ✬     1. Quản lí sách                 ✬");
+        System.out.println("\t ✬     2. Quản lí BookItem             ✬");
+        System.out.println("\t ✬     3. Quản lí BookLending          ✬");
+        System.out.println("\t ✬     4. Quản lí người dùng           ✬");
+        System.out.println("\t ✬     5. Quay lại Main Menu           ✬");
+        System.out.println("\t ✬     6. Exit                         ✬");
+        System.out.println("\t ✬                                     ✬");
+        System.out.println("\t ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ");
     }
 
-    public static void orderMenu() {
-        System.out.println("✬ ✬ ✬ ✬ ✬ ✬ ✬ORDER MENU✬ ✬ ✬ ✬ ✬ ✬ ✬");
-        System.out.println("✬                                  ✬");
-        System.out.println("✬     1. Tạo order                 ✬");
-        System.out.println("✬     2. xem danh sách order       ✬");
-        System.out.println("✬                                  ✬");
-        System.out.println("✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬");
-    }
 }

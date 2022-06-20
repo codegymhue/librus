@@ -88,7 +88,7 @@ public class BookItemView {
 
     public void showBooksItem(InputOption inputOption) {
         System.out.println("--------------------------------------------------------------- BOOK ITEM --------------------------------------------------------------------");
-        System.out.printf(" %-11s %-11s %-12s %-12s %-12s %-14s %-14s %-16s %-16s %-16s \n",
+        System.out.printf(" %-10s %-15s %-10s %-8s %-10s %-14s %-14s %-16s %-16s %-16s \n",
                 "Id",
                 "Tên sách",
                 "Nhà XB",
@@ -102,7 +102,7 @@ public class BookItemView {
 
         );
         for (BookItem bookItem : bookItemService.findAll()) {
-            System.out.printf(" %-11s %-11s %-12s %-12s %-12s %-14s %-14s %-16s %-16s %-16s \n",
+            System.out.printf(" %-10s %-15s %-10s %-8s %-10s %-14s %-14s %-16s %-16s %-16s \n",
                     bookItem.getBookItemID(),
                     bookItem.getBook().getTitle(),
                     bookItem.getPublisher(),
@@ -120,7 +120,7 @@ public class BookItemView {
             AppUtils.isRetry(InputOption.SHOW);
     }
 
-    private void checkoutBook() {
+    public void checkoutBook() {
 
         long id = inputId(InputOption.CHECKOUT);
         BookItem bookItem = bookItemService.findById(id);

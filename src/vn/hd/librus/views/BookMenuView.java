@@ -31,7 +31,7 @@ public class BookMenuView {
                         bookView.findBooksByName();
                         break;
                     case 6 :
-
+                        LibrarianView.menuOption();
                         break;
                     case 7:
                         System.exit(0);
@@ -50,13 +50,13 @@ public class BookMenuView {
     }
 
     public static void menuBook() {
-        System.out.println("❄ ❄ ❄ ❄ ❄ ❄ ❄  Menu Book  ❄ ❄ ❄ ❄ ❄ ❄ ❄");
+        System.out.println("❄ ❄ ❄ ❄ ❄ ❄ ❄  MENU BOOK  ❄ ❄ ❄ ❄ ❄ ❄ ❄");
         System.out.println("❄        1. Thêm sách                      ❄");
         System.out.println("❄        2. Chỉnh sửa sách                 ❄");
         System.out.println("❄        3. Xóa sách                       ❄");
         System.out.println("❄        4. Hiển thị danh sách sách        ❄");
         System.out.println("❄        5. Tìm kiếm sách theo tên         ❄");
-        System.out.println("❄        6. Quay lại Menu                  ❄");
+        System.out.println("❄        6. Quay lại Menu Librarian        ❄");
         System.out.println("❄        7. Exit                           ❄");
         System.out.println("❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄");
 

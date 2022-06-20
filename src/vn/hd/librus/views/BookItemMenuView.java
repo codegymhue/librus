@@ -17,23 +17,19 @@ public class BookItemMenuView {
                 choice = input.nextInt();
                 switch (choice) {
                     case 1:
-                      //  bookItemView.add();
-                        break;
-                    case 2:
                         bookItemView.update();
                         break;
+                    case 2:
+                        bookItemView.checkoutBook();
+                        break;
                     case 3:
-
+                        bookItemView.showBooksItem(InputOption.SHOW);
                         break;
                     case 4:
-
+                        LibrarianView.menuOption();
                         break;
                     case 5:
-
-                        break;
-
-                    case 6:
-                        System.exit(0);
+                        MenuView.exit();
                         break;
                     default:
                         System.out.println("Chọn chức năng không đúng. Vui lòng chọn lại");
@@ -50,14 +46,15 @@ public class BookItemMenuView {
 
     public static void menuBookItem() {
 
-        System.out.println("┌ - - - - - - - Menu BookItem - - - - - ┐");
-        System.out.println("|   1.Thêm BookItem                     |");
-        System.out.println("|   2.Sửa BookItem                      |");
-        System.out.println("|   3.Checkout BookItem                 |");//renew book + fine
-        System.out.println("|   4.Làm mới BookItem                  |");
-        System.out.println("|   5.Quay lại Menu                     |");
-        System.out.println("|   6.Thoát chương trình                |");
-        System.out.println("└ - - - - - -  - - - - - - - - - - - - -┘");
+        System.out.println("❄ ❄ ❄ ❄ ❄ ❄   MENU BOOKITEM  ❄ ❄ ❄ ❄ ❄ ❄");
+        System.out.println("❄                                          ❄");
+        System.out.println("❄        1. Chỉnh sửa BookItem             ❄");
+        System.out.println("❄        2. Checkout BookItem              ❄");
+        System.out.println("❄        3. Hiển thị danh sách BookItem    ❄");
+        System.out.println("❄        4. Quay lại Menu Librarian        ❄");
+        System.out.println("❄        5. Exit                           ❄");
+        System.out.println("❄                                          ❄");
+        System.out.println("❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄");
 
     }
 }

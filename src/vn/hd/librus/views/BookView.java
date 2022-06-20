@@ -16,10 +16,6 @@ public class BookView {
     private IBookService bookService; //Dependency Inversion Principle (SOLID)
     private final Scanner scanner = new Scanner(System.in);
 
-//    public static void main(String[] args) {
-//        BookView bookView = new BookView();
-//        bookView.showBooks(InputOption.SHOW);
-//    }
 
     public BookView() {
         bookService = BookService.getInstance();
@@ -152,8 +148,8 @@ public class BookView {
 
 
     public void showBooks(InputOption inputOption) {
-        System.out.println("------------------------------------------------------DANH SÁCH SÁCH----------------------------------------------------------------");
-        System.out.printf("%-15s %-15s %-20s %-13s %-13s %-13s %-20s %-20s\n",
+        System.out.println("-------------------------------------------------------------- DANH SÁCH SÁCH -------------------------------------------------------------");
+        System.out.printf("%-15s %-15s %-20s %-18s %-13s %-13s %-20s %-20s\n",
                 "Id",
                 "ISBN",
                 "Tên sách",
@@ -163,7 +159,7 @@ public class BookView {
                 "Ngày tạo",
                 "Ngày cập nhật");
         for (Book book : bookService.findAll()) {
-            System.out.printf("%-15s %-15s %-20s %-13s %-13s %-13s %-20s %-20s\n",
+            System.out.printf("%-15s %-15s %-20s %-18s %-13s %-13s %-20s %-20s\n",
                     book.getId(),
                     book.getIsbn(),
                     book.getTitle(),
@@ -173,7 +169,7 @@ public class BookView {
                     InstantUtils.instantToString(book.getCreatedAt()),
                     book.getUpdatedAt() == null ? "" : InstantUtils.instantToString(book.getUpdatedAt()));
         }
-        System.out.println("-------------------------------------------------------------------------------------------------------------------------------------\n");
+        System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------\n");
         if (inputOption == InputOption.SHOW) AppUtils.isRetry(InputOption.SHOW);
     }
 
