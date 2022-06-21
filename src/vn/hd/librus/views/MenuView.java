@@ -14,25 +14,25 @@ public class MenuView {
     }
 
     public static void showMainMenu() {
-            System.out.println("\t ✬ ✬ ✬ ✬ ✬ ✬  MAIN MENU  ✬ ✬ ✬ ✬ ✬ ✬");
-            System.out.println("\t ✬                                 ✬");
-            System.out.println("\t ✬     1. Menu Librarian           ✬");
-            System.out.println("\t ✬     2. Menu User                ✬");
-            System.out.println("\t ✬     3. Thoát chương trình       ✬");
-            System.out.println("\t ✬                                 ✬");
-            System.out.println("\t ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬");
+        System.out.println("\t ✬ ✬ ✬ ✬ ✬ ✬  MAIN MENU  ✬ ✬ ✬ ✬ ✬ ✬");
+        System.out.println("\t ✬                                 ✬");
+        System.out.println("\t ✬     1. Menu Librarian           ✬");
+        System.out.println("\t ✬     2. Menu User                ✬");
+        System.out.println("\t ✬     3. Thoát chương trình       ✬");
+        System.out.println("\t ✬                                 ✬");
+        System.out.println("\t ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬");
 
     }
 
     public static void showSelection() {
-        int choice ;
+        int choice;
         while (true) {
             showMainMenu();
             try {
                 choice = input.nextInt();
                 switch (choice) {
                     case 1:
-                       LibrarianView.menuOption();
+                        LibrarianView.menuOption();
                         break;
                     case 2:
                         UserMenuView.launch();

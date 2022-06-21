@@ -1,6 +1,5 @@
 package vn.hd.librus.views;
 
-import vn.hd.librus.Constants;
 import vn.hd.librus.model.*;
 import vn.hd.librus.services.BookItemService;
 import vn.hd.librus.services.BookService;
@@ -10,6 +9,7 @@ import vn.hd.librus.utils.InstantUtils;
 import vn.hd.librus.utils.ValidateUtils;
 import java.util.List;
 import java.util.Scanner;
+
 
 public class BookView {
 
@@ -383,9 +383,9 @@ public class BookView {
         int publicationAt;
         do {
             publicationAt = AppUtils.retryParseInt();
-            if (publicationAt <=0)
+            if (publicationAt <= 0)
                 System.out.println("Năm xuất bản phải lớn hơn 0 ");
-        } while (publicationAt <=0);
+        } while (publicationAt <= 0);
         return publicationAt;
     }
 

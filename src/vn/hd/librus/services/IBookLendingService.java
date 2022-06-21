@@ -18,7 +18,7 @@ public interface IBookLendingService {
 
     int countBookItemLendingByUserIdAndStatus(long userId);
 
-    public void returnBook (long bookItemId);
+    void returnBook (long bookItemId);
 
     void lendBook(long userId, long bookItemId);
 

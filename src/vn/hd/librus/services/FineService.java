@@ -72,31 +72,7 @@ public class FineService implements IFineService {
     public void update(Fine newBook) {
         List<Fine> books = findAll();
         for (Fine book : books) {
-//            if (book.getIsbn() == newBook.getIsbn()) {
-//                String title = newBook.getTitle();
-//                if (title != null && !title.isEmpty())
-//                    book.setTitle(newBook.getTitle());
-//
-//                String author = newBook.getAuthor();
-//                if (author != null)
-//                    book.setAuthor(newBook.getAuthor());
-//
-//                String subject = newBook.getSubject();
-//                if (subject != null)
-//                    book.setSubject(newBook.getSubject());
-//
-//                String publisher = newBook.getPublisher();
-//                if (publisher != null)
-//                    book.setPublisher(newBook.getPublisher());
-//
-//                String language = newBook.getLanguage();
-//                if (language != null)
-//                    book.setLanguage(newBook.getLanguage());
-//
-//                Integer numberOfPage = newBook.getNumberOfPages();
-//                if (numberOfPage != null)
-//                    book.setNumberOfPages(newBook.getNumberOfPages());
-//            }
+
         }
     }
 

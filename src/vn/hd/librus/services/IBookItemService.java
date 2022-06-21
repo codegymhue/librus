@@ -15,8 +15,6 @@ public interface IBookItemService {
 
     void update(BookItem newBook);
 
-    void checkForFine(String barcode);
-
     boolean renewBookItem(BookItem bookItem);
 
     void returnBookItem(BookItem bookItem);

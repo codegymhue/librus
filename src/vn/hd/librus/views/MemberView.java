@@ -61,11 +61,6 @@ public class MemberView extends UserView {
         } while (true);
     }
 
-
-//    public static void main(String[] args) {
-//        MemberView mbv = new MemberView();
-//        mbv.launch();
-//    }
     public void showHeader() {
 
         long id = inputUserId();
@@ -73,31 +68,28 @@ public class MemberView extends UserView {
         System.out.println();
         System.out.printf("\t %-5s %-15s %-5s %-15s %-5s %-15s %-5s %-15s \n",
                 "✬|✬"
-                ,"Tên Người Dùng    "
-                ,"✬|✬"
-                ,"Số điện thoại  ",
+                , "Tên Người Dùng    "
+                , "✬|✬"
+                , "Số điện thoại  ",
                 "✬|✬    ",
                 "Email ",
                 "✬|✬",
                 "Số sách đang mượn");
 
         User user = userService.findById(id);
-            System.out.printf("\t %-7s %-15s %-7s %-12s %-7s %-23s %-7s %-7s \n",
-                    "✬-✬-✬-✬",
-                    user.getUsername(),
-                    "✬-✬-✬-✬",
-                    user.getMobile(),
-                    "✬-✬-✬-✬",
-                    user.getEmail(),
-                    "✬-✬-✬-✬",
-                    bookLendingService.countBookItemLendingByUserIdAndStatus(user.getId()));
+        System.out.printf("\t %-7s %-15s %-7s %-12s %-7s %-23s %-7s %-7s \n",
+                "✬-✬-✬-✬",
+                user.getUsername(),
+                "✬-✬-✬-✬",
+                user.getMobile(),
+                "✬-✬-✬-✬",
+                user.getEmail(),
+                "✬-✬-✬-✬",
+                bookLendingService.countBookItemLendingByUserIdAndStatus(user.getId()));
 
         System.out.println();
         System.out.println("\t✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ");
-        }
-
-
-
+    }
 
     private long inputUserId() {
         long userId;
@@ -107,6 +99,7 @@ public class MemberView extends UserView {
         }
         return userId;
     }
+
     public void showMenu() {
         System.out.println("\t ✬ ✬ ✬ ✬ ✬ ✬ ✬ MENU MEMBER  ✬ ✬ ✬ ✬ ✬ ✬ ✬");
         System.out.println("\t ✬                                    ✬");

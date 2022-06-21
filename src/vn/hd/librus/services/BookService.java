@@ -80,11 +80,11 @@ public class BookService implements IBookService {
                     book.setLanguage(newBook.getLanguage());
 
                 Instant createdAt = newBook.getCreatedAt();
-                if (createdAt !=null)
+                if (createdAt != null)
                     book.setCreatedAt(newBook.getCreatedAt());
 
                 Instant updatedAt = newBook.getUpdatedAt();
-                if (updatedAt !=null)
+                if (updatedAt != null)
                     book.setUpdatedAt(newBook.getUpdatedAt());
 
                 book.setUpdatedAt(Instant.now());

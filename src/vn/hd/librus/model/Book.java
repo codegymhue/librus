@@ -14,7 +14,10 @@ public class Book {
     private Instant createdAt;
     private Instant updatedAt;
 
-   public Book(){};
+    public Book() {
+    }
+
+    ;
 
     public Book(Long id, String isbn, String title, String author, String subject, String language, Instant createdAt, Instant updatedAt) {
         this.id = id;
@@ -27,7 +30,7 @@ public class Book {
         this.updatedAt = updatedAt;
     }
 
-    public Book( String title, String isbn, String author, String subject, String language) {
+    public Book(String title, String isbn, String author, String subject, String language) {
         this.title = title;
         this.isbn = isbn;
         this.author = author;
@@ -46,7 +49,7 @@ public class Book {
         String language = fields[5];
         Instant createdAt = InstantUtils.parseInstant(fields[6]);
         Instant updatedAt = InstantUtils.parseInstant(fields[7]);
-        return new Book(id,ISBN, title, author, subject, language, createdAt,updatedAt);
+        return new Book(id, ISBN, title, author, subject, language, createdAt, updatedAt);
     }
 
     public long getId() {
@@ -118,6 +121,6 @@ public class Book {
     @Override
     public String toString() {
         return String.format("%s,%s,%s,%s,%s,%s,%s,%s",
-               id, isbn, title, author, subject, language,createdAt,updatedAt );
+                id, isbn, title, author, subject, language, createdAt, updatedAt);
     }
 }

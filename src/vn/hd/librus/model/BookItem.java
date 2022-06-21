@@ -22,7 +22,9 @@ public class BookItem {
 
 
     public BookItem() {
-    };
+    }
+
+    ;
 
     public BookItem(long bookItemID, String publisher, int numberOfPages,
                     double price,
@@ -173,6 +175,14 @@ public class BookItem {
         this.bookId = bookId;
     }
 
+    public void setBook(Book book) {
+        this.book = book;
+    }
+
+    public Book getBook() {
+        return book;
+    }
+
 
     @Override
     public String toString() {
@@ -192,13 +202,6 @@ public class BookItem {
 
     }
 
-    public void setBook(Book book) {
-        this.book = book;
-    }
-
-    public Book getBook() {
-        return book;
-    }
 }
 
 

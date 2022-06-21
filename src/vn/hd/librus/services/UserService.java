@@ -24,26 +24,6 @@ public class UserService implements IUserService {
     private User currentUser;
 
 
-    public User getCurrentUser(long Id) {
-        List<User> users = findAll();
-//        for (User user : users) {
-//            if (user.getId() == currentUser.getId()) {
-//                String username = user.getUsername();
-//                if (username != null && !username.isEmpty())
-//                    currentUser.setUsername(user.getUsername());
-//                String phone = user.getMobile();
-//                if (phone != null)
-//                    currentUser.setMobile(user.getMobile());
-//                String email = user.getEmail();
-//                if (email != null)
-//                    currentUser.setEmail(user.getEmail());
-//                bookLendingService.countBookItemLendingByUserIdAndStatus(currentUser.getId());
-//            }
-//        }
-        return currentUser;
-    }
-
-
     public static UserService getInstance() {
         if (instance == null)
             instance = new UserService();
@@ -154,7 +134,6 @@ public class UserService implements IUserService {
 
     @Override
     public void unBlockMember(long id) {
-
     }
 
 }

@@ -22,8 +22,8 @@ public class BookItemMenuView {
                     case 2:
                         bookItemView.checkoutBook();
                         break;
-                    case 3 :
-                        bookItemView. returnBook();
+                    case 3:
+                        bookItemView.returnBook();
                         break;
                     case 4:
                         bookItemView.showBooksItem(InputOption.SHOW);

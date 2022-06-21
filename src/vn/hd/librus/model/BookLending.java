@@ -14,9 +14,13 @@ public class BookLending {
     private Instant dueAt;
     private Instant returnAt;
 
-    public BookLending(){};
+    public BookLending() {
+    }
+
+    ;
+
     public BookLending(long id, long bookItemId, long userId, LendingStatus status, Instant createdAt, Instant dueAt, Instant returnAt) {
-        this.id =id;
+        this.id = id;
         this.bookItemId = bookItemId;
         this.userId = userId;
         this.status = status;
@@ -27,7 +31,7 @@ public class BookLending {
 
 
     public static BookLending parse(String record) {
-        String[]fields = record.split(",");
+        String[] fields = record.split(",");
         long id = Long.parseLong(fields[0]);
         long bookItemId = Long.parseLong(fields[1]);
         long userId = Long.parseLong(fields[2]);
@@ -35,7 +39,7 @@ public class BookLending {
         Instant createdAt = InstantUtils.parseInstant(fields[4]);
         Instant dueAt = InstantUtils.parseInstant(fields[5]);
         Instant returnAt = InstantUtils.parseInstant(fields[6]);
-        return new BookLending(id,bookItemId,userId,status,createdAt,dueAt,returnAt);
+        return new BookLending(id, bookItemId, userId, status, createdAt, dueAt, returnAt);
     }
 
     public long getId() {

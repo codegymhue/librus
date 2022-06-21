@@ -1,4 +1,5 @@
 package vn.hd.librus.views;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -30,7 +31,7 @@ public class BookMenuView {
                     case 5:
                         bookView.findBooksByName();
                         break;
-                    case 6 :
+                    case 6:
                         LibrarianView.menuOption();
                         break;
                     case 7:

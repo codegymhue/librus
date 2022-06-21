@@ -1,12 +1,13 @@
 package vn.hd.librus.utils;
 
 import vn.hd.librus.views.InputOption;
+import vn.hd.librus.views.MenuView;
 
 import java.text.DecimalFormat;
 import java.util.Scanner;
 
 public class AppUtils {
-   public final static Scanner SCANNER = new Scanner(System.in);
+    public final static Scanner SCANNER = new Scanner(System.in);
 
     public static int retryChoose(int min, int max) {
         int option;
@@ -108,7 +109,7 @@ public class AppUtils {
                 case "q":
                     return false;
                 case "t":
-                    exit();
+                    MenuView.exit();
                     break;
                 default:
                     System.out.println("Chọn chức năng không đúng! Vui lòng chọn lại");
@@ -117,8 +118,5 @@ public class AppUtils {
         } while (true);
     }
 
-    public static void exit() {
-        System.out.println("\tTạm biệt. Hẹn gặp lại!");
-        System.exit(5);
-    }
+
 }

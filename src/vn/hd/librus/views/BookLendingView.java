@@ -8,6 +8,7 @@ import vn.hd.librus.utils.InstantUtils;
 
 import java.util.Scanner;
 
+
 public class BookLendingView {
     private IBookLendingService bookLendingService;
     private final Scanner scanner = new Scanner(System.in);
@@ -17,7 +18,7 @@ public class BookLendingView {
         bookLendingService = BookLendingService.getInstance();
     }
 
-    public void update(){
+    public void update() {
         boolean isRetry;
         do {
             showBooksLending(InputOption.UPDATE);
@@ -27,7 +28,7 @@ public class BookLendingView {
             System.out.println("|   2. Quay lại Menu               |");
             System.out.println("└ - - - - - - - - - - - - - - - - -┘");
             System.out.println("Chọn chức năng: ");
-            int option = AppUtils.retryChoose(1,2);
+            int option = AppUtils.retryChoose(1, 2);
             BookLending newBookLending = new BookLending();
             newBookLending.setId(id);
 
@@ -75,7 +76,7 @@ public class BookLendingView {
             AppUtils.isRetry(InputOption.SHOW);
     }
 
-    private LendingStatus inputLendingStatus(InputOption option){
+    private LendingStatus inputLendingStatus(InputOption option) {
         switch (option) {
             case ADD:
                 System.out.println("Nhập Lending status : LENDING | DUE | RETURN");
@@ -84,7 +85,7 @@ public class BookLendingView {
                 System.out.println("Nhập Lending status muốn sửa: LENDING | DUE | RETURN ");
                 break;
         }
-        return  LendingStatus.parseRole(AppUtils.retryString("lending status"));
+        return LendingStatus.parseRole(AppUtils.retryString("lending status"));
     }
 
     private long inputId(InputOption option) {

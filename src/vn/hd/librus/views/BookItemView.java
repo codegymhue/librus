@@ -7,20 +7,12 @@ import vn.hd.librus.utils.AppUtils;
 import vn.hd.librus.utils.InstantUtils;
 
 import java.time.Duration;
-import java.time.Instant;
-
-import static vn.hd.librus.model.LendingStatus.RETURN;
 
 
 public class BookItemView {
-    private IUserService userService;
-    private IBookItemService bookItemService;
-    private IBookLendingService bookLendingService;
-
-//    public static void main(String[] args) {
-//        BookItemView bookItemView = new BookItemView();
-//        bookItemView.checkoutBook();
-//    }
+    private final IUserService userService;
+    private final IBookItemService bookItemService;
+    private final IBookLendingService bookLendingService;
 
 
     public BookItemView() {
@@ -141,12 +133,6 @@ public class BookItemView {
 
         bookLendingService.lendBook(userId, bookItem.getBookItemID());
         System.out.println("Bạn đã mượn sách thành công");
-    }
-
-
-    public static void main(String[] args) {
-        BookItemView biv = new BookItemView();
-        biv.returnBook();
     }
 
     void returnBook() {

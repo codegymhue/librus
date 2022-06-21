@@ -15,10 +15,10 @@ import java.util.List;
 public class BookItemService implements IBookItemService {
     public final static String PATH = "data/book-items.csv";
     private static BookItemService instance;
-    private  IBookService bookService;
+    private IBookService bookService;
 
     private BookItemService() {
-        bookService=BookService.getInstance();
+        bookService = BookService.getInstance();
     }
 
     public static BookItemService getInstance() {
@@ -32,7 +32,7 @@ public class BookItemService implements IBookItemService {
         List<BookItem> books = new ArrayList<>();
         List<String> records = CSVUtils.read(PATH);
         for (String record : records) {
-            BookItem bookItem=BookItem.parse(record);
+            BookItem bookItem = BookItem.parse(record);
             long bookId = bookItem.getBookId();
             Book book = bookService.findById(bookId);
             bookItem.setBook(book);
@@ -57,11 +57,6 @@ public class BookItemService implements IBookItemService {
     }
 
     @Override
-    public void checkForFine(String barcode) {
-
-    }
-
-    @Override
     public boolean renewBookItem(BookItem bookItem) {
         return false;
     }
@@ -75,7 +70,7 @@ public class BookItemService implements IBookItemService {
     @Override
     public void add(BookItem newBookItem) {
         List<BookItem> bookItems = findAll();
-        newBookItem.setBookItemID(System.currentTimeMillis()/1000);
+        newBookItem.setBookItemID(System.currentTimeMillis() / 1000);
         Instant now = Instant.now();
         newBookItem.setStatus(BookStatus.AVAILABLE);
         newBookItem.setDateOfPurchase(now);
@@ -87,28 +82,28 @@ public class BookItemService implements IBookItemService {
     public void update(BookItem newBookItem) {
         List<BookItem> bookItems = findAll();
         for (BookItem book : bookItems) {
-            if (book.getBookItemID() == newBookItem.getBookItemID()){
+            if (book.getBookItemID() == newBookItem.getBookItemID()) {
                 String publisher = newBookItem.getPublisher();
                 if (publisher != null && !publisher.isEmpty())
                     book.setPublisher(newBookItem.getPublisher());
 
                 Integer publicationAt = newBookItem.getPublicationAt();
-                if (publicationAt != null )
+                if (publicationAt != null)
                     book.setPublicationAt(newBookItem.getPublicationAt());
 
                 Double price = newBookItem.getPrice();
                 if (price != null)
-                book.setPrice(newBookItem.getPrice());
+                    book.setPrice(newBookItem.getPrice());
 
                 BookFormat format = newBookItem.getFormat();
-                if(format != null)
-                    book.setFormat( newBookItem.getFormat());
+                if (format != null)
+                    book.setFormat(newBookItem.getFormat());
 
                 BookStatus status = newBookItem.getStatus();
-                if(status != null)
+                if (status != null)
                     book.setStatus(newBookItem.getStatus());
 
-                CSVUtils.write(PATH,bookItems);
+                CSVUtils.write(PATH, bookItems);
 
             }
         }

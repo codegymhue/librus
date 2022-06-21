@@ -40,7 +40,6 @@ public class UserMenuView {
                 System.out.println("Nhập sai! vui lòng nhập lại");
             }
         } while (option != 4);
-
     }
 
     public static void menuUser() {

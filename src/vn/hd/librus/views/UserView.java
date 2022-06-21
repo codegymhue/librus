@@ -21,7 +21,6 @@ public class UserView {//Single Responsibility Principle (SOLID)
         userService = UserService.getInstance();
     }
 
-
     public void addUser() {
         do {
             try {
@@ -162,7 +161,7 @@ public class UserView {//Single Responsibility Principle (SOLID)
     public String inputUsername() {
         System.out.println("Nhập Username (không bao gồm dấu cách, kí tự đặc biệt)");
         System.out.print(" ⭆ ");
-        String username ;
+        String username;
 
         do {
             if (!ValidateUtils.isUsernameValid(username = AppUtils.retryString("Username"))) {
@@ -285,18 +284,18 @@ public class UserView {//Single Responsibility Principle (SOLID)
             String username = AppUtils.retryString("Tên đăng nhập");
             System.out.println("Mật khẩu");
             String password = AppUtils.retryString("Mật khẩu");
-            User user = userService.login(username,password);
+            User user = userService.login(username, password);
 
             if (user == null) {
                 System.out.println("Tài khoản không hợp lệ ");
                 isRetry = isRetry();
 
-            }else if (user.getRole() == Role.LIBRARIAN){
+            } else if (user.getRole() == Role.LIBRARIAN) {
                 System.out.println("LIBRARIAN đã đăng nhập thành công \uD83C\uDF8A \n");
                 System.out.println("CHÀO MỪNG BẠN ĐÃ ĐẾN VỚI THƯ VIỆN HẰNG ĐINH\n");
                 LibrarianView.menuOption();
 
-            } else if (user.getRole() == Role.MEMBER ) {
+            } else if (user.getRole() == Role.MEMBER) {
                 System.out.println("Bạn đã đăng nhập thành công \uD83C\uDF8A \n");
                 System.out.println("CHÀO MỪNG BẠN ĐÃ ĐẾN VỚI THƯ VIỆN HẰNG ĐINH\n");
                 MemberView.launch();

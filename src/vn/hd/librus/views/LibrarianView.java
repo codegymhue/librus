@@ -7,11 +7,9 @@ import java.util.Scanner;
 
 public class LibrarianView extends UserView {
 
-    public static void launch() {
-        LibrarianView librarianView = new LibrarianView();
-//        librarianView.login(Role.LIBRARIAN);
-        librarianView.menuOption();
-    }
+//    public static void launch() {
+//        menuOption();
+//    }
 
     public static void menuOption() {
         do {

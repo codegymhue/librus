@@ -4,12 +4,8 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class BookLendingMenu {
-//    public static void main(String[] args) {
-//        BookLendingMenu bookLendingMenu = new BookLendingMenu();
-//        bookLendingMenu.launch();
-//    }
 
-    public static void menuBookLending(){
+    public static void menuBookLending() {
         System.out.println("❄ ❄ ❄ ❄ ❄   Menu BookLending   ❄ ❄ ❄ ❄ ❄");
         System.out.println("❄    1. Chỉnh sửa BookLending              ❄");
         System.out.println("❄    2. Hiển thị danh sách BookLending     ❄");
@@ -18,9 +14,9 @@ public class BookLendingMenu {
         System.out.println("❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄");
     }
 
-    public static void launch(){
+    public static void launch() {
         int choice;
-        do{
+        do {
             Scanner scanner = new Scanner(System.in);
             BookLendingView bookLendingView = new BookLendingView();
             menuBookLending();
@@ -28,14 +24,14 @@ public class BookLendingMenu {
                 System.out.println("Chọn chức năng: ");
                 System.out.println("⭆");
                 choice = scanner.nextInt();
-                switch (choice){
-                    case 1 :
+                switch (choice) {
+                    case 1:
                         bookLendingView.update();
                         break;
-                    case 2 :
+                    case 2:
                         bookLendingView.showBooksLending(InputOption.SHOW);
                         break;
-                    case 3 :
+                    case 3:
                         LibrarianView.menuOption();
                         break;
 
@@ -43,13 +39,13 @@ public class BookLendingMenu {
                         System.out.println("Chọn chức năng không đúng. Vui lòng nhập lại.");
                 }
 
-            }catch (InputMismatchException io){
+            } catch (InputMismatchException io) {
                 System.out.println("Nhập sai. Vui lòng nhaaoj lại");
-            } catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
                 System.out.println(e.getMessage());
             }
-        }while (true);
+        } while (true);
     }
 
 }

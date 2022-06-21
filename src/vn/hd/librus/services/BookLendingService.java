@@ -46,10 +46,10 @@ public class BookLendingService implements IBookLendingService {
         return null;
     }
 
-    public BookLending findByUserId (long userId){
-        List <BookLending> bookLendingList = findAll();
-        for (BookLending bookLending : bookLendingList){
-            if(bookLending.getUserId() == userId)
+    public BookLending findByUserId(long userId) {
+        List<BookLending> bookLendingList = findAll();
+        for (BookLending bookLending : bookLendingList) {
+            if (bookLending.getUserId() == userId)
                 return bookLending;
         }
         return null;
@@ -73,7 +73,6 @@ public class BookLendingService implements IBookLendingService {
     }
 
 
-
     @Override
     public void lendBook(long userId, long bookItemId) {
         BookItem bookItem = bookItemService.findById(bookItemId);
@@ -95,13 +94,13 @@ public class BookLendingService implements IBookLendingService {
         add(newBookLending);
     }
 
-    public void returnBook (long bookItemId){
+    public void returnBook(long bookItemId) {
         List<BookLending> bookLendingList = findAll();
         BookItem bookItem = bookItemService.findById(bookItemId);
         BookLending newBookLending = new BookLending();
         newBookLending.setReturnAt(Instant.now());
         newBookLending.setStatus(LendingStatus.RETURN);
-        CSVUtils.write(PATH,bookLendingList);
+        CSVUtils.write(PATH, bookLendingList);
     }
 
     @Override
@@ -122,7 +121,7 @@ public class BookLendingService implements IBookLendingService {
     public void update(BookLending newBookLending) {
         List<BookLending> bookLendingList = findAll();
         for (BookLending bookLending : bookLendingList) {
-            if (bookLending.getId() == newBookLending.getId()){
+            if (bookLending.getId() == newBookLending.getId()) {
                 LendingStatus status = newBookLending.getStatus();
                 if (status != null)
                     bookLending.setStatus(newBookLending.getStatus());
@@ -134,7 +133,7 @@ public class BookLendingService implements IBookLendingService {
                 Instant dueAt = newBookLending.getDueAt();
                 if (dueAt != null)
                     bookLending.setDueAt(newBookLending.getDueAt());
-                CSVUtils.write(PATH,bookLendingList);
+                CSVUtils.write(PATH, bookLendingList);
 
             }
         }
