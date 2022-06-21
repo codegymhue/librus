@@ -46,6 +46,15 @@ public class BookLendingService implements IBookLendingService {
         return null;
     }
 
+    public BookLending findByUserId (long userId){
+        List <BookLending> bookLendingList = findAll();
+        for (BookLending bookLending : bookLendingList){
+            if(bookLending.getUserId() == userId)
+                return bookLending;
+        }
+        return null;
+    }
+
     @Override
     public boolean isBookIssuedQuotaExceeded(long userId) {
         return countBookItemLendingByUserIdAndStatus(userId) >= Constants.MAX_BOOKS_ISSUED_TO_A_USER;
@@ -79,7 +88,6 @@ public class BookLendingService implements IBookLendingService {
 //        Instant dueAt = Instant.ofEpochMilli(now.toEpochMilli());
         Instant dueAt = now.plus(Period.ofDays(Constants.MAX_LENDING_DAYS));
         newBookLending.setDueAt(dueAt);
-
         bookItem.setBorrowedAt(now);
         bookItem.setDueAt(dueAt);
         bookItem.setStatus(BookStatus.LOANED);
@@ -87,6 +95,16 @@ public class BookLendingService implements IBookLendingService {
         add(newBookLending);
     }
 
+    public void returnBook (long bookItemId){
+        List<BookLending> bookLendingList = findAll();
+        BookItem bookItem = bookItemService.findById(bookItemId);
+        BookLending newBookLending = new BookLending();
+        newBookLending.setReturnAt(Instant.now());
+        newBookLending.setCreatedAt(null);
+        newBookLending.setDueAt(null);
+        newBookLending.setStatus(LendingStatus.RETURN);
+        CSVUtils.write(PATH,bookLendingList);
+    }
 
     @Override
     public boolean existById(long id) {
@@ -121,10 +139,7 @@ public class BookLendingService implements IBookLendingService {
                 CSVUtils.write(PATH,bookLendingList);
 
             }
-
-
         }
     }
-
 
 }

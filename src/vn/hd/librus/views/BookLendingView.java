@@ -54,7 +54,7 @@ public class BookLendingView {
                 "Id BookItem",
                 "Id User",
                 "Lending Status",
-                "Ngày Khởi Tạo",
+                "Ngày Mượn Sách",
                 "Ngày Đến Hạn",
                 "Ngày Trả Sách"
 

@@ -13,7 +13,7 @@ public class BookItemMenuView {
             menuBookItem();
             try {
                 System.out.println("Chọn chức năng :");
-                System.out.println("=>");
+                System.out.println("⭆");
                 choice = input.nextInt();
                 switch (choice) {
                     case 1:
@@ -22,16 +22,16 @@ public class BookItemMenuView {
                     case 2:
                         bookItemView.checkoutBook();
                         break;
-//                    case 3 :
-//                        bookItemView. returnBook();
-//                        break;
-                    case 3:
-                        bookItemView.showBooksItem(InputOption.SHOW);
+                    case 3 :
+                        bookItemView. returnBook();
                         break;
                     case 4:
-                        LibrarianView.menuOption();
+                        bookItemView.showBooksItem(InputOption.SHOW);
                         break;
                     case 5:
+                        LibrarianView.menuOption();
+                        break;
+                    case 6:
                         MenuView.exit();
                         break;
                     default:
@@ -53,10 +53,10 @@ public class BookItemMenuView {
         System.out.println("❄                                          ❄");
         System.out.println("❄        1. Chỉnh sửa BookItem             ❄");
         System.out.println("❄        2. Checkout BookItem              ❄");
-//        System.out.println("❄        3. Return Book                    ❄");
-        System.out.println("❄        3. Hiển thị danh sách BookItem    ❄");
-        System.out.println("❄        4. Quay lại Menu Librarian        ❄");
-        System.out.println("❄        5. Exit                           ❄");
+        System.out.println("❄        3. Return Book                    ❄");
+        System.out.println("❄        4. Hiển thị danh sách BookItem    ❄");
+        System.out.println("❄        5. Quay lại Menu Librarian        ❄");
+        System.out.println("❄        6. Exit                           ❄");
         System.out.println("❄                                          ❄");
         System.out.println("❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄ ❄");
 

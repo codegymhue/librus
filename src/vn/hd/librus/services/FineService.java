@@ -53,12 +53,6 @@ public class FineService implements IFineService {
         //tim user , vuot qua ngay thi nop phat
         User user = userService.findById(userId);
 
-
-
-
-
-
-
     }
 
     @Override

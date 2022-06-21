@@ -7,7 +7,7 @@ import java.util.List;
 public interface IUserService {
     List<User> findAll();
 
-    public User getCurrentUser();
+//    public User getCurrentUser(long Id);
 
     public User login(String username,String password);
 

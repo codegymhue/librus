@@ -64,32 +64,32 @@ public class MemberView extends UserView {
 
 //    public static void main(String[] args) {
 //        MemberView mbv = new MemberView();
-//        mbv.showHeader();
+//        mbv.launch();
 //    }
     public void showHeader() {
 
         long id = inputUserId();
         System.out.println("\t✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬  LIBRUS  ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬");
         System.out.println();
-        System.out.printf("\t %5s,%12s,%5s %12s %5s %12s %5s %12s \n",
-                "✬"
+        System.out.printf("\t %-5s %-15s %-5s %-15s %-5s %-15s %-5s %-15s \n",
+                "✬|✬"
                 ,"Tên Người Dùng    "
-                ,"✬"
+                ,"✬|✬"
                 ,"Số điện thoại  ",
-                "✬",
-                "Email  ",
-                "✬",
+                "✬|✬    ",
+                "Email ",
+                "✬|✬",
                 "Số sách đang mượn");
 
         User user = userService.findById(id);
-            System.out.printf("\t %5s,%12s,%5s %12s %5s %12s %5s %12s\n",
-                    "✬  ✬",
+            System.out.printf("\t %-7s %-15s %-7s %-12s %-7s %-23s %-7s %-7s \n",
+                    "✬-✬-✬-✬",
                     user.getUsername(),
-                    "✬  ✬",
+                    "✬-✬-✬-✬",
                     user.getMobile(),
-                    "✬  ✬",
+                    "✬-✬-✬-✬",
                     user.getEmail(),
-                    "✬  ✬",
+                    "✬-✬-✬-✬",
                     bookLendingService.countBookItemLendingByUserIdAndStatus(user.getId()));
 
         System.out.println();
@@ -110,10 +110,11 @@ public class MemberView extends UserView {
     public void showMenu() {
         System.out.println("\t ✬ ✬ ✬ ✬ ✬ ✬ ✬ MENU MEMBER  ✬ ✬ ✬ ✬ ✬ ✬ ✬");
         System.out.println("\t ✬                                    ✬");
-        System.out.println("\t ✬     1. Sửa thông tin cá nhân       ✬");
-        System.out.println("\t ✬     2. Xem sách đang mượn          ✬");
+        System.out.println("\t ✬     1. Sửa thông tin               ✬");
+        System.out.println("\t ✬     2. Xem thông tin BookLending   ✬");
         System.out.println("\t ✬     3. Exit                        ✬");
         System.out.println("\t ✬                                    ✬");
         System.out.println("\t ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬");
     }
+
 }

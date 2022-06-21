@@ -102,7 +102,7 @@ public class BookItemView {
                 "Trạng thái ",
                 "Ngày nhập vào TV",
                 "Ngày mượn sách",
-                "Ngày trả sách"
+                "Hạn trả sách"
 
         );
         for (BookItem bookItem : bookItemService.findAll()) {
@@ -140,20 +140,24 @@ public class BookItemView {
         }
 
         bookLendingService.lendBook(userId, bookItem.getBookItemID());
-        System.out.println("Mượn sách thành công");
+        System.out.println("Bạn đã mượn sách thành công");
     }
 
 
-    void returnBook(){
-        long id = inputId(InputOption.RETURN);
-        BookItem bookItem = bookItemService.findById(id);
-        System.out.println("Thông tin sách " + bookItem);
-        Duration duration = Duration.between(bookItem.getBorrowedAt(),bookItem.getDueAt());
-        System.out.println(duration.toDays());
-//        if (duration > Constants.MAX_LENDING_DAYS)
-//            System.out.println("Người dùng vượt quá số sách cho phép");
-        //check Fine
-        //Tăng numberBook
+    void returnBook() {
+        long userId = inputUserId();
+        BookLending bookLending = bookLendingService.findByUserId(userId);
+        System.out.println("Thông tin Booklending " + bookLending);
+        Duration duration = Duration.between(bookLending.getCreatedAt(), bookLending.getDueAt());
+        System.out.println("Số ngày mượn cuốn sách tính tới hiện tại là: " + duration.toDays());
+        if (duration.toDays() > Constants.MAX_LENDING_DAYS) {
+            System.out.println("Người dùng vượt quá số ngày cho phép");
+            System.out.println("Người dùng bị phạt 100.000đ");
+            return;
+        }
+        bookLendingService.returnBook(bookLending.getUserId());
+        System.out.println("Bạn đã trả sách thành công \uD83C\uDF8A");
+
     }
 
 
@@ -164,7 +168,7 @@ public class BookItemView {
                 System.out.println("Nhập Id");
                 break;
             case CHECKOUT:
-                System.out.println("Nhập Id để checkout sách");
+                System.out.println("Nhập Id BookItem để checkout sách");
                 break;
             case RETURN:
                 System.out.println("Nhập Id để trả sách");

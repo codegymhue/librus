@@ -18,11 +18,13 @@ public interface IBookLendingService {
 
     int countBookItemLendingByUserIdAndStatus(long userId);
 
-
+    public void returnBook (long bookItemId);
 
     void lendBook(long userId, long bookItemId);
 
     boolean existById(long id);
 
     BookLending findById(long id);
+
+    BookLending findByUserId (long userId);
 }

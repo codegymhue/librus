@@ -15,20 +15,34 @@ public class UserService implements IUserService {
 
     //Singleton Design Pattern
     private static UserService instance;
+    private final IBookLendingService bookLendingService;
 
     private UserService() {
+        bookLendingService = BookLendingService.getInstance();
     }
 
     private User currentUser;
 
-    public User getCurrentUser() {
-//        List <User> newUsers = new ArrayList<>();
-//        List <User> users = findAll();
-//        for (User currentUser : users)
-//            if (currentUser.getUsername().toLowerCase().contains(currentUser.getUsername()))
-//                newUsers.add(currentUser);
+
+    public User getCurrentUser(long Id) {
+        List<User> users = findAll();
+//        for (User user : users) {
+//            if (user.getId() == currentUser.getId()) {
+//                String username = user.getUsername();
+//                if (username != null && !username.isEmpty())
+//                    currentUser.setUsername(user.getUsername());
+//                String phone = user.getMobile();
+//                if (phone != null)
+//                    currentUser.setMobile(user.getMobile());
+//                String email = user.getEmail();
+//                if (email != null)
+//                    currentUser.setEmail(user.getEmail());
+//                bookLendingService.countBookItemLendingByUserIdAndStatus(currentUser.getId());
+//            }
+//        }
         return currentUser;
     }
+
 
     public static UserService getInstance() {
         if (instance == null)
@@ -47,12 +61,11 @@ public class UserService implements IUserService {
         return users;
     }
 
-    public User login(String username,String password) {
-        List <User> users = findAll();
+    public User login(String username, String password) {
+        List<User> users = findAll();
         for (User user : users) {
             if (user.getUsername().equals(username)
-                    && user.getPassword().equals(password))
-            {
+                    && user.getPassword().equals(password)) {
                 return user;
             }
         }
