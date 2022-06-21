@@ -144,12 +144,27 @@ public class BookItemView {
     }
 
 
+    public static void main(String[] args) {
+        BookItemView biv = new BookItemView();
+        biv.returnBook();
+    }
+
     void returnBook() {
+
         long userId = inputUserId();
         BookLending bookLending = bookLendingService.findByUserId(userId);
-        System.out.println("Thông tin Booklending " + bookLending);
+        long bookItemId = inputId(InputOption.RETURN);
+        BookItem bookItem = bookItemService.findById(bookItemId);
+        System.out.println("Thông tin sách muốn trả : " + bookItem);
+
+        if (bookLending == null) {
+            System.out.println("Người dùng này chưa mượn sách ở thư viện ! BookItem này thuộc người dùng khác");
+            return;
+        } else System.out.println("Thông tin BookLending :" + bookLending);
+
         Duration duration = Duration.between(bookLending.getCreatedAt(), bookLending.getDueAt());
         System.out.println("Số ngày mượn cuốn sách tính tới hiện tại là: " + duration.toDays());
+
         if (duration.toDays() > Constants.MAX_LENDING_DAYS) {
             System.out.println("Người dùng vượt quá số ngày cho phép");
             System.out.println("Người dùng bị phạt 100.000đ");
@@ -171,7 +186,8 @@ public class BookItemView {
                 System.out.println("Nhập Id BookItem để checkout sách");
                 break;
             case RETURN:
-                System.out.println("Nhập Id để trả sách");
+                System.out.println("Nhập Id BookItem để trả sách");
+                break;
             case UPDATE:
                 System.out.println("Nhập Id bạn muốn sửa");
                 break;
@@ -211,7 +227,7 @@ public class BookItemView {
 
     private long inputUserId() {
         long userId;
-        System.out.println("Nhập UserId để checkout sách");
+        System.out.println("Nhập UserId :");
         while (!userService.existById(userId = AppUtils.retryParseLong())) {
             System.out.println("Không tìm thấy người dùng ! Vui lòng nhập lại");
         }
@@ -291,5 +307,4 @@ public class BookItemView {
         }
         return BookStatus.parseBookStatus(AppUtils.retryString("Trạng thái"));
     }
-
 }

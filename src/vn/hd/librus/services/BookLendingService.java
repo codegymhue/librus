@@ -100,8 +100,6 @@ public class BookLendingService implements IBookLendingService {
         BookItem bookItem = bookItemService.findById(bookItemId);
         BookLending newBookLending = new BookLending();
         newBookLending.setReturnAt(Instant.now());
-        newBookLending.setCreatedAt(null);
-        newBookLending.setDueAt(null);
         newBookLending.setStatus(LendingStatus.RETURN);
         CSVUtils.write(PATH,bookLendingList);
     }
