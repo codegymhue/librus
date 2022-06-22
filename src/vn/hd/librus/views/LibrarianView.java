@@ -33,9 +33,6 @@ public class LibrarianView extends UserView {
                         UserMenuView.launch();
                         break;
                     case 5 :
-                        MenuView.showSelection();
-                        break;
-                    case 6 :
                         MenuView.exit();
                         break;
                     default:
@@ -59,8 +56,7 @@ public class LibrarianView extends UserView {
         System.out.println("\t ✬     2. Quản lí BookItem             ✬");
         System.out.println("\t ✬     3. Quản lí BookLending          ✬");
         System.out.println("\t ✬     4. Quản lí người dùng           ✬");
-        System.out.println("\t ✬     5. Quay lại Main Menu           ✬");
-        System.out.println("\t ✬     6. Exit                         ✬");
+        System.out.println("\t ✬     5. Exit                         ✬");
         System.out.println("\t ✬                                     ✬");
         System.out.println("\t ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ");
     }

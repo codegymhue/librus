@@ -138,11 +138,10 @@ public class BookItemView {
     void returnBook() {
 
         long userId = inputUserId();
-        BookLending bookLending = bookLendingService.findByUserId(userId);
         long bookItemId = inputId(InputOption.RETURN);
         BookItem bookItem = bookItemService.findById(bookItemId);
         System.out.println("Thông tin sách muốn trả : " + bookItem);
-
+        BookLending bookLending = bookLendingService.findByBookItemIdAndUserIdAndStatus(bookItemId, userId, LendingStatus.RETURN);
         if (bookLending == null) {
             System.out.println("Người dùng này chưa mượn sách ở thư viện ! BookItem này thuộc người dùng khác");
             return;
@@ -156,7 +155,7 @@ public class BookItemView {
             System.out.println("Người dùng bị phạt 100.000đ");
             return;
         }
-        bookLendingService.returnBook(bookLending.getUserId());
+        bookLendingService.returnBook(bookItemId, bookLending.getUserId());
         System.out.println("Bạn đã trả sách thành công \uD83C\uDF8A");
 
     }

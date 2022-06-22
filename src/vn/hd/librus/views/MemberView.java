@@ -1,10 +1,12 @@
 package vn.hd.librus.views;
 
 import vn.hd.librus.model.BookItem;
+import vn.hd.librus.model.BookLending;
 import vn.hd.librus.model.Role;
 import vn.hd.librus.model.User;
 import vn.hd.librus.services.*;
 import vn.hd.librus.utils.AppUtils;
+import vn.hd.librus.utils.InstantUtils;
 
 import java.util.InputMismatchException;
 import java.util.List;
@@ -22,48 +24,37 @@ public class MemberView extends UserView {
         userService = UserService.getInstance();
     }
 
-    public static void launch() {
+    public static void launch(long id) {
         MemberView memberView = new MemberView();
-        memberView.menuOption();
+        memberView.menuOption(id);
     }
 
-    public void menuOption() {
+    public void menuOption(long id) {
         do {
-            showHeader();
+            showHeader(id);
             showMenu();
-            try {
-                Scanner scanner = new Scanner(System.in);
-                System.out.println("\nChọn chức năng ");
-                System.out.print("⭆ ");
-                int option = Integer.parseInt(scanner.nextLine());
-                switch (option) {
-                    case 1:
-                        UserView userView = new UserView();
-                        userView.updateUser();
-                        break;
-                    case 2:
-                        BookLendingView bookLendingView = new BookLendingView();
-                        bookLendingView.showBooksLending(InputOption.SHOW);
-                        break;
-                    case 3:
-                        MenuView.exit();
-                        break;
-                    default:
-                        System.out.println("Chọn chức năng không đúng! Vui lòng chọn lại");
-                        menuOption();
-                }
-
-            } catch (InputMismatchException ex) {
-                System.out.println("Nhập sai! Vui lòng nhập lại");
-            } catch (Exception ex) {
-                ex.printStackTrace();
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("\nChọn chức năng ");
+            System.out.print("⭆ ");
+            int option = AppUtils.retryParseInt();
+            switch (option) {
+                case 1:
+                    updateInfo(id);
+                    break;
+                case 2:
+                    showBookLendingInfo(id);
+                    break;
+                case 3:
+                    MenuView.exit();
+                    break;
+                default:
+                    System.out.println("Chọn chức năng không đúng! Vui lòng chọn lại");
+                    break;
             }
         } while (true);
     }
 
-    public void showHeader() {
-
-        long id = inputUserId();
+    public void showHeader(long id) {
         System.out.println("\t✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬  LIBRUS  ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬");
         System.out.println();
         System.out.printf("\t %-5s %-15s %-5s %-15s %-5s %-15s %-5s %-15s \n",
@@ -91,20 +82,103 @@ public class MemberView extends UserView {
         System.out.println("\t✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ");
     }
 
-    private long inputUserId() {
-        long userId;
-        System.out.println("Nhập UserId để xem thông tin của bạn");
-        while (!userService.existById(userId = AppUtils.retryParseLong())) {
-            System.out.println("Không tìm thấy người dùng ! Vui lòng nhập lại");
-        }
-        return userId;
+    public void updateInfo(long id){
+        boolean isRetry = false;
+        do {
+            try {
+                showUserInfo(id);
+                System.out.println("┌ - - - - - SỬA - - - - - ┐");
+                System.out.println("︲  1. Đổi tên            ︲");
+                System.out.println("︲  2. Sửa số điện thoại  ︲");
+                System.out.println("︲  3. Sửa địa chỉ        ︲");
+                System.out.println("︲  4. Quay lại           ︲");
+                System.out.println("└ - - - - - - - - - - - - ┘");
+
+                int option = AppUtils.retryChoose(1, 4);
+                User newUser = new User();
+                newUser.setId(id);
+                switch (option) {
+                    case 1:
+                        String name = inputFullName(InputOption.UPDATE);
+                        newUser.setFullName(name);
+                        userService.update(newUser);
+                        System.out.println("Bạn đã đổi tên thành công!\uD83C\uDF89");
+                        break;
+                    case 2:
+                        String phone = inputPhone(InputOption.UPDATE);
+                        newUser.setMobile(phone);
+                        userService.update(newUser);
+                        System.out.println("Bạn đã đổi số điện thoại thành công\uD83C\uDF89");
+                        break;
+                    case 3:
+                        String address = inputAddress(InputOption.UPDATE);
+                        newUser.setAddress(address);
+                        userService.update(newUser);
+                        System.out.println("Bạn đã đổi thành công\uD83C\uDF89");
+                        break;
+                }
+                isRetry = option != 4 && AppUtils.isRetry(InputOption.UPDATE);
+
+            } catch (Exception e) {
+                System.out.println("Nhập sai! vui lòng nhập lại");
+            }
+        } while (isRetry);
     }
+
+
+    public void showUserInfo(long id) {
+        System.out.println("✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬   THÔNG TIN CỦA BẠN ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ");
+        System.out.printf("%-15s %-15s %-15s %-15s %-20s %-15s \n",
+                "Id", "Tên", "Người dùng","Số điện thoại", "Email", "Địa chỉ" );
+
+        User user = userService.findById(id);
+        System.out.printf("%-15s %-15s %-15s %-15s %-20s %-15s \n",
+                user.getId(),
+                user.getFullName(),
+                user.getUsername(),
+                user.getMobile(),
+                user.getEmail(),
+                user.getAddress()
+        );
+        System.out.println("✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬  ");
+    }
+
+
+    public void showBookLendingInfo(long id){
+
+            System.out.println("--------------------------------------------------------------- BOOK LENDING --------------------------------------------------------------------");
+            System.out.printf(" %-15s %-15s %-15s %-15s %-18s %-18s %-18s \n",
+                    "Id BookLending",
+                    "Id BookItem",
+                    "Id User",
+                    "Lending Status",
+                    "Ngày Mượn Sách",
+                    "Ngày Đến Hạn",
+                    "Ngày Trả Sách"
+
+            );
+
+            BookLending bookLending = bookLendingService.findByUserId(id);
+
+                System.out.printf(" %-15s %-15s %-15s %-15s %-18s %-18s %-18s \n",
+                        bookLending.getId(),
+                        bookLending.getBookItemId(),
+                        bookLending.getUserId(),
+                        bookLending.getStatus(),
+                        bookLending.getCreatedAt() == null ? "" : InstantUtils.instantToString(bookLending.getCreatedAt()),
+                        bookLending.getDueAt() == null ? "" : InstantUtils.instantToString(bookLending.getDueAt()),
+                        bookLending.getReturnAt() == null ? "" : InstantUtils.instantToString(bookLending.getReturnAt())
+                );
+
+            System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------\n");
+        }
+
 
     public void showMenu() {
         System.out.println("\t ✬ ✬ ✬ ✬ ✬ ✬ ✬ MENU MEMBER  ✬ ✬ ✬ ✬ ✬ ✬ ✬");
         System.out.println("\t ✬                                    ✬");
-        System.out.println("\t ✬     1. Sửa thông tin               ✬");
-        System.out.println("\t ✬     2. Xem thông tin BookLending   ✬");
+        System.out.println("\t ✬     1. Sửa thông tin cá nhân       ✬");
+        System.out.println("\t ✬     2. Xem thông tin mượn sách     ✬");
         System.out.println("\t ✬     3. Exit                        ✬");
         System.out.println("\t ✬                                    ✬");
         System.out.println("\t ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬ ✬");

@@ -84,7 +84,6 @@ public class BookLendingService implements IBookLendingService {
         Instant now = Instant.now();
         newBookLending.setCreatedAt(now);
 
-//        Instant dueAt = Instant.ofEpochMilli(now.toEpochMilli());
         Instant dueAt = now.plus(Period.ofDays(Constants.MAX_LENDING_DAYS));
         newBookLending.setDueAt(dueAt);
         bookItem.setBorrowedAt(now);
@@ -94,13 +93,30 @@ public class BookLendingService implements IBookLendingService {
         add(newBookLending);
     }
 
-    public void returnBook(long bookItemId) {
-        List<BookLending> bookLendingList = findAll();
+    @Override
+    public void returnBook(long bookItemId, long userId) {
+        BookLending bookLending = findByBookItemIdAndUserIdAndStatus(bookItemId, userId, LendingStatus.RETURN);
+        if (bookLending == null)
+            throw new IllegalArgumentException("Nguoi dung hien tai ko muon cuon sach nay");
         BookItem bookItem = bookItemService.findById(bookItemId);
-        BookLending newBookLending = new BookLending();
-        newBookLending.setReturnAt(Instant.now());
-        newBookLending.setStatus(LendingStatus.RETURN);
-        CSVUtils.write(PATH, bookLendingList);
+        bookItem.setBorrowedAt(null);
+        bookItem.setDueAt(null);
+        bookItemService.update(bookItem);
+        bookLending.setReturnAt(Instant.now());
+        bookLending.setStatus(LendingStatus.RETURN);
+        update(bookLending);
+    }
+
+    @Override
+    public BookLending findByBookItemIdAndUserIdAndStatus(long bookItemId, long userId, LendingStatus status) {
+        List<BookLending> booksLending = findAll();
+        for (BookLending bookLending : booksLending) {
+            if (bookLending.getUserId() == userId &&
+                    bookLending.getBookItemId() == bookItemId &&
+                    bookLending.getStatus() != status)
+                return bookLending;
+        }
+        return null;
     }
 
     @Override

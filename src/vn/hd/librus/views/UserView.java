@@ -153,6 +153,7 @@ public class UserView {//Single Responsibility Principle (SOLID)
                         System.out.println("Không tìm thấy id! Vui lòng nhập lại");
                     isRetry = !exist;
                     break;
+
             }
         } while (isRetry);
         return id;
@@ -176,11 +177,10 @@ public class UserView {//Single Responsibility Principle (SOLID)
             }
             break;
         } while (true);
-
         return username;
     }
 
-    private String inputFullName(InputOption option) {
+    String inputFullName(InputOption option) {
         switch (option) {
             case ADD:
                 System.out.println("Nhập họ và tên (vd: Dinh Hang) ");
@@ -263,7 +263,7 @@ public class UserView {//Single Responsibility Principle (SOLID)
         return password;
     }
 
-    private String inputAddress(InputOption option) {
+    String inputAddress(InputOption option) {
         switch (option) {
             case ADD:
                 System.out.println("Nhập địa chỉ (vd: Huế)");
@@ -298,7 +298,7 @@ public class UserView {//Single Responsibility Principle (SOLID)
             } else if (user.getRole() == Role.MEMBER) {
                 System.out.println("Bạn đã đăng nhập thành công \uD83C\uDF8A \n");
                 System.out.println("CHÀO MỪNG BẠN ĐÃ ĐẾN VỚI THƯ VIỆN HẰNG ĐINH\n");
-                MemberView.launch();
+                MemberView.launch(user.getId());
             }
         } while (isRetry);
     }
@@ -318,7 +318,7 @@ public class UserView {//Single Responsibility Principle (SOLID)
                     case "y":
                         return true;
                     case "n":
-                        AppUtils.exit();
+                        MenuView.exit();
                         break;
                     default:
                         System.out.println("Chọn chức năng không đúng! Vui lòng chọn lại");
@@ -327,7 +327,7 @@ public class UserView {//Single Responsibility Principle (SOLID)
 
             } catch (Exception ex) {
                 System.out.println("Nhập sai! vui lòng nhập lại");
-                ex.printStackTrace();
+               // ex.printStackTrace();
             }
         } while (true);
     }

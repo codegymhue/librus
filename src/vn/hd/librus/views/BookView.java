@@ -187,7 +187,7 @@ public class BookView {
                 case "q":
                     return;
                 case "t":
-                    AppUtils.exit();
+                    MenuView.exit();
                     break;
                 default:
                     System.out.println("Chọn chức năng không đúng! Vui lòng chọn lại");

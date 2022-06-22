@@ -149,6 +149,6 @@ public class BookService implements IBookService {
         for (Book book : books)
             if (book.getAuthor().toLowerCase().contains(author.toLowerCase()))
                 newBooks.add(book);
-        return null;
+        return newBooks;
     }
 }

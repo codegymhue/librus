@@ -43,13 +43,13 @@ public class UserMenuView {
     }
 
     public static void menuUser() {
-        System.out.println("⚪ ⚪ ⚪ ⚪ ⚪   USERS MANAGER   ⚪ ⚪ ⚪ ⚪ ⚪");
-        System.out.println("⚪                                      ⚪");
-        System.out.println("⚪     1. Thêm người dùng               ⚪");
-        System.out.println("⚪     2. Sửa thông tin người dùng      ⚪");
-        System.out.println("⚪     3. Hiện danh sách người dùng     ⚪");
-        System.out.println("⚪     4. Quay lại Menu Librarian       ⚪");
-        System.out.println("⚪                                      ⚪");
-        System.out.println("⚪ ⚪ ⚪ ⚪ ⚪ ⚪ ⚪ ⚪ ⚪ ⚪ ⚪ ⚪ ⚪ ⚪ ⚪ ⚪ ⚪ ⚪");
+        System.out.println("\t ⚪ ⚪ ⚪ ⚪ ⚪   USERS MANAGER   ⚪ ⚪ ⚪ ⚪ ⚪");
+        System.out.println("\t ⚪                                      ⚪");
+        System.out.println("\t ⚪     1. Thêm người dùng               ⚪");
+        System.out.println("\t ⚪     2. Sửa thông tin người dùng      ⚪");
+        System.out.println("\t ⚪     3. Hiện danh sách người dùng     ⚪");
+        System.out.println("\t ⚪     4. Quay lại Menu Librarian       ⚪");
+        System.out.println("\t ⚪                                      ⚪");
+        System.out.println("\t ⚪ ⚪ ⚪ ⚪ ⚪ ⚪ ⚪ ⚪ ⚪ ⚪ ⚪ ⚪ ⚪ ⚪ ⚪ ⚪ ⚪ ⚪");
     }
 }
